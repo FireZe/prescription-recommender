@@ -736,6 +736,8 @@ def clean_llm_output(text: str) -> str:
         "droga": "medicamento",
         "Drogas": "Medicamentos",
         "drogas": "medicamentos",
+        "detectou": "detetou",
+        "Detectou": "Detetou",
 
         # Português do Brasil / formulações menos naturais em PT-PT
         "status renal": "estado renal",
@@ -858,11 +860,48 @@ def clean_llm_output(text: str) -> str:
 
 def contains_cjk_characters(text: str) -> bool:
     """
-    Deteta caracteres chineses, japoneses ou coreanos.
-    Se aparecerem, a resposta deve ser rejeitada.
+    Deteta caracteres chineses, japoneses ou coreanos, incluindo extensões CJK.
+    Se aparecerem, a resposta deve ser rejeitada e substituída por retry/fallback.
     """
-    return bool(re.search(r"[\u4e00-\u9fff\u3040-\u30ff\uac00-\ud7af]", text))
+    cjk_ranges = [
+        (0x3400, 0x4DBF),    # CJK Unified Ideographs Extension A
+        (0x4E00, 0x9FFF),    # CJK Unified Ideographs
+        (0xF900, 0xFAFF),    # CJK Compatibility Ideographs
+        (0x3040, 0x30FF),    # Hiragana + Katakana
+        (0xAC00, 0xD7AF),    # Hangul
+        (0x20000, 0x2A6DF),  # CJK Extension B
+        (0x2A700, 0x2B73F),  # CJK Extension C
+        (0x2B740, 0x2B81F),  # CJK Extension D
+        (0x2B820, 0x2CEAF),  # CJK Extension E/F
+        (0x2CEB0, 0x2EBEF),  # CJK Extension F/G
+        (0x30000, 0x3134F),  # CJK Extension G/H
+    ]
 
+    return any(
+        start <= ord(char) <= end
+        for char in text
+        for start, end in cjk_ranges
+    )
+
+def contains_garbled_or_unwanted_language(text: str) -> bool:
+    """
+    Deteta artefactos linguísticos ou tokens estranhos que não devem aparecer
+    numa explicação clínica apresentada ao utilizador.
+    """
+    forbidden_patterns = [
+        r"afferentes",
+        r"aferrentes",
+        r"\bpatient\b",
+        r"\bPaciente\b",
+        r"\bestá sendo\b",
+        r"\bestá recebendo\b",
+        r"[A-Za-zÀ-ÿ]\.[A-Za-zÀ-ÿ]",  # exemplo: "clopidogrel.afferentes"
+    ]
+
+    return any(
+        re.search(pattern, text, flags=re.IGNORECASE)
+        for pattern in forbidden_patterns
+    )
 
 def contains_forbidden_clinical_phrases(text: str) -> bool:
     forbidden_patterns = [
@@ -911,6 +950,9 @@ def is_valid_llm_explanation(text: str) -> bool:
         return False
 
     if contains_cjk_characters(text):
+        return False
+
+    if contains_garbled_or_unwanted_language(text):
         return False
 
     if contains_forbidden_clinical_phrases(text):
