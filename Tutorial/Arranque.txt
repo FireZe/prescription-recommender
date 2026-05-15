@@ -8,3 +8,8 @@ C:\Users\pedro\Uni\Pedro\2ano\DIMEI\prescription-recommender\backend>.venv\Scrip
 
 
 (.venv) C:\Users\pedro\Uni\Pedro\2ano\DIMEI\prescription-recommender\frontend>npm run dev
+
+Testes:
+cd /d C:\Users\pedro\Uni\Pedro\2ano\DIMEI\prescription-recommender\backend
+.venv\Scripts\activate
+python -m pytest -q tests/test_clinical_scenarios.py -k "analysis"

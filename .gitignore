@@ -19,9 +19,9 @@ backend/.venv/
 
 # Node / React
 node_modules/
+frontend/node_modules/
 dist/
 build/
-frontend/node_modules/
 frontend/dist/
 
 # Bases de dados locais
@@ -32,47 +32,17 @@ backend/*.db
 backend/*.sqlite
 backend/*.sqlite3
 
-# Dados gerados
+# Dados locais / datasets
 backend/data/mimic/
-backend/data/synthea/raw/
-backend/data/synthea/processed/
-backend/data/*.csv
-backend/data/*.csv.gz
-backend/data/*.parquet
+backend/data/synthea/
+backend/data/**/*.csv
+backend/data/**/*.csv.gz
+backend/data/**/*.parquet
+backend/data/feedback.json
 
 # Manter base de conhecimento versionada
 !backend/data/knowledge_base.json
 !backend/data/historical_patterns.json
-
-# Modelos treinados gerados
-backend/models/*.joblib
-backend/models/*.pkl
-
-# Relatórios gerados automaticamente
-backend/reports/clinical_regression_report_*.txt
-backend/reports/clinical_regression_report_*.json
-
-# Sistema operativo / IDE
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-
-# Dados locais / datasets
-backend/data/**/*.csv
-backend/data/**/*.csv.gz
-backend/data/**/*.parquet
-backend/data/mimic/
-backend/data/synthea/
-backend/data/feedback.json
-
-# Bases de dados locais
-*.db
-*.sqlite
-*.sqlite3
-backend/*.db
-backend/*.sqlite
-backend/*.sqlite3
 
 # Modelos treinados
 backend/models/*.joblib
@@ -81,17 +51,11 @@ backend/models/*.pkl
 # Relatórios gerados automaticamente
 backend/reports/
 
-# Ambientes virtuais
-.venv/
-venv/
-backend/.venv/
+# Testes manuais antigos
+Testes/
 
-# Node
-node_modules/
-frontend/node_modules/
-frontend/dist/
-dist/
-
-# Manter estes ficheiros versionados
-!backend/data/knowledge_base.json
-!backend/data/historical_patterns.json
+# Sistema operativo / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
