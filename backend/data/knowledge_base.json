@@ -1,0 +1,447 @@
+{
+  "medications": {
+    "ibuprofen": {
+      "display_name": "Ibuprofeno",
+      "active_substance": "ibuprofeno",
+      "therapeutic_class": "aine",
+      "indications": ["pain", "fever", "inflammation"],
+      "contraindicated_conditions": [
+        "severe_renal_impairment",
+        "severe_hepatic_impairment",
+        "severe_heart_failure",
+        "active_gi_ulcer",
+        "active_bleeding",
+        "history_nsaid_hypersensitivity"
+      ],
+      "renal_caution": true,
+      "alternatives": ["paracetamol", "naproxen"]
+    },
+
+    "naproxen": {
+      "display_name": "Naproxeno",
+      "active_substance": "naproxeno",
+      "therapeutic_class": "aine",
+      "indications": ["pain", "fever", "inflammation"],
+      "contraindicated_conditions": [
+        "severe_renal_impairment",
+        "severe_hepatic_impairment",
+        "severe_heart_failure",
+        "active_gi_ulcer",
+        "active_bleeding",
+        "history_nsaid_hypersensitivity"
+      ],
+      "renal_caution": true,
+      "alternatives": ["paracetamol", "ibuprofen"]
+    },
+
+    "paracetamol": {
+      "display_name": "Paracetamol",
+      "active_substance": "paracetamol",
+      "therapeutic_class": "analgesico_antipiretico",
+      "indications": ["pain", "fever"],
+      "contraindicated_conditions": ["severe_hepatic_impairment"],
+      "renal_caution": true,
+      "renal_alert_severity": "moderate",
+      "alternatives": ["ibuprofen", "naproxen"]
+    },
+
+    "acetylsalicylic_acid": {
+      "display_name": "Ácido acetilsalicílico",
+      "active_substance": "ácido acetilsalicílico",
+      "therapeutic_class": "antiagregante",
+      "indications": ["antiplatelet", "cardiovascular_prevention"],
+      "contraindicated_conditions": [
+        "active_gi_ulcer",
+        "active_bleeding",
+        "bleeding_diathesis",
+        "severe_renal_impairment",
+        "severe_hepatic_impairment",
+        "severe_heart_failure"
+      ],
+      "renal_caution": true,
+      "alternatives": ["clopidogrel"]
+    },
+
+    "clopidogrel": {
+      "display_name": "Clopidogrel",
+      "active_substance": "clopidogrel",
+      "therapeutic_class": "antiagregante",
+      "indications": ["antiplatelet", "cardiovascular_prevention"],
+      "contraindicated_conditions": [
+        "active_bleeding",
+        "severe_hepatic_impairment"
+      ],
+      "renal_caution": false,
+      "alternatives": ["acetylsalicylic_acid"]
+    },
+
+    "warfarin": {
+      "display_name": "Varfarina",
+      "active_substance": "varfarina sódica",
+      "therapeutic_class": "anticoagulante",
+      "indications": ["anticoagulation", "thromboembolism_prevention"],
+      "contraindicated_conditions": [
+        "active_bleeding",
+        "recent_hemorrhagic_stroke",
+        "high_bleeding_risk",
+        "pregnancy"
+      ],
+      "renal_caution": true,
+      "alternatives": []
+    },
+
+    "enalapril": {
+      "display_name": "Enalapril",
+      "active_substance": "enalapril",
+      "therapeutic_class": "ieca",
+      "indications": ["hypertension", "heart_failure"],
+      "contraindicated_conditions": [
+        "history_acei_angioedema",
+        "pregnancy",
+        "bilateral_renal_artery_stenosis"
+      ],
+      "renal_caution": true,
+      "alternatives": ["losartan", "valsartan"]
+    },
+
+    "ramipril": {
+      "display_name": "Ramipril",
+      "active_substance": "ramipril",
+      "therapeutic_class": "ieca",
+      "indications": ["hypertension", "heart_failure", "cardiovascular_prevention"],
+      "contraindicated_conditions": [
+        "history_acei_angioedema",
+        "pregnancy",
+        "bilateral_renal_artery_stenosis"
+      ],
+      "renal_caution": true,
+      "alternatives": ["losartan", "valsartan"]
+    },
+
+    "losartan": {
+      "display_name": "Losartan",
+      "active_substance": "losartan",
+      "therapeutic_class": "ara",
+      "indications": ["hypertension", "heart_failure", "renal_protection"],
+      "contraindicated_conditions": [
+        "pregnancy",
+        "severe_hepatic_impairment"
+      ],
+      "renal_caution": true,
+      "alternatives": ["enalapril", "ramipril", "valsartan"]
+    },
+
+    "valsartan": {
+      "display_name": "Valsartan",
+      "active_substance": "valsartan",
+      "therapeutic_class": "ara",
+      "indications": ["hypertension", "heart_failure"],
+      "contraindicated_conditions": [
+        "pregnancy",
+        "severe_hepatic_impairment"
+      ],
+      "renal_caution": true,
+      "alternatives": ["enalapril", "ramipril", "losartan"]
+    },
+
+    "furosemide": {
+      "display_name": "Furosemida",
+      "active_substance": "furosemida",
+      "therapeutic_class": "diuretico_ansa",
+      "indications": ["hypertension", "heart_failure", "fluid_retention"],
+      "contraindicated_conditions": [
+        "dehydration",
+        "hypovolemia",
+        "severe_hypokalemia",
+        "severe_hyponatremia",
+        "anuria"
+      ],
+      "renal_caution": true,
+      "alternatives": ["hydrochlorothiazide"]
+    },
+
+    "hydrochlorothiazide": {
+      "display_name": "Hidroclorotiazida",
+      "active_substance": "hidroclorotiazida",
+      "therapeutic_class": "diuretico_tiazidico",
+      "indications": ["hypertension", "edema"],
+      "contraindicated_conditions": [
+        "anuria",
+        "severe_renal_impairment"
+      ],
+      "renal_caution": true,
+      "alternatives": ["furosemide"]
+    },
+
+    "simvastatin": {
+      "display_name": "Sinvastatina",
+      "active_substance": "sinvastatina",
+      "therapeutic_class": "estatina",
+      "indications": ["dyslipidemia", "cardiovascular_prevention"],
+      "contraindicated_conditions": [
+        "active_liver_disease",
+        "pregnancy",
+        "breastfeeding"
+      ],
+      "renal_caution": true,
+      "alternatives": ["atorvastatin"]
+    },
+
+    "atorvastatin": {
+      "display_name": "Atorvastatina",
+      "active_substance": "atorvastatina",
+      "therapeutic_class": "estatina",
+      "indications": ["dyslipidemia", "cardiovascular_prevention"],
+      "contraindicated_conditions": [
+        "active_liver_disease",
+        "pregnancy",
+        "breastfeeding"
+      ],
+      "renal_caution": false,
+      "alternatives": ["simvastatin"]
+    },
+
+    "azithromycin": {
+      "display_name": "Azitromicina",
+      "active_substance": "azitromicina",
+      "therapeutic_class": "macrolido",
+      "indications": ["infection"],
+      "contraindicated_conditions": [
+        "macrolide_hypersensitivity"
+      ],
+      "renal_caution": true,
+      "qt_risk": true,
+      "alternatives": []
+    },
+
+    "clarithromycin": {
+      "display_name": "Claritromicina",
+      "active_substance": "claritromicina",
+      "therapeutic_class": "macrolido",
+      "indications": ["infection"],
+      "contraindicated_conditions": [
+        "macrolide_hypersensitivity",
+        "qt_prolongation",
+        "severe_hepatic_impairment_with_renal_impairment",
+        "hypokalemia",
+        "hypomagnesemia"
+      ],
+      "renal_caution": true,
+      "qt_risk": true,
+      "alternatives": ["azithromycin"]
+    },
+
+    "sertraline": {
+      "display_name": "Sertralina",
+      "active_substance": "sertralina",
+      "therapeutic_class": "isrs",
+      "indications": ["depression", "anxiety", "ocd"],
+      "contraindicated_conditions": [
+        "maoi_use",
+        "pimozide_use"
+      ],
+      "renal_caution": false,
+      "qt_risk": true,
+      "alternatives": ["amitriptyline"]
+    },
+
+    "amitriptyline": {
+      "display_name": "Amitriptilina",
+      "active_substance": "amitriptilina",
+      "therapeutic_class": "antidepressivo_triciclico",
+      "indications": ["depression", "neuropathic_pain", "migraine_prophylaxis"],
+      "contraindicated_conditions": [
+        "recent_myocardial_infarction",
+        "cardiac_conduction_disorder",
+        "severe_liver_disease",
+        "maoi_use"
+      ],
+      "renal_caution": false,
+      "qt_risk": true,
+      "alternatives": ["sertraline"]
+    },
+
+    "digoxin": {
+      "display_name": "Digoxina",
+      "active_substance": "digoxina",
+      "therapeutic_class": "digitalico",
+      "indications": ["heart_failure", "atrial_fibrillation"],
+      "contraindicated_conditions": [
+        "digoxin_toxicity",
+        "ventricular_fibrillation"
+      ],
+      "renal_caution": true,
+      "alternatives": []
+    },
+
+    "amiodarone": {
+      "display_name": "Amiodarona",
+      "active_substance": "amiodarona",
+      "therapeutic_class": "antiarritmico_classe_iii",
+      "indications": ["arrhythmia"],
+      "contraindicated_conditions": [
+        "bradycardia",
+        "severe_conduction_disorder",
+        "thyroid_dysfunction",
+        "pregnancy",
+        "breastfeeding"
+      ],
+      "renal_caution": false,
+      "qt_risk": true,
+      "alternatives": []
+    }
+  },
+
+  "interaction_rules": [
+    {
+      "id": "aine_antiagregante_hemorragia",
+      "match": "class_class",
+      "class_a": "aine",
+      "class_b": "antiagregante",
+      "severity": "high",
+      "description": "A associação de um AINE com um antiagregante plaquetário aumenta o risco de hemorragia, sobretudo gastrointestinal."
+    },
+    {
+      "id": "aine_anticoagulante_hemorragia",
+      "match": "class_class",
+      "class_a": "aine",
+      "class_b": "anticoagulante",
+      "severity": "high",
+      "description": "A associação de um AINE com um anticoagulante aumenta o risco de hemorragia e deve ser evitada ou cuidadosamente monitorizada."
+    },
+    {
+      "id": "aine_aine_duplicacao",
+      "match": "class_class",
+      "class_a": "aine",
+      "class_b": "aine",
+      "severity": "high",
+      "description": "A utilização concomitante de dois AINEs deve ser evitada devido ao aumento do risco de toxicidade gastrointestinal, renal e hemorrágica."
+    },
+    {
+      "id": "aine_ieca_risco_renal",
+      "match": "class_class",
+      "class_a": "aine",
+      "class_b": "ieca",
+      "severity": "moderate",
+      "description": "A associação de AINEs com inibidores da ECA pode reduzir o efeito anti-hipertensor e aumentar o risco de deterioração da função renal."
+    },
+    {
+      "id": "aine_ara_risco_renal",
+      "match": "class_class",
+      "class_a": "aine",
+      "class_b": "ara",
+      "severity": "moderate",
+      "description": "A associação de AINEs com antagonistas dos recetores da angiotensina II pode reduzir o efeito anti-hipertensor e aumentar o risco de agravamento da função renal."
+    },
+    {
+      "id": "aine_diuretico_risco_renal",
+      "match": "class_class",
+      "class_a": "aine",
+      "class_b": "diuretico_ansa",
+      "severity": "moderate",
+      "description": "A associação de AINEs com diuréticos pode atenuar o efeito diurético e aumentar o risco de compromisso renal."
+    },
+    {
+      "id": "aine_tiazida_risco_renal",
+      "match": "class_class",
+      "class_a": "aine",
+      "class_b": "diuretico_tiazidico",
+      "severity": "moderate",
+      "description": "A associação de AINEs com diuréticos tiazídicos pode reduzir a eficácia anti-hipertensora e aumentar o risco de deterioração da função renal."
+    },
+    {
+      "id": "sinvastatina_claritromicina_contraindicada",
+      "match": "drug_drug",
+      "medication_a": "simvastatin",
+      "medication_b": "clarithromycin",
+      "severity": "critical",
+      "description": "A administração concomitante de sinvastatina e claritromicina está contraindicada devido ao aumento do risco de miopatia e rabdomiólise."
+    },
+    {
+      "id": "estatina_macrolido_miopatia",
+      "match": "class_class",
+      "class_a": "estatina",
+      "class_b": "macrolido",
+      "severity": "high",
+      "description": "A associação de estatinas com alguns macrólidos pode aumentar o risco de miopatia ou rabdomiólise. A relevância clínica depende do macrólido, da estatina e do contexto do utente."
+    },
+    {
+      "id": "varfarina_amiodarona",
+      "match": "drug_drug",
+      "medication_a": "warfarin",
+      "medication_b": "amiodarone",
+      "severity": "high",
+      "description": "A amiodarona pode potenciar o efeito anticoagulante da varfarina, aumentando o risco de hemorragia. Recomenda-se monitorização rigorosa do INR."
+    },
+    {
+      "id": "varfarina_macrolido",
+      "match": "class_drug",
+      "class_a": "macrolido",
+      "medication_b": "warfarin",
+      "severity": "high",
+      "description": "A associação de varfarina com antibióticos macrólidos pode aumentar o efeito anticoagulante e o risco de hemorragia. Deve ser considerada monitorização do INR."
+    },
+    {
+      "id": "sertralina_anticoagulante",
+      "match": "class_class",
+      "class_a": "isrs",
+      "class_b": "anticoagulante",
+      "severity": "moderate",
+      "description": "Os ISRS podem aumentar o risco hemorrágico quando associados a anticoagulantes. Deve ser ponderada monitorização clínica e laboratorial."
+    },
+    {
+      "id": "sertralina_antiagregante",
+      "match": "class_class",
+      "class_a": "isrs",
+      "class_b": "antiagregante",
+      "severity": "moderate",
+      "description": "Os ISRS podem aumentar o risco de hemorragia quando associados a fármacos com efeito antiagregante plaquetário."
+    },
+    {
+      "id": "sertralina_aine",
+      "match": "class_class",
+      "class_a": "isrs",
+      "class_b": "aine",
+      "severity": "moderate",
+      "description": "A associação de ISRS com AINEs pode aumentar o risco de hemorragia gastrointestinal."
+    },
+    {
+      "id": "serotoninergicos",
+      "match": "class_class",
+      "class_a": "isrs",
+      "class_b": "antidepressivo_triciclico",
+      "severity": "high",
+      "description": "A associação de antidepressivos serotoninérgicos pode aumentar o risco de síndrome serotoninérgica."
+    },
+    {
+      "id": "qt_risk_combination",
+      "match": "qt_qt",
+      "severity": "high",
+      "description": "A associação de dois fármacos com potencial de prolongamento do intervalo QT pode aumentar o risco de arritmias ventriculares, incluindo torsades de pointes."
+    },
+    {
+      "id": "amiodarona_digoxina",
+      "match": "drug_drug",
+      "medication_a": "amiodarone",
+      "medication_b": "digoxin",
+      "severity": "high",
+      "description": "A amiodarona pode aumentar a exposição à digoxina e potenciar perturbações de condução. Recomenda-se monitorização de ECG, níveis de digoxina e sinais de toxicidade."
+    },
+    {
+      "id": "diuretico_digoxina_hipocaliemia",
+      "match": "class_drug",
+      "class_a": "diuretico_ansa",
+      "medication_b": "digoxin",
+      "severity": "moderate",
+      "description": "A hipocaliemia induzida por diuréticos pode aumentar o risco de toxicidade digitálica. Recomenda-se monitorização do potássio sérico."
+    },
+    {
+      "id": "tiazida_digoxina_hipocaliemia",
+      "match": "class_drug",
+      "class_a": "diuretico_tiazidico",
+      "medication_b": "digoxin",
+      "severity": "moderate",
+      "description": "A hipocaliemia associada a diuréticos tiazídicos pode aumentar o risco de toxicidade por digoxina."
+    }
+  ]
+}

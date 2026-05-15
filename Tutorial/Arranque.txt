@@ -1,0 +1,10 @@
+ollama serve
+
+C:\Users\pedro\Uni\Pedro\2ano\DIMEI\prescription-recommender\backend>python -m venv .venv  
+
+C:\Users\pedro\Uni\Pedro\2ano\DIMEI\prescription-recommender\backend>.venv\Scripts\activate
+
+(.venv) C:\Users\pedro\Uni\Pedro\2ano\DIMEI\prescription-recommender\backend>uvicorn app.main:app --reload 
+
+
+(.venv) C:\Users\pedro\Uni\Pedro\2ano\DIMEI\prescription-recommender\frontend>npm run dev

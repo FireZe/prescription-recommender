@@ -1,0 +1,17 @@
+{
+  "pain|adult|normal_renal": {
+    "paracetamol": 0.72,
+    "ibuprofen": 0.55,
+    "naproxen": 0.37
+  },
+  "pain|elderly|renal_impairment": {
+    "paracetamol": 0.81,
+    "ibuprofen": 0.12,
+    "naproxen": 0.10
+  },
+  "inflammation|adult|normal_renal": {
+    "ibuprofen": 0.66,
+    "naproxen": 0.58,
+    "paracetamol": 0.21
+  }
+}
