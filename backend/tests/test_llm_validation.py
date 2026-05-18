@@ -41,3 +41,21 @@ A explicação depende dos dados submetidos e da base de conhecimento atual.
 
     assert contains_garbled_or_unwanted_language(text)
     assert not is_valid_llm_explanation(text)
+
+def test_rejects_webkit_artifact():
+    text = """
+1. Problema identificado
+O utente apresenta inflamação.
+
+2. Motivo do alerta
+O sistema identificou interação entre ibuproWebKit e clopidogrel aumenta o risco de hemorragia.
+
+3. Motivo da recomendação
+O sistema identificou paracetamol como alternativa sugerida.
+
+4. Limitações
+A explicação depende dos dados submetidos e da base de conhecimento atual.
+"""
+
+    assert contains_garbled_or_unwanted_language(text)
+    assert not is_valid_llm_explanation(text)
