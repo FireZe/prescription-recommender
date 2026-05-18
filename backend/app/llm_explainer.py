@@ -891,12 +891,21 @@ def contains_garbled_or_unwanted_language(text: str) -> bool:
     forbidden_patterns = [
         r"afferentes",
         r"aferrentes",
+        r"WebKit",
+        r"ibuproWebKit",
         r"\bpatient\b",
         r"\bPaciente\b",
         r"\bestá sendo\b",
         r"\bestá recebendo\b",
-        r"[A-Za-zÀ-ÿ]\.[A-Za-zÀ-ÿ]",  # exemplo: "clopidogrel.afferentes"
+        r"[A-Za-zÀ-ÿ]\.[A-Za-zÀ-ÿ]",  # exemplo: clopidogrel.afferentes
+        r"\b[a-zà-ÿ]+WebKit\b",
+        r"\bWebKit[a-zà-ÿ]+\b",
     ]
+
+    return any(
+        re.search(pattern, text, flags=re.IGNORECASE)
+        for pattern in forbidden_patterns
+    )
 
     return any(
         re.search(pattern, text, flags=re.IGNORECASE)

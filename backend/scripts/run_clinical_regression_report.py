@@ -14,6 +14,7 @@ import httpx
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND_ROOT))
 
+from app.llm_explainer import is_valid_llm_explanation  # noqa: E402
 from tests.clinical_regression_cases import (  # noqa: E402
     CLINICAL_CASES,
     validate_analysis_result,
@@ -181,7 +182,17 @@ def run_report(with_llm: bool) -> tuple[str, dict[str, Any]]:
                     case_result["llm"] = llm_result
 
                     explanation = llm_result.get("explanation", "")
+
                     llm_failures = validate_llm_explanation(explanation)
+
+                    if not is_valid_llm_explanation(explanation):
+                        llm_failures.append(
+                            "Explicação LLM inválida segundo a validação forte do llm_explainer.py."
+                        )
+
+                    # Evita repetir a mesma falha duas vezes, caso duas validações apanhem o mesmo problema.
+                    llm_failures = list(dict.fromkeys(llm_failures))
+
                     case_result["failures"].extend(llm_failures)
 
                     lines.append("Explicação LLM:")
