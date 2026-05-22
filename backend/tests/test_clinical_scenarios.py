@@ -60,6 +60,6 @@ def test_clinical_scenario_llm_explanation_structure(case: dict) -> None:
     llm_result = llm_response.json()
     explanation = llm_result.get("explanation", "")
 
-    failures = validate_llm_explanation(explanation)
+    failures = validate_llm_explanation(explanation, case=case)
 
     assert failures == []

@@ -183,7 +183,7 @@ def run_report(with_llm: bool) -> tuple[str, dict[str, Any]]:
 
                     explanation = llm_result.get("explanation", "")
 
-                    llm_failures = validate_llm_explanation(explanation)
+                    llm_failures = validate_llm_explanation(explanation, case=case)
 
                     if not is_valid_llm_explanation(explanation):
                         llm_failures.append(
@@ -197,6 +197,10 @@ def run_report(with_llm: bool) -> tuple[str, dict[str, Any]]:
 
                     lines.append("Explicação LLM:")
                     lines.append(f"Modelo: {llm_result.get('model', '—')}")
+                    fallback_notice = llm_result.get("fallback_notice")
+
+                    if fallback_notice:
+                        lines.append(fallback_notice)
                     lines.append(explanation)
                     lines.append("")
 

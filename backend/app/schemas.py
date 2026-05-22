@@ -106,3 +106,5 @@ class LLMExplanationResponse(BaseModel):
     analysis_id: str
     model: str
     explanation: str
+    fallback_used: bool = False
+    fallback_notice: Optional[str] = None

@@ -421,5 +421,7 @@ def explain_analysis_with_llm(request: LLMExplanationRequest):
         analysis_id=request.analysis_id,
         model=result["model"],
         explanation=result["explanation"],
+        fallback_used=bool(result.get("fallback_used", False)),
+        fallback_notice=result.get("fallback_notice"),
     )
 

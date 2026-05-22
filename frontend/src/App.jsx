@@ -809,7 +809,14 @@ export default function App() {
                     <strong>Modelo utilizado</strong>
                     <span>{llmExplanation.model}</span>
                   </div>
+
                   <p>{llmExplanation.explanation}</p>
+
+                  {llmExplanation.fallback_notice && (
+                    <p className="technicalNote">
+                      {llmExplanation.fallback_notice}
+                    </p>
+                  )}
                 </div>
               )}
             </div>

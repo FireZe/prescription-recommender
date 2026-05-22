@@ -3,6 +3,7 @@ import json
 from datetime import datetime, timezone
 
 import joblib
+import numpy as np
 import pandas as pd
 
 from sklearn.compose import ColumnTransformer
@@ -17,8 +18,9 @@ from sklearn.metrics import (
 )
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.tree import DecisionTreeClassifier
+
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -126,7 +128,11 @@ def build_preprocessor() -> ColumnTransformer:
                 OneHotEncoder(handle_unknown="ignore", sparse_output=False),
                 CATEGORICAL_FEATURES,
             ),
-            ("numeric", "passthrough", NUMERIC_FEATURES),
+            (
+                "numeric",
+                StandardScaler(),
+                NUMERIC_FEATURES,
+            ),
         ]
     )
 
@@ -146,15 +152,44 @@ def build_models() -> dict[str, object]:
             n_jobs=-1,
         ),
         "logistic_regression": LogisticRegression(
-            max_iter=2000,
+            max_iter=5000,
             class_weight="balanced",
-            multi_class="auto",
+            solver="lbfgs",
         ),
         "gradient_boosting": GradientBoostingClassifier(
             random_state=42,
         ),
     }
 
+def make_json_serializable(value):
+    if isinstance(value, dict):
+        return {
+            str(key): make_json_serializable(item)
+            for key, item in value.items()
+        }
+
+    if isinstance(value, list):
+        return [
+            make_json_serializable(item)
+            for item in value
+        ]
+
+    if isinstance(value, tuple):
+        return [
+            make_json_serializable(item)
+            for item in value
+        ]
+
+    if isinstance(value, np.integer):
+        return int(value)
+
+    if isinstance(value, np.floating):
+        return float(value)
+
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+
+    return value
 
 def evaluate_model(
     name: str,
@@ -164,7 +199,10 @@ def evaluate_model(
 ) -> dict:
     predictions = pipeline.predict(X_test)
 
-    labels_present = sorted(set(y_test.unique()) | set(predictions))
+    labels_present = sorted(
+        int(label)
+        for label in (set(y_test.unique()) | set(predictions))
+    )
 
     report = classification_report(
         y_test,
@@ -183,12 +221,12 @@ def evaluate_model(
 
     return {
         "model_name": name,
-        "accuracy": accuracy_score(y_test, predictions),
-        "balanced_accuracy": balanced_accuracy_score(y_test, predictions),
-        "macro_f1": f1_score(y_test, predictions, average="macro", zero_division=0),
-        "labels": labels_present,
-        "classification_report": report,
-        "confusion_matrix": matrix.tolist(),
+        "accuracy": float(accuracy_score(y_test, predictions)),
+        "balanced_accuracy": float(balanced_accuracy_score(y_test, predictions)),
+        "macro_f1": float(f1_score(y_test, predictions, average="macro", zero_division=0)),
+        "labels": [int(label) for label in labels_present],
+        "classification_report": make_json_serializable(report),
+        "confusion_matrix": make_json_serializable(matrix),
     }
 
 
@@ -267,7 +305,12 @@ def train() -> None:
     }
 
     with METRICS_PATH.open("w", encoding="utf-8") as file:
-        json.dump(metrics_payload, file, ensure_ascii=False, indent=2)
+        json.dump(
+            make_json_serializable(metrics_payload),
+            file,
+            ensure_ascii=False,
+            indent=2,
+        )
 
     print("Dataset usado:", dataset_source)
     print("Linhas:", len(df))
