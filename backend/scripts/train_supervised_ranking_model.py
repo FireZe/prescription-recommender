@@ -1,3 +1,28 @@
+"""
+Script de treino — Modelo de Ranking Supervisionado
+====================================================
+
+Contexto no sistema híbrido de recomendação:
+  - Filtragem baseada em conhecimento: motor de regras determinístico (rules_engine.py)
+  - Filtragem baseada em conteúdo: scoring heurístico (Sseg, Sctx, Ssim, Sfb)
+  - Ranking supervisionado: este modelo (GradientBoostingClassifier)
+
+O modelo aprende a estimar a admissibilidade terapêutica de um candidato
+dado o contexto clínico do doente. O output (probabilidades por classe) é
+combinado com o score heurístico na proporção 70% heurístico + 30% ML.
+
+Classes:
+  0 = não admissível
+  1 = admissível com precaução
+  2 = admissível
+
+Dataset de treino: training_examples_reviewed.csv (exemplos com revisão manual)
+Dataset de feedback: training_examples_feedback.csv (gerado por build_feedback_training_dataset.py)
+
+Executa com:
+    python backend/scripts/train_supervised_ranking_model.py
+"""
+
 from pathlib import Path
 import json
 from datetime import datetime, timezone
@@ -25,7 +50,8 @@ from sklearn.tree import DecisionTreeClassifier
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 
-REVIEWED_DATA_PATH = BASE_DIR / "data" / "training_examples_reviewed.csv"
+GOLDEN_DATA_PATH = BASE_DIR / "data" / "training_examples_reviewed.csv"
+FEEDBACK_DATA_PATH = BASE_DIR / "data" / "training_examples_feedback.csv"
 SILVER_DATA_PATH = BASE_DIR / "data" / "training_examples.csv"
 
 MODEL_DIR = BASE_DIR / "models"
@@ -39,6 +65,7 @@ NUMERIC_FEATURES = [
     "age",
     "age_squared",
     "is_elderly",
+    "is_female",
     "active_medication_count",
     "condition_count",
     "renal_status_score",
@@ -69,9 +96,22 @@ CLASS_NAMES = {
 
 
 def load_training_dataset() -> tuple[pd.DataFrame, str]:
-    if REVIEWED_DATA_PATH.exists():
-        df = pd.read_csv(REVIEWED_DATA_PATH)
-        return df, "golden_reviewed"
+    frames = []
+    sources = []
+
+    if GOLDEN_DATA_PATH.exists():
+        df_golden = pd.read_csv(GOLDEN_DATA_PATH)
+        frames.append(df_golden)
+        sources.append(f"golden_reviewed ({len(df_golden)} linhas)")
+
+    if FEEDBACK_DATA_PATH.exists():
+        df_feedback = pd.read_csv(FEEDBACK_DATA_PATH)
+        frames.append(df_feedback)
+        sources.append(f"feedback ({len(df_feedback)} linhas)")
+
+    if frames:
+        df_combined = pd.concat(frames, ignore_index=True)
+        return df_combined, " + ".join(sources)
 
     if SILVER_DATA_PATH.exists():
         df = pd.read_csv(SILVER_DATA_PATH)
@@ -290,7 +330,7 @@ def train() -> None:
         "trained_at": datetime.now(timezone.utc).isoformat(),
         "dataset_source": dataset_source,
         "dataset_path": str(
-            REVIEWED_DATA_PATH if dataset_source == "golden_reviewed" else SILVER_DATA_PATH
+            GOLDEN_DATA_PATH if dataset_source.startswith("golden") else SILVER_DATA_PATH
         ),
         "n_rows": int(len(df)),
         "class_distribution": {
@@ -315,7 +355,7 @@ def train() -> None:
     print("Dataset usado:", dataset_source)
     print("Linhas:", len(df))
     print()
-    print("Distribuição de classes:")
+    print("Distribuicao de classes:")
     print(df[CLASS_COLUMN].value_counts().sort_index())
     print()
     print("Resultados por modelo:")
@@ -332,7 +372,7 @@ def train() -> None:
     print()
     print("Modelo selecionado:", best["name"])
     print(f"Modelo guardado em: {MODEL_PATH}")
-    print(f"Métricas guardadas em: {METRICS_PATH}")
+    print(f"Metricas guardadas em: {METRICS_PATH}")
 
 
 if __name__ == "__main__":

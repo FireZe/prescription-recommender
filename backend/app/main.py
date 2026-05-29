@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 import time
 from uuid import uuid4
+from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.schemas import (
@@ -29,11 +30,24 @@ from app.synthea_loader import (
     get_synthea_patient_context,
 )
 from app.llm_explainer import generate_llm_explanation
+import logging
+logger = logging.getLogger(__name__)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
 
 
 app = FastAPI(
     title="Prescription Safety and Recommendation Prototype",
-    version="0.2.0",
+    version="0.3.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -43,10 +57,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.on_event("startup")
-def startup_event():
-    init_db()
 
 def to_dict(model):
     if hasattr(model, "model_dump"):

@@ -14,23 +14,26 @@ MEDICATION_SYNONYMS = {
         "paracetamol", "acetaminophen", "paracetamol generis", "paracetamol 1000 mg"
     ],
     "acetylsalicylic_acid": [
-        "ácido acetilsalicílico", "acido acetilsalicilico", "aspirin", "aspirina",
-        "aas", "acetylsalicylic acid", "ácido acetilsalicílico generis"
+        "acido acetilsalicilico", "aspirin", "aspirina",
+        "aas", "acetylsalicylic acid"
     ],
     "clopidogrel": [
         "clopidogrel", "clopidogrel 75 mg", "clopidogrel 75 mg oral tablet"
     ],
     "warfarin": [
-        "warfarin", "varfarina", "varfarina sódica", "varfine"
+        "warfarin", "varfarina", "varfarina sodica", "varfine"
+    ],
+    "acenocoumarol": [
+        "acenocoumarol", "acenocumarol", "sintrom"
     ],
     "enalapril": [
-        "enalapril", "enalapril vitória", "maleato de enalapril"
+        "enalapril", "enalapril vitoria", "maleato de enalapril"
     ],
     "ramipril": [
         "ramipril", "ramipril generis"
     ],
     "losartan": [
-        "losartan", "losartan potássico", "losartan de potássio", "losartan generis", "losartan jaba"
+        "losartan", "losartan potassico", "losartan de potassio", "losartan generis", "losartan jaba"
     ],
     "valsartan": [
         "valsartan", "valsartan generis"
@@ -66,7 +69,17 @@ MEDICATION_SYNONYMS = {
         "amiodarone", "amiodarona", "amiodarona generis"
     ],
     "metoprolol": [
-        "metoprolol", "metoprolol succinate", "metoprolol succinate extended release"
+        "metoprolol", "metoprolol succinate", "metoprolol succinate extended release",
+        "tartarato de metoprolol", "metoprolol aurobindo"
+    ],
+    "bisoprolol": [
+        "bisoprolol", "bisoprolol fumarato", "bisoprolol generis", "bisoprolol generis phar"
+    ],
+    "carvedilol": [
+        "carvedilol", "carvedilol generis"
+    ],
+    "atenolol": [
+        "atenolol", "atenolol generis"
     ],
 }
 
@@ -180,28 +193,23 @@ def normalize_main_problem(raw_problem: str | None) -> str:
         "lombalgia": "pain",
 
         "inflamacao": "inflammation",
-        "inflamação": "inflammation",
         "inflammation": "inflammation",
         "artrite": "inflammation",
         "arthritis": "inflammation",
 
         "infecao": "infection",
-        "infeção": "infection",
         "infection": "infection",
         "infeccao": "infection",
-        "infeccão": "infection",
 
         "febre": "fever",
         "fever": "fever",
 
         "hipertensao": "hypertension",
-        "hipertensão": "hypertension",
         "hypertension": "hypertension",
 
         "diabetes": "diabetes",
 
         "insuficiencia cardiaca": "heart_failure",
-        "insuficiência cardíaca": "heart_failure",
         "heart failure": "heart_failure",
 
         "arritmia": "arrhythmia",

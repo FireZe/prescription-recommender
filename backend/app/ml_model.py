@@ -5,6 +5,8 @@ from typing import Optional, Dict, Any
 import joblib
 import pandas as pd
 
+import logging
+logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 MODEL_PATH = BASE_DIR / "models" / "ranking_model.joblib"
@@ -22,6 +24,11 @@ def load_ranking_model():
     if not MODEL_PATH.exists():
         return None
 
+    if not MODEL_PATH.exists():
+        logger.warning("Modelo ML não encontrado em %s. Score ML desativado.", MODEL_PATH)
+        return None
+
+    logger.info("Modelo ML carregado: %s", MODEL_PATH)
     return joblib.load(MODEL_PATH)
 
 
@@ -74,6 +81,7 @@ def predict_candidate_adequacy(features: Dict[str, Any]) -> Optional[float]:
     model = load_ranking_model()
 
     if model is None:
+        logger.warning("Modelo ML nao encontrado em %s. Score ML desativado.", MODEL_PATH)
         return None
 
     row = pd.DataFrame([features])
