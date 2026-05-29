@@ -334,15 +334,37 @@ CLINICAL_CASES = [
 
 
 FORBIDDEN_LLM_PATTERNS = [
-    r"[\u4e00-\u9fff\u3040-\u30ff\uac00-\ud7af]",
+    # Alfabetos não latinos: grego, cirílico, hebraico, árabe, devanágari,
+    # tailandês, japonês, chinês, coreano.
+    r"[\u0370-\u03FF\u0400-\u04FF\u0590-\u05FF\u0600-\u06FF\u0900-\u097F\u0E00-\u0E7F\u3040-\u30FF\u3400-\u4DBF\u4E00-\u9FFF\uAC00-\uD7AF]",
+
+    # Frases clinicamente proibidas
     r"\bfoi validada clinicamente\b",
     r"\bvalidada clinicamente\b",
     r"\bsegurança clínica confirmada\b",
     r"\bsem risco\b",
     r"\bsem interação\b",
     r"\bnão apresenta interação\b",
+
+    # Inglês explícito
+    r"\bthe patient\b",
+    r"\bpatient\b",
+    r"\bprescribed\b",
+    r"\brecommendation\b",
+    r"\bactive medication\b",
+    r"\bbleeding risk\b",
 ]
 
+def case_has_mixed_alert_origins(case: dict[str, Any]) -> bool:
+    origins = {
+        expected.get("origin")
+        for expected in case.get("expected_rules", [])
+    }
+
+    return (
+        "prescription_related" in origins
+        and "active_medication_existing" in origins
+    )
 
 def normalize_text(value: Any) -> str:
     return str(value or "").strip().lower()
@@ -421,7 +443,10 @@ def validate_analysis_result(case: dict[str, Any], result: dict[str, Any]) -> li
     return failures
 
 
-def validate_llm_explanation(text: str) -> list[str]:
+def validate_llm_explanation(
+    text: str,
+    case: dict[str, Any] | None = None,
+) -> list[str]:
     failures: list[str] = []
 
     if len(text.strip()) < 80:
@@ -443,5 +468,24 @@ def validate_llm_explanation(text: str) -> list[str]:
     for pattern in FORBIDDEN_LLM_PATTERNS:
         if re.search(pattern, text, flags=re.IGNORECASE):
             failures.append(f"Expressão proibida encontrada no LLM: {pattern}")
+
+    if case and case_has_mixed_alert_origins(case):
+        has_prescription_reference = (
+            "prescrição submetida" in lower_text
+            or "relacionado com a prescrição" in lower_text
+            or "relacionados com a prescrição" in lower_text
+        )
+
+        has_existing_reference = (
+            "pré-existente" in lower_text
+            or "pre-existente" in lower_text
+            or "medicação ativa" in lower_text
+        )
+
+        if not has_prescription_reference or not has_existing_reference:
+            failures.append(
+                "A explicação LLM não separa claramente alertas relacionados "
+                "com a prescrição submetida e alertas pré-existentes na medicação ativa."
+            )
 
     return failures

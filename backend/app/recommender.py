@@ -5,6 +5,9 @@ from app.normalization import normalize_medication_id, normalize_condition_id
 from app.rules_engine import run_safety_checks
 from app.ml_model import predict_candidate_adequacy
 
+import logging
+logger = logging.getLogger(__name__)
+
 BLOCKING_SEVERITIES = {"critical", "high"}
 RECOMMENDATION_TRIGGER_SEVERITIES = {"moderate", "high", "critical"}
 NOTE_EXCLUSION_SEVERITIES = {"moderate", "high", "critical"}
@@ -194,6 +197,8 @@ def build_ml_features(
     candidate_obj = kb["medications"][candidate]
     candidate_class = candidate_obj.get("therapeutic_class", "unknown")
 
+    # Usa o primeiro medicamento da prescrição como referência para as features ML.
+    # Para prescrições multi-fármaco, esta é sempre uma aproximação.
     original_medication = (
         normalize_medication_id(prescription[0].medication)
         or prescription[0].medication.lower()
@@ -206,6 +211,7 @@ def build_ml_features(
         "age": int(patient.age),
         "age_squared": int(patient.age) ** 2,
         "is_elderly": int(patient.age >= 65),
+        "is_female": int(patient.sex == "F"),
         "active_medication_count": len(get_active_medication_ids(patient)),
         "condition_count": len(patient.conditions),
         "renal_status_score": renal_status_score(patient.renal_status),
@@ -378,7 +384,7 @@ def apply_secondary_historical_refinement(
     if len(recommendations) < 2:
         return recommendations
 
-    recommendations = sorted(recommendations, key=lambda r: r.score_base, reverse=True)
+    recommendations = sorted(recommendations, key=lambda r: r.score_combined, reverse=True)
 
     refined = []
     i = 0
@@ -389,7 +395,7 @@ def apply_secondary_historical_refinement(
         j = i + 1
 
         while j < len(recommendations):
-            if abs(current.score_base - recommendations[j].score_base) <= epsilon:
+            if abs(current.score_combined - recommendations[j].score_combined) <= epsilon:
                 group.append(recommendations[j])
                 j += 1
             else:
@@ -398,11 +404,11 @@ def apply_secondary_historical_refinement(
         if len(group) > 1:
             for rec in group:
                 hist = rec.secondary_historical_score or 0.0
-                rec.score_final = round(rec.score_base + lambda_hist * hist, 3)
+                rec.score_final = round(rec.score_combined + lambda_hist * hist, 3)
 
             refined.extend(sorted(group, key=lambda r: r.score_final, reverse=True))
         else:
-            current.score_final = current.score_base
+            current.score_final = current.score_combined
             refined.append(current)
 
         i = j
@@ -529,6 +535,12 @@ def recommend_alternatives(
     kb: Dict[str, Any],
     historical_patterns: Dict[str, Any],
 ) -> List[Recommendation]:
+    logger.info(
+        "recommend_alternatives: paciente=%s, prescrição=%s, problem=%s",
+        patient.patient_id,
+        [line.medication for line in prescription],
+        patient.main_problem,
+    )
     if not prescription:
         return []
 
@@ -548,10 +560,25 @@ def recommend_alternatives(
 
     candidates = generate_candidates(prescription, kb)
 
-    original_medication = (
-        normalize_medication_id(prescription[0].medication)
-        or prescription[0].medication.lower()
-    )
+    # Determina o medicamento "principal" da prescrição: o primeiro que gerou
+    # pelo menos um alerta relevante; fallback para a primeira linha.
+    original_medication = None
+    for line in prescription:
+        line_id = normalize_medication_id(line.medication) or line.medication.lower()
+        line_alerts = run_safety_checks(
+            patient=patient,
+            prescription=[line],
+            kb=kb,
+        )
+        if any(a.severity in RECOMMENDATION_TRIGGER_SEVERITIES for a in line_alerts):
+            original_medication = line_id
+            break
+
+    if original_medication is None:
+        original_medication = (
+            normalize_medication_id(prescription[0].medication)
+            or prescription[0].medication.lower()
+        )
 
     evaluated_candidates = []
 
@@ -647,6 +674,9 @@ def recommend_alternatives(
                     f"Precaução no candidato: {alert.description}",
                 )
 
+        # Guarda o score heurístico puro antes de combinar com o modelo ML.
+        heuristic_score_before_ml = score_base
+
         ml_features = build_ml_features(
             candidate=candidate,
             patient=patient,
@@ -672,7 +702,8 @@ def recommend_alternatives(
         recommendations.append(
             Recommendation(
                 medication=candidate,
-                score_base=score_base,
+                score_heuristic=heuristic_score_before_ml,
+                score_combined=score_base,
                 score_final=score_base,
                 reasons=reasons,
                 secondary_historical_score=historical_score,

@@ -585,3 +585,10 @@ textarea:disabled {
   background: #dff7e6;
   color: #155724;
 }
+
+.technicalNote {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  opacity: 0.75;
+  font-style: italic;
+}

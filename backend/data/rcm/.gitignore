@@ -1,0 +1,4 @@
+# Ignorar todos os PDFs dos RCMs (ficheiros clínicos não versionados)
+*.pdf
+*.PDF
+

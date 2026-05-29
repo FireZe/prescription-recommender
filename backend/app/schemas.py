@@ -49,8 +49,9 @@ class Alert(BaseModel):
 
 class Recommendation(BaseModel):
     medication: str
-    score_base: float
-    score_final: float
+    score_heuristic: float        # score heurístico puro (Sseg, Sctx, Ssim, Sfb)
+    score_combined: float         # após combinação 70% heurístico + 30% ML
+    score_final: float            # após refinamento histórico secundário
     reasons: List[str]
     secondary_historical_score: Optional[float] = None
 
@@ -106,3 +107,5 @@ class LLMExplanationResponse(BaseModel):
     analysis_id: str
     model: str
     explanation: str
+    fallback_used: bool = False
+    fallback_notice: Optional[str] = None

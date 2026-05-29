@@ -1,0 +1,28 @@
+Resumo da revisão assistida do ficheiro training_candidates_for_review.csv
+========================================================================
+
+Linhas revistas: 150
+Distribuição silver: {'0': 50, '1': 50, '2': 50}
+Distribuição gold: {'0': 54, '1': 44, '2': 52}
+Alterações face ao silver: 13
+Transições: {('1', '2'): 5, ('1', '0'): 3, ('2', '0'): 3, ('0', '1'): 2}
+
+Critérios usados:
+- 0 / 0.0: candidato já ativo, ou alerta high/critical diretamente relacionado com o candidato, incluindo regra triple whammy quando o candidato integra a combinação AINE + IECA/ARA + diurético.
+- 1 / 0.6: alerta moderate diretamente relacionado com o candidato, ou paracetamol usado para inflamação como alternativa apenas sintomática.
+- 2 / 1.0: sem alerta diretamente relacionado com o candidato. Alertas pré-existentes não penalizam o candidato.
+
+Linhas alteradas face ao silver:
+REV-046451: silver 1 -> gold 2 | ibuprofen -> paracetamol | Admissível: não foi identificado alerta diretamente relacionado com o candidato. Existem alertas pré-existentes no perfil terapêutico (Hidroclorotiazida + Naproxeno), mas estes não devem penalizar a alternativa em si.
+REV-045846: silver 1 -> gold 2 | simvastatin -> atorvastatin | Admissível: não foi identificado alerta diretamente relacionado com o candidato. Existem alertas pré-existentes no perfil terapêutico (Hidroclorotiazida + Naproxeno), mas estes não devem penalizar a alternativa em si. Adequado como alternativa dentro da classe das estatinas no contexto disponível.
+REV-000542: silver 1 -> gold 0 | valsartan -> ramipril | Não admissível como nova alternativa: ramipril já consta da medicação ativa do utente. Deve ser tratado como medicação já existente/manutenção, não como nova recomendação.
+REV-016007: silver 2 -> gold 0 | acetylsalicylic_acid -> clopidogrel | Não admissível como nova alternativa: clopidogrel já consta da medicação ativa do utente. Deve ser tratado como medicação já existente/manutenção, não como nova recomendação.
+REV-015016: silver 0 -> gold 1 | valsartan -> enalapril | Admissível com precaução: o candidato está associado a alerta moderado (Ibuprofeno + Enalapril). Pode ser considerado apenas com validação clínica e monitorização apropriada.
+REV-034431: silver 1 -> gold 0 | paracetamol -> naproxen | Não admissível como nova alternativa: naproxen já consta da medicação ativa do utente. Deve ser tratado como medicação já existente/manutenção, não como nova recomendação.
+REV-015019: silver 0 -> gold 1 | furosemide -> hydrochlorothiazide | Admissível com precaução: o candidato está associado a alerta moderado (Ibuprofeno + Hidroclorotiazida). Pode ser considerado apenas com validação clínica e monitorização apropriada.
+REV-039671: silver 1 -> gold 2 | simvastatin -> atorvastatin | Admissível: não foi identificado alerta diretamente relacionado com o candidato. Existem alertas pré-existentes no perfil terapêutico (Hidroclorotiazida + Naproxeno), mas estes não devem penalizar a alternativa em si. Adequado como alternativa dentro da classe das estatinas no contexto disponível.
+REV-029722: silver 2 -> gold 0 | atorvastatin -> simvastatin | Não admissível como nova alternativa: simvastatin já consta da medicação ativa do utente. Deve ser tratado como medicação já existente/manutenção, não como nova recomendação.
+REV-043953: silver 1 -> gold 2 | naproxen -> paracetamol | Admissível: não foi identificado alerta diretamente relacionado com o candidato. Existem alertas pré-existentes no perfil terapêutico (Furosemida + Naproxeno), mas estes não devem penalizar a alternativa em si.
+REV-009741: silver 1 -> gold 2 | valsartan -> enalapril | Admissível: não foi identificado alerta diretamente relacionado com o candidato. Existem alertas pré-existentes no perfil terapêutico (Digoxina + Hidroclorotiazida), mas estes não devem penalizar a alternativa em si. Adequado como alternativa de classe anti-hipertensora no contexto disponível.
+REV-033751: silver 2 -> gold 0 | ibuprofen -> paracetamol | Não admissível como nova alternativa: paracetamol já consta da medicação ativa do utente. Deve ser tratado como medicação já existente/manutenção, não como nova recomendação.
+REV-022477: silver 1 -> gold 0 | ibuprofen -> naproxen | Não admissível como nova alternativa: naproxen já consta da medicação ativa do utente. Deve ser tratado como medicação já existente/manutenção, não como nova recomendação.

@@ -3,6 +3,8 @@ from typing import List, Dict, Any, Optional, Tuple
 from app.schemas import PatientContext, MedicationLine, Alert
 from app.normalization import normalize_medication_id
 
+import logging
+logger = logging.getLogger(__name__)
 
 def get_medication(kb: Dict[str, Any], med_id: str) -> Optional[Dict[str, Any]]:
     return kb.get("medications", {}).get(med_id)
@@ -447,7 +449,6 @@ def run_safety_checks(
         check_triple_whammy(
             active_medications=active_medications,
             prescribed_medications=prescribed_medications,
-            kb=kb,
         )
     )
 

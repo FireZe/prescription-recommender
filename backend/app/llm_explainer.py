@@ -90,6 +90,11 @@ RULE_CATEGORY_LABELS = {
     "triple_whammy": "Associação AINE + IECA/ARA + diurético",
 }
 
+FALLBACK_NOTICE = (
+    "Nota técnica: foi usada uma explicação determinística do sistema porque "
+    "a resposta do LLM não cumpriu os critérios de validação linguística ou estrutural."
+)
+
 EXPLANATION_STYLE_EXAMPLES = {
     "with_recommendation": """
 Exemplo de estilo com recomendação:
@@ -858,30 +863,40 @@ def clean_llm_output(text: str) -> str:
 
     return cleaned.strip()
 
+def contains_non_latin_letters(text: str) -> bool:
+    """
+    Rejeita letras de alfabetos não latinos.
+    Permite português, acentos latinos, números, pontuação e símbolos técnicos.
+    Bloqueia chinês, japonês, coreano, tailandês, árabe, cirílico, grego, hebraico, etc.
+    """
+    for char in text:
+        if not char.isalpha():
+            continue
+
+        code = ord(char)
+
+        is_basic_latin = 0x0041 <= code <= 0x007A
+        is_latin_1 = 0x00C0 <= code <= 0x00FF
+        is_latin_extended = 0x0100 <= code <= 0x024F
+        is_latin_extended_additional = 0x1E00 <= code <= 0x1EFF
+
+        if not (
+            is_basic_latin
+            or is_latin_1
+            or is_latin_extended
+            or is_latin_extended_additional
+        ):
+            return True
+
+    return False
+
+
 def contains_cjk_characters(text: str) -> bool:
     """
-    Deteta caracteres chineses, japoneses ou coreanos, incluindo extensões CJK.
-    Se aparecerem, a resposta deve ser rejeitada e substituída por retry/fallback.
+    Mantida por compatibilidade com testes antigos.
+    Agora rejeita qualquer alfabeto não latino, não apenas CJK.
     """
-    cjk_ranges = [
-        (0x3400, 0x4DBF),    # CJK Unified Ideographs Extension A
-        (0x4E00, 0x9FFF),    # CJK Unified Ideographs
-        (0xF900, 0xFAFF),    # CJK Compatibility Ideographs
-        (0x3040, 0x30FF),    # Hiragana + Katakana
-        (0xAC00, 0xD7AF),    # Hangul
-        (0x20000, 0x2A6DF),  # CJK Extension B
-        (0x2A700, 0x2B73F),  # CJK Extension C
-        (0x2B740, 0x2B81F),  # CJK Extension D
-        (0x2B820, 0x2CEAF),  # CJK Extension E/F
-        (0x2CEB0, 0x2EBEF),  # CJK Extension F/G
-        (0x30000, 0x3134F),  # CJK Extension G/H
-    ]
-
-    return any(
-        start <= ord(char) <= end
-        for char in text
-        for start, end in cjk_ranges
-    )
+    return contains_non_latin_letters(text)
 
 def contains_garbled_or_unwanted_language(text: str) -> bool:
     """
@@ -891,17 +906,86 @@ def contains_garbled_or_unwanted_language(text: str) -> bool:
     forbidden_patterns = [
         r"afferentes",
         r"aferrentes",
+        r"WebKit",
+        r"ibuproWebKit",
         r"\bpatient\b",
         r"\bPaciente\b",
         r"\bestá sendo\b",
         r"\bestá recebendo\b",
-        r"[A-Za-zÀ-ÿ]\.[A-Za-zÀ-ÿ]",  # exemplo: "clopidogrel.afferentes"
+        r"[A-Za-zÀ-ÿ]\.[A-Za-zÀ-ÿ]",  # exemplo: clopidogrel.afferentes
+        r"\b[a-zà-ÿ]+WebKit\b",
+        r"\bWebKit[a-zà-ÿ]+\b",
     ]
 
     return any(
         re.search(pattern, text, flags=re.IGNORECASE)
         for pattern in forbidden_patterns
     )
+
+def contains_unwanted_language_markers(text: str) -> bool:
+    """
+    Rejeita sinais fortes de inglês, espanhol, francês ou português do Brasil.
+    Não tenta fazer deteção linguística completa; procura marcadores incompatíveis
+    com uma explicação final em português de Portugal.
+    """
+    forbidden_patterns = [
+        # Inglês
+        r"\bthe patient\b",
+        r"\bpatient\b",
+        r"\bprescribed\b",
+        r"\bprescription\b",
+        r"\brecommendation\b",
+        r"\brecommended\b",
+        r"\bwarning\b",
+        r"\balerts?\b",
+        r"\bclinical decision\b",
+        r"\bactive medication\b",
+        r"\bkidney function\b",
+        r"\bbleeding risk\b",
+
+        # Português do Brasil / formulações indesejadas
+        r"\bestá sendo\b",
+        r"\bestá recebendo\b",
+        r"\bmedicação ativa do paciente\b",
+        r"\bpaciente\b",
+
+        # Espanhol/francês óbvios
+        r"\bel paciente\b",
+        r"\ble patient\b",
+        r"\btraitement\b",
+        r"\bmédicament prescrit\b",
+    ]
+
+    return any(
+        re.search(pattern, text, flags=re.IGNORECASE)
+        for pattern in forbidden_patterns
+    )
+
+
+def looks_like_portuguese_clinical_explanation(text: str) -> bool:
+    """
+    Exige sinais mínimos de português clínico.
+    Não precisa de ser perfeito; serve para rejeitar respostas noutra língua
+    que por acaso usam caracteres latinos.
+    """
+    normalized = text.lower()
+
+    portuguese_markers = [
+        "utente",
+        "prescrição",
+        "medicação",
+        "alerta",
+        "recomendação",
+        "limitações",
+        "protótipo",
+        "base de conhecimento",
+        "clínic",
+        "estado renal",
+    ]
+
+    found = sum(1 for marker in portuguese_markers if marker in normalized)
+
+    return found >= 4   
 
 def contains_forbidden_clinical_phrases(text: str) -> bool:
     forbidden_patterns = [
@@ -949,16 +1033,22 @@ def is_valid_llm_explanation(text: str) -> bool:
     if not text or len(text.strip()) < 80:
         return False
 
-    if contains_cjk_characters(text):
+    if contains_non_latin_letters(text):
         return False
 
     if contains_garbled_or_unwanted_language(text):
+        return False
+
+    if contains_unwanted_language_markers(text):
         return False
 
     if contains_forbidden_clinical_phrases(text):
         return False
 
     if not has_required_explanation_structure(text):
+        return False
+
+    if not looks_like_portuguese_clinical_explanation(text):
         return False
 
     return True
@@ -970,8 +1060,11 @@ def build_retry_prompt(original_prompt: str) -> str:
 
 INSTRUÇÃO FINAL OBRIGATÓRIA:
 - Responde exclusivamente em português de Portugal.
-- Não uses chinês, inglês, espanhol ou português do Brasil.
-- Nunca escrevas que uma alternativa foi validada, foi validada clinicamente ou foi validada com base nos dados. O sistema apenas sugere ou sinaliza alternativas admissíveis/com precaução.
+- Usa apenas caracteres latinos.
+- Não uses chinês, japonês, coreano, tailandês, árabe, cirílico, grego, inglês, espanhol, francês ou português do Brasil.
+- Usa terminologia portuguesa: "utente", "prescrição submetida", "medicação ativa", "estado renal", "base de conhecimento atual do protótipo".
+- Nunca escrevas que uma alternativa foi validada, foi validada clinicamente ou foi validada com base nos dados.
+- O sistema apenas sugere alternativas admissíveis ou alternativas com precaução.
 - Se uma alternativa exigir validação, escreve: "requer validação clínica".
 - Mantém exatamente as quatro secções pedidas.
 """.strip()
@@ -1155,6 +1248,8 @@ def generate_llm_explanation(
             return {
                 "model": f"{OLLAMA_MODEL} + fallback determinístico",
                 "explanation": fallback,
+                "fallback_used": True,
+                "fallback_notice": FALLBACK_NOTICE,
             }
 
     except httpx.ConnectError as exc:
@@ -1175,6 +1270,8 @@ def generate_llm_explanation(
         return {
             "model": f"{OLLAMA_MODEL} + fallback determinístico",
             "explanation": fallback,
+            "fallback_used": True,
+            "fallback_notice": FALLBACK_NOTICE,
         }
 
     return {
