@@ -1,0 +1,28 @@
+# NORMA DA DGS: Terapêutica de infeções do aparelho urinário (015/2011)
+
+As quinolonas (como Ciprofloxacina) NÃO SÃO terapêutica recomendada empiricamente devido às altas taxas de resistência em Portugal (cerca de 30%).
+
+## Tabelas de Tratamento Recomendado por Indicação:
+
+### 1. Cistite aguda não complicada da mulher não grávida
+- 1ª Linha: Nitrofurantoína (100 mg 6/6 horas por 5-7 dias)
+- Alternativa: Fosfomicina (3000 mg/dia por 1 dia)
+
+### 2. Cistite aguda não complicada na mulher grávida
+- 1ª Linha: Fosfomicina (3000 mg/dia por 1 dia)
+- Alternativa: Amoxicilina+ácido clavulânico (625 mg 8/8 horas por 5-7 dias)
+
+### 3. Pielonefrite - casos ligeiros a moderados
+- 1ª Linha: Ceftriaxona (1 g IV ou IM dose única), seguido de Cefuroxima-axetil (500 mg 12/12 horas oral por 7 a 14 dias)
+- Alternativa: Amoxicilina+ácido clavulânico (625 mg 8/8 horas por 5-7 dias)
+
+### 4. Pielonefrite - casos graves (com sépsis)
+- 1ª Linha: Ceftriaxona (2 g/dia IV ou IM). Decisão em meio hospitalar.
+
+### 5. Bacteriúria assintomática em grávidas
+- 1ª Linha: Fosfomicina (3000 mg/dia por 1 dia)
+- Alternativa: Amoxicilina+ácido clavulânico (625 mg 8/8 horas por 5-7 dias)
+
+### REGRAS IMPORTANTES:
+- Não há recomendação de fosfomicina ou nitrofurantoína em doentes com depuração de creatinina < 10 ml/min.
+- Em caso de Pielonefrite na grávida, deve ser considerada a hospitalização. A terapêutica de 1ª linha indicada para pielonefrite é a Ceftriaxona / Cefuroxima.

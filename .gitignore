@@ -43,6 +43,7 @@ backend/data/feedback.json
 # Manter base de conhecimento versionada
 !backend/data/knowledge_base.json
 !backend/data/historical_patterns.json
+*.pdf
 
 # Modelos treinados
 backend/models/*.joblib
