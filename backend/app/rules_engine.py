@@ -449,6 +449,7 @@ def run_safety_checks(
         check_triple_whammy(
             active_medications=active_medications,
             prescribed_medications=prescribed_medications,
+            kb=kb,
         )
     )
 
