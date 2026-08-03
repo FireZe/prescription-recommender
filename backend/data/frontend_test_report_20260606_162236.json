@@ -1,0 +1,2864 @@
+[
+  {
+    "grupo": "hand-crafted",
+    "nome": "AINE + antiagregante (hemorragia)",
+    "expectativa": "Alerta alto; recomendar paracetamol.",
+    "patient": {
+      "patient_id": "H01",
+      "age": 70,
+      "sex": "F",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "clopidogrel"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "0a81dae9-bab7-4ecb-a23f-0c03e0fbf06b",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Clopidogrel + Ibuprofeno",
+        "description": "A associacao de um AINE com um antiagregante plaquetario aumenta o risco de hemorragia gastrointestinal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_antiagregante_hemorragia",
+        "medication_ids": [
+          "clopidogrel",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.928,
+        "score_final": 0.928,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.343
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.832,
+        "score_final": 0.832,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre ibuprofeno e clopidogrel. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo. A associação de um AINE com um antiagregante plaquetário aumenta o risco de hemorragia gastrointestinal.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "AINE + anticoagulante (hemorragia)",
+    "expectativa": "Alerta alto; alternativa não-AINE.",
+    "patient": {
+      "patient_id": "H02",
+      "age": 68,
+      "sex": "M",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "warfarin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "naproxen"
+      }
+    ],
+    "analysis_id": "5658b08e-decf-481f-8547-5cf58fb195b8",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Varfarina + Naproxeno",
+        "description": "A associacao de um AINE com um anticoagulante aumenta o risco de hemorragia e deve ser evitada ou monitorizada.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_anticoagulante_hemorragia",
+        "medication_ids": [
+          "warfarin",
+          "naproxen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.908,
+        "score_final": 0.908,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.343
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.812,
+        "score_final": 0.812,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de naproxeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre Varfarina e Naproxeno. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo. A associação de um AINE com um anticoagulante aumenta o risco de hemorragia.  \n\n3. Motivo da recomendação  \nO sistema identificou Paracetamol e Tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Duplicação AINE+AINE",
+    "expectativa": "Alerta de duplicação terapêutica.",
+    "patient": {
+      "patient_id": "H03",
+      "age": 50,
+      "sex": "M",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "ibuprofen"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "naproxen"
+      }
+    ],
+    "analysis_id": "0ac8b7f7-3347-4df5-ab4c-f452664c4fab",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Ibuprofeno + Naproxeno",
+        "description": "A utilizacao concomitante de dois AINEs deve ser evitada devido ao aumento do risco de toxicidade gastrointestinal, renal e hemorragica.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_aine_duplicacao",
+        "medication_ids": [
+          "ibuprofen",
+          "naproxen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.982,
+        "score_final": 0.997,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.301
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.992,
+        "score_final": 0.992,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de naproxeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou duplicação terapêutica de AINEs entre ibuprofeno e naproxeno. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis na base de conhecimento atual. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "AINE + IECA (risco renal)",
+    "expectativa": "Alerta moderado renal.",
+    "patient": {
+      "patient_id": "H04",
+      "age": 65,
+      "sex": "M",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "ramipril"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "99dda5f5-1487-49b9-a219-2b480579edf4",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Ramipril + Ibuprofeno",
+        "description": "A associacao de AINEs com inibidores da ECA pode reduzir o efeito anti-hipertensor e aumentar o risco de deterioracao da funcao renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_ieca_risco_renal",
+        "medication_ids": [
+          "ramipril",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.699,
+        "score_final": 0.699,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.343
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.588,
+        "score_final": 0.588,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre AINE e inibidor da enzima de conversão da angiotensina (IECA) entre Ramipril e Ibuprofeno. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou Paracetamol e Tramadol como alternativas admissíveis na base de conhecimento atual. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "AINE + ARA (risco renal)",
+    "expectativa": "Alerta moderado renal.",
+    "patient": {
+      "patient_id": "H05",
+      "age": 65,
+      "sex": "F",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "losartan"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "0b2f1bf8-3f1b-4fc8-a880-82e96c1b3a49",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Losartan + Ibuprofeno",
+        "description": "A associacao de AINEs com antagonistas dos recetores da angiotensina II pode reduzir o efeito anti-hipertensor e aumentar o risco de agravamento da funcao renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_ara_risco_renal",
+        "medication_ids": [
+          "losartan",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.701,
+        "score_final": 0.701,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.343
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.59,
+        "score_final": 0.59,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre AINE e antagonista dos recetores da angiotensina II (ARA) entre losartan e ibuprofeno. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "AINE + diurético de ansa",
+    "expectativa": "Alerta moderado renal/diurético.",
+    "patient": {
+      "patient_id": "H06",
+      "age": 72,
+      "sex": "F",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "furosemide"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "cd21ee0e-430e-44f7-810f-9a5bac69ab2a",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Furosemida + Ibuprofeno",
+        "description": "A associacao de AINEs com diureticos pode atenuar o efeito diuretico e aumentar o risco de compromisso renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_diuretico_risco_renal",
+        "medication_ids": [
+          "furosemide",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.751,
+        "score_final": 0.751,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.343
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.647,
+        "score_final": 0.647,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre AINE e diurético entre furosemida e ibuprofeno. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis na base de conhecimento atual. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "AINE + tiazida",
+    "expectativa": "Alerta moderado tiazida.",
+    "patient": {
+      "patient_id": "H07",
+      "age": 72,
+      "sex": "M",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "hydrochlorothiazide"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "naproxen"
+      }
+    ],
+    "analysis_id": "96e11b05-95e4-41fa-bd45-46bc429522fa",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Hidroclorotiazida + Naproxeno",
+        "description": "A associacao de AINEs com diureticos tiazidicos pode reduzir a eficacia anti-hipertensora e aumentar o risco de deterioracao da funcao renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_tiazida_risco_renal",
+        "medication_ids": [
+          "hydrochlorothiazide",
+          "naproxen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.74,
+        "score_final": 0.74,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.343
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.645,
+        "score_final": 0.645,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de naproxeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre hidroclorotiazida e naproxeno. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Triple whammy (AINE+IECA+diurético)",
+    "expectativa": "Alerta alto triple whammy + os moderados.",
+    "patient": {
+      "patient_id": "H08",
+      "age": 82,
+      "sex": "F",
+      "main_problem": "hypertension",
+      "renal_status": "mild_impairment",
+      "conditions": [
+        "hypertension",
+        "heart_failure"
+      ],
+      "allergies": [],
+      "active_medications": [
+        "ramipril",
+        "furosemide"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "c08f3b97-1ce9-4b8f-b3ff-515c2de128fe",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Ramipril + Ibuprofeno",
+        "description": "A associacao de AINEs com inibidores da ECA pode reduzir o efeito anti-hipertensor e aumentar o risco de deterioracao da funcao renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_ieca_risco_renal",
+        "medication_ids": [
+          "ramipril",
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Furosemida + Ibuprofeno",
+        "description": "A associacao de AINEs com diureticos pode atenuar o efeito diuretico e aumentar o risco de compromisso renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_diuretico_risco_renal",
+        "medication_ids": [
+          "furosemide",
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "AINE + IECA/ARA + diurético",
+        "description": "Associação com risco aumentado de deterioração da função renal: AINE em combinação com inibidor da ECA ou antagonista dos recetores da angiotensina II e diurético. Recomenda-se evitar a associação ou monitorizar função renal, hidratação e eletrólitos.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "triple_whammy",
+        "medication_ids": [
+          "ramipril",
+          "furosemide",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.7,
+        "score_combined": 0.595,
+        "score_final": 0.595,
+        "reasons": [
+          "Alternativa considerada admissível pela base de conhecimento atual do protótipo."
+        ],
+        "secondary_historical_score": 0.337
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.67,
+        "score_combined": 0.095,
+        "score_final": 0.095,
+        "reasons": [
+          "Adequação contextual ligeiramente reduzida devido a compromisso renal ligeiro/moderado."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta hipertensão e insuficiência cardíaca com compromisso renal ligeiro/moderado. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.\n\n2. Motivo do alerta  \nO sistema identificou associação de AINE com inibidor da enzima de conversão da angiotensina (IECA) e diurético de ansa. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.\n\n3. Motivo da recomendação  \nO sistema identificou paracetamol como alternativa admissível. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.\n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Sinvastatina + claritromicina (CRÍTICO)",
+    "expectativa": "Interação crítica (miopatia/rabdomiólise).",
+    "patient": {
+      "patient_id": "H09",
+      "age": 60,
+      "sex": "M",
+      "main_problem": "infection",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "simvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "clarithromycin"
+      }
+    ],
+    "analysis_id": "7d81da39-ea4a-40b1-ac59-edecaae9e4d1",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "critical",
+        "medication": "Sinvastatina + Claritromicina",
+        "description": "A administracao concomitante de sinvastatina e claritromicina esta contraindicada devido ao aumento do risco de miopatia e rabdomiolise.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "sinvastatina_claritromicina_contraindicada",
+        "medication_ids": [
+          "simvastatin",
+          "clarithromycin"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "amoxicillin",
+        "score_heuristic": 0.86,
+        "score_combined": 0.976,
+        "score_final": 0.976,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta uma infeção. Foi submetida prescrição de claritromicina, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou uma interação crítica entre sinvastatina e claritromicina. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou amoxicilina como alternativa admissível. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Estatina + macrólido",
+    "expectativa": "Alerta alto miopatia.",
+    "patient": {
+      "patient_id": "H10",
+      "age": 61,
+      "sex": "F",
+      "main_problem": "infection",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "atorvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "azithromycin"
+      }
+    ],
+    "analysis_id": "c5bdbff7-bb5a-4ea1-a5e4-33c457f3e9f5",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Atorvastatina + Azitromicina",
+        "description": "A associacao de estatinas com macrolidos pode aumentar o risco de miopatia ou rabdomiolise. A relevancia clinica depende do macrolido e da estatina.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "estatina_macrolido_miopatia",
+        "medication_ids": [
+          "atorvastatin",
+          "azithromycin"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "amoxicillin",
+        "score_heuristic": 0.86,
+        "score_combined": 0.974,
+        "score_final": 0.974,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta infeção. Foi submetida prescrição de azitromicina, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação estatina + macrólido entre atorvastatina e azitromicina. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou amoxicilina como alternativa admissível. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Varfarina + amiodarona",
+    "expectativa": "Alerta alto (potenciação anticoagulante).",
+    "patient": {
+      "patient_id": "H11",
+      "age": 70,
+      "sex": "M",
+      "main_problem": "arrhythmia",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "warfarin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "amiodarone"
+      }
+    ],
+    "analysis_id": "68c83111-6da3-4ef6-8e17-2233348663d6",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Varfarina + Amiodarona",
+        "description": "A amiodarona pode potenciar o efeito anticoagulante da varfarina, aumentando o risco de hemorragia. Recomenda-se monitorizacao rigorosa do INR.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "varfarina_amiodarona",
+        "medication_ids": [
+          "warfarin",
+          "amiodarone"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta arritmia. Foi submetida prescrição de amiodarona, tendo sido identificados alertas relevantes.\n\n2. Motivo do alerta  \nO sistema identificou uma interação entre varfarina e amiodarona, com base no contexto clínico consolidado e nas regras implementadas. A amiodarona pode potenciar o efeito anticoagulante da varfarina, aumentando o risco de hemorragia. Este alerta envolve tanto a medicação ativa do utente como a prescrição submetida.\n\n3. Motivo da recomendação  \nNa base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa. O protótipo não identificou uma alternativa terapêutica admissível dentro da sua base atual.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. A ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Macrólido + varfarina",
+    "expectativa": "Alerta alto.",
+    "patient": {
+      "patient_id": "H12",
+      "age": 69,
+      "sex": "F",
+      "main_problem": "infection",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "warfarin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "clarithromycin"
+      }
+    ],
+    "analysis_id": "eb78269f-48aa-42d9-b256-fd5cefc772ff",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Varfarina + Claritromicina",
+        "description": "A associacao de varfarina com antibioticos macrolidos pode aumentar o efeito anticoagulante e o risco de hemorragia. Deve ser considerada monitorizacao do INR.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "varfarina_macrolido",
+        "medication_ids": [
+          "warfarin",
+          "clarithromycin"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "amoxicillin",
+        "score_heuristic": 0.86,
+        "score_combined": 0.847,
+        "score_final": 0.847,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta infeção. Foi submetida prescrição de claritromicina, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre varfarina e claritromicina. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou amoxicilina como alternativa admissível. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "ISRS + anticoagulante",
+    "expectativa": "Alerta moderado hemorragia.",
+    "patient": {
+      "patient_id": "H13",
+      "age": 58,
+      "sex": "F",
+      "main_problem": "depression",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "warfarin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "sertraline"
+      }
+    ],
+    "analysis_id": "fe4fc859-f1c7-4335-9d18-e6bebe476f13",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Varfarina + Sertralina",
+        "description": "Os ISRS podem aumentar o risco hemorragico quando associados a anticoagulantes. Deve ser ponderada monitorizacao clinica e laboratorial.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "sertralina_anticoagulante",
+        "medication_ids": [
+          "warfarin",
+          "sertraline"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "amitriptyline",
+        "score_heuristic": 0.86,
+        "score_combined": 0.119,
+        "score_final": 0.119,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta depressão. Foi submetida prescrição de sertralina, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre inibidor seletivo da recaptação da serotonina (ISRS) e anticoagulante. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou amitriptilina como alternativa com precaução. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "ISRS + antiagregante",
+    "expectativa": "Alerta moderado.",
+    "patient": {
+      "patient_id": "H14",
+      "age": 58,
+      "sex": "M",
+      "main_problem": "depression",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "clopidogrel"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "sertraline"
+      }
+    ],
+    "analysis_id": "b0cb30e0-1e58-497a-9a89-bdf0ecf47814",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Clopidogrel + Sertralina",
+        "description": "Os ISRS podem aumentar o risco de hemorragia quando associados a farmacos com efeito antiagregante plaquetario.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "sertralina_antiagregante",
+        "medication_ids": [
+          "clopidogrel",
+          "sertraline"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "amitriptyline",
+        "score_heuristic": 0.86,
+        "score_combined": 0.087,
+        "score_final": 0.087,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta depressão. Foi submetida prescrição de sertralina, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre inibidor seletivo da recaptação da serotonina (ISRS) e antiagregante plaquetário. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou amitriptilina como alternativa com precaução. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "ISRS + AINE",
+    "expectativa": "Alerta moderado.",
+    "patient": {
+      "patient_id": "H15",
+      "age": 45,
+      "sex": "F",
+      "main_problem": "depression",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "ibuprofen"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "sertraline"
+      }
+    ],
+    "analysis_id": "d38dd11a-9bc7-4f51-bb15-bd653ec90db1",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Ibuprofeno + Sertralina",
+        "description": "A associacao de ISRS com AINEs pode aumentar o risco de hemorragia gastrointestinal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "sertralina_aine",
+        "medication_ids": [
+          "ibuprofen",
+          "sertraline"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "amitriptyline",
+        "score_heuristic": 0.86,
+        "score_combined": 0.255,
+        "score_final": 0.255,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta depressão. Foi submetida prescrição de sertralina, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação ISRS + AINE entre ibuprofeno e sertralina. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou amitriptilina como alternativa com precaução. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "ISRS + tricíclico (serotoninérgico)",
+    "expectativa": "Alerta alto (síndrome serotoninérgica).",
+    "patient": {
+      "patient_id": "H16",
+      "age": 50,
+      "sex": "M",
+      "main_problem": "depression",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "amitriptyline"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "sertraline"
+      }
+    ],
+    "analysis_id": "4c13959b-c665-4335-addd-4fbe09cb13a3",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Amitriptilina + Sertralina",
+        "description": "A associacao de antidepressivos serotoninergicos pode aumentar o risco de sindrome serotoninergia.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "serotoninergicos",
+        "medication_ids": [
+          "amitriptyline",
+          "sertraline"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta depressão. Foi submetida prescrição de sertralina, tendo sido identificados alertas relevantes.\n\n2. Motivo do alerta  \nO sistema identificou uma associação entre amitriptilina e sertralina, ambos antidepressivos serotoninérgicos. Esta combinação pode aumentar o risco de sindrome serotoninergia. O medicamento prescrito foi avaliado no contexto da medicação ativa do utente.\n\n3. Motivo da recomendação  \nO protótipo não identificou uma alternativa admissível dentro da sua base de conhecimento atual.\n\n4. Limitações  \nA ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual. A análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Combinação QT (amiodarona + azitromicina)",
+    "expectativa": "Alerta alto QT.",
+    "patient": {
+      "patient_id": "H17",
+      "age": 72,
+      "sex": "M",
+      "main_problem": "infection",
+      "renal_status": "normal",
+      "conditions": [
+        "arrhythmia"
+      ],
+      "allergies": [],
+      "active_medications": [
+        "amiodarone"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "azithromycin"
+      }
+    ],
+    "analysis_id": "10e33d4f-6ecd-458f-9662-a4fe2e811a39",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Amiodarona + Azitromicina",
+        "description": "A associacao de dois farmacos com potencial de prolongamento do intervalo QT pode aumentar o risco de arritmias ventriculares, incluindo torsades de pointes.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "qt_risk_combination",
+        "medication_ids": [
+          "amiodarone",
+          "azithromycin"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "amoxicillin",
+        "score_heuristic": 0.86,
+        "score_combined": 0.731,
+        "score_final": 0.731,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta infeção. Foi submetida prescrição de azitromicina, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou associação de fármacos com risco de prolongamento do intervalo QT entre amiodarona e azitromicina. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou amoxicilina como alternativa admissível. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Amiodarona + digoxina",
+    "expectativa": "Alerta alto (toxicidade digoxina).",
+    "patient": {
+      "patient_id": "H18",
+      "age": 74,
+      "sex": "M",
+      "main_problem": "arrhythmia",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "digoxin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "amiodarone"
+      }
+    ],
+    "analysis_id": "2b935e2b-d7af-4466-8624-d9290e216a41",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Digoxina + Amiodarona",
+        "description": "A amiodarona pode aumentar a exposicao a digoxina e potenciar perturbacoes de conducao. Recomenda-se monitorizacao de ECG e niveis de digoxina.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "amiodarona_digoxina",
+        "medication_ids": [
+          "digoxin",
+          "amiodarone"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta arritmia. Foi submetida prescrição de amiodarona, tendo sido identificados alertas relevantes.\n\n2. Motivo do alerta  \nO sistema identificou uma interação entre amiodarona e digoxina, com base no contexto clínico consolidado. A amiodarona pode aumentar a exposição a digoxina e potenciar perturbações da condução elétrica. Ambos os medicamentos estão ativos no utente: digoxina como medicação ativa e amiodarona como prescrição submetida.\n\n3. Motivo da recomendação  \nO protótipo não identificou uma alternativa admissível dentro da sua base de conhecimento atual.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. A ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Diurético de ansa + digoxina",
+    "expectativa": "Alerta moderado (hipocaliemia).",
+    "patient": {
+      "patient_id": "H19",
+      "age": 78,
+      "sex": "F",
+      "main_problem": "heart_failure",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "digoxin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "furosemide"
+      }
+    ],
+    "analysis_id": "e141ff65-f1e8-4d2f-8a42-bfec618e7eee",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Digoxina + Furosemida",
+        "description": "A hipocaliemia induzida por diureticos pode aumentar o risco de toxicidade digitalica. Recomenda-se monitorizacao do potassio serico.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "diuretico_digoxina_hipocaliemia",
+        "medication_ids": [
+          "digoxin",
+          "furosemide"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta insuficiência cardíaca. Foi submetida prescrição de furosemida, tendo sido identificados alertas relevantes.\n\n2. Motivo do alerta  \nO sistema identificou uma interação entre furosemida e digoxina, com base no contexto clínico consolidado. A furosemida, como diurético de ansa, pode induzir hipocaliemia, aumentando o risco de toxicidade digitalica. Este alerta envolve tanto a medicação ativa do utente quanto a prescrição submetida.\n\n3. Motivo da recomendação  \nO protótipo não identificou uma alternativa admissível dentro da sua base de conhecimento atual.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. A ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Beta-bloqueante + amiodarona (bradicardia)",
+    "expectativa": "Alerta alto bradicardia.",
+    "patient": {
+      "patient_id": "H20",
+      "age": 70,
+      "sex": "M",
+      "main_problem": "arrhythmia",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "bisoprolol"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "amiodarone"
+      }
+    ],
+    "analysis_id": "c1ce67a3-2a89-4617-a260-a011252a6070",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Bisoprolol + Amiodarona",
+        "description": "A associacao de um beta-bloqueante com amiodarona pode causar bradicardia sinusal grave e perturbacoes da conducao auriculo-ventricular. Combinacao nao recomendada.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "beta_bloqueante_amiodarona_bradicardia",
+        "medication_ids": [
+          "bisoprolol",
+          "amiodarone"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta arritmia. Foi submetida prescrição de amiodarona, tendo sido identificados alertas relevantes.\n\n2. Motivo do alerta  \nO sistema identificou uma interação entre bisoprolol e amiodarona, com base nas regras implementadas e no contexto clínico consolidado. A combinação pode causar bradicardia sinusal grave e perturbações da condução auriculo-ventricular. O medicamento prescrito foi avaliado no contexto da medicação ativa do utente.\n\n3. Motivo da recomendação  \nO protótipo não identificou uma alternativa admissível dentro da sua base de conhecimento atual.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual do protótipo. A ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Duplicação beta-bloqueante",
+    "expectativa": "Alerta moderado duplicação.",
+    "patient": {
+      "patient_id": "H21",
+      "age": 66,
+      "sex": "M",
+      "main_problem": "hypertension",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "metoprolol"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "atenolol"
+      }
+    ],
+    "analysis_id": "7da55a6b-64eb-4787-aba9-ec5ccc00cf97",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Metoprolol + Atenolol",
+        "description": "A utilizacao concomitante de dois beta-bloqueantes representa duplicacao terapeutica e pode potenciar efeitos bradicardicos e hipotensores.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "beta_bloqueante_duplicacao",
+        "medication_ids": [
+          "metoprolol",
+          "atenolol"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "nebivolol",
+        "score_heuristic": 0.72,
+        "score_combined": 0.335,
+        "score_final": 0.335,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence à mesma classe terapêutica do medicamento inicialmente prescrito.",
+          "Precaução no candidato: A utilizacao concomitante de dois beta-bloqueantes representa duplicacao terapeutica e pode potenciar efeitos bradicardicos e hipotensores."
+        ],
+        "secondary_historical_score": 0.0
+      },
+      {
+        "medication": "carvedilol",
+        "score_heuristic": 0.72,
+        "score_combined": 0.323,
+        "score_final": 0.335,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence à mesma classe terapêutica do medicamento inicialmente prescrito.",
+          "Precaução no candidato: A utilizacao concomitante de dois beta-bloqueantes representa duplicacao terapeutica e pode potenciar efeitos bradicardicos e hipotensores."
+        ],
+        "secondary_historical_score": 0.233
+      },
+      {
+        "medication": "bisoprolol",
+        "score_heuristic": 0.72,
+        "score_combined": 0.054,
+        "score_final": 0.054,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence à mesma classe terapêutica do medicamento inicialmente prescrito.",
+          "Precaução no candidato: A utilizacao concomitante de dois beta-bloqueantes representa duplicacao terapeutica e pode potenciar efeitos bradicardicos e hipotensores."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta hipertensão. Foi submetida prescrição de atenolol, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou uma interação entre metoprolol e atenolol. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo. A utilização concomitante de dois beta-bloqueantes representa duplicação terapêutica e pode potenciar efeitos bradicardicos e hipotensores.  \n\n3. Motivo da recomendação  \nO sistema identificou Nebivolol e Carvedilol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas. Bisoprolol foi considerado com precaução devido ao risco de duplicação terapêutica.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Contraindicação: úlcera GI ativa",
+    "expectativa": "Alerta crítico de contraindicação.",
+    "patient": {
+      "patient_id": "H22",
+      "age": 60,
+      "sex": "M",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [
+        "active_gi_ulcer"
+      ],
+      "allergies": [],
+      "active_medications": []
+    },
+    "prescription": [
+      {
+        "medication": "naproxen"
+      }
+    ],
+    "analysis_id": "cd071587-02a4-45fb-869c-85faea617e72",
+    "alerts": [
+      {
+        "type": "contraindication",
+        "severity": "critical",
+        "medication": "Naproxeno",
+        "description": "Naproxeno está contraindicado ou deve ser evitado neste contexto clínico devido à condição clínica identificada: active_gi_ulcer.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": false,
+        "rule_id": "contraindication",
+        "medication_ids": [
+          "naproxen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.995,
+        "score_final": 1.01,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.301
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.995,
+        "score_final": 0.995,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de Naproxeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou uma contraindicação entre Naproxeno e a condição clínica de úlcera ativa no trato gastrointestinal. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou Paracetamol e Tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "AINE em insuficiência renal grave",
+    "expectativa": "Alerta renal; preferir paracetamol.",
+    "patient": {
+      "patient_id": "H23",
+      "age": 75,
+      "sex": "F",
+      "main_problem": "pain",
+      "renal_status": "severe_impairment",
+      "conditions": [
+        "renal_disease"
+      ],
+      "allergies": [],
+      "active_medications": []
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "2e7525a8-922c-42a9-91e9-977b64f7fcf7",
+    "alerts": [
+      {
+        "type": "renal_risk",
+        "severity": "high",
+        "medication": "Ibuprofeno",
+        "description": "Ibuprofeno requer precaução acrescida em doentes com compromisso renal grave.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": false,
+        "rule_id": "renal_caution",
+        "medication_ids": [
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.995,
+        "score_final": 0.995,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.433
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou risco renal associado ao medicamento prescrito. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol como alternativa admissível. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Alergia ao medicamento prescrito",
+    "expectativa": "Alerta CRÍTICO de alergia (regressão da nova regra).",
+    "patient": {
+      "patient_id": "H24",
+      "age": 40,
+      "sex": "F",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [
+        "ibuprofen"
+      ],
+      "active_medications": []
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "2dc4014e-0139-4e6d-b523-f24925b2a4c7",
+    "alerts": [
+      {
+        "type": "allergy",
+        "severity": "critical",
+        "medication": "Ibuprofeno",
+        "description": "Ibuprofeno está registado como alergia do utente. A prescrição deve ser evitada.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": false,
+        "rule_id": "allergy_conflict",
+        "medication_ids": [
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.995,
+        "score_final": 1.01,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.301
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.995,
+        "score_final": 0.995,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou alergia entre ibuprofeno e o utente. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Multi-fármaco (3 de uma vez)",
+    "expectativa": "Vários alertas em simultâneo.",
+    "patient": {
+      "patient_id": "H25",
+      "age": 70,
+      "sex": "M",
+      "main_problem": "cardiovascular_prevention",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "clopidogrel"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      },
+      {
+        "medication": "warfarin"
+      },
+      {
+        "medication": "simvastatin"
+      }
+    ],
+    "analysis_id": "1895416f-db59-4e53-90a7-cb32df2786aa",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Clopidogrel + Ibuprofeno",
+        "description": "A associacao de um AINE com um antiagregante plaquetario aumenta o risco de hemorragia gastrointestinal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_antiagregante_hemorragia",
+        "medication_ids": [
+          "clopidogrel",
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Ibuprofeno + Varfarina",
+        "description": "A associacao de um AINE com um anticoagulante aumenta o risco de hemorragia e deve ser evitada ou monitorizada.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": false,
+        "rule_id": "aine_anticoagulante_hemorragia",
+        "medication_ids": [
+          "ibuprofen",
+          "warfarin"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.7,
+        "score_combined": 0.995,
+        "score_final": 0.995,
+        "reasons": [
+          "Alternativa considerada admissível pela base de conhecimento atual do protótipo."
+        ],
+        "secondary_historical_score": 0.0
+      },
+      {
+        "medication": "atorvastatin",
+        "score_heuristic": 0.7,
+        "score_combined": 0.912,
+        "score_final": 0.912,
+        "reasons": [
+          "Alternativa considerada admissível pela base de conhecimento atual do protótipo."
+        ],
+        "secondary_historical_score": 0.0
+      },
+      {
+        "medication": "apixaban",
+        "score_heuristic": 0.7,
+        "score_combined": 0.269,
+        "score_final": 0.269,
+        "reasons": [
+          "Alternativa considerada admissível pela base de conhecimento atual do protótipo."
+        ],
+        "secondary_historical_score": 0.0
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.7,
+        "score_combined": 0.252,
+        "score_final": 0.252,
+        "reasons": [
+          "Alternativa considerada admissível pela base de conhecimento atual do protótipo."
+        ],
+        "secondary_historical_score": 0.0
+      },
+      {
+        "medication": "acenocoumarol",
+        "score_heuristic": 0.7,
+        "score_combined": 0.054,
+        "score_final": 0.054,
+        "reasons": [
+          "Alternativa considerada admissível pela base de conhecimento atual do protótipo."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta risco de hemorragia gastrointestinal. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa de clopidogrel.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre AINE e antiagregante plaquetário, bem como entre AINE e anticoagulante. Ambos os alertas estão relacionados com a prescrição submetida e resultam de regras implementadas na base de conhecimento atual.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol, atorvastatina e apixabano como alternativas admissíveis. Na base de conhecimento atual do protótipo, não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Controlo (sem riscos)",
+    "expectativa": "Sem alerta bloqueante.",
+    "patient": {
+      "patient_id": "H26",
+      "age": 30,
+      "sex": "M",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": []
+    },
+    "prescription": [
+      {
+        "medication": "paracetamol"
+      }
+    ],
+    "analysis_id": "418895d7-9253-4085-8094-13ce783b570c",
+    "alerts": [],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de paracetamol, um analgésico e antipirético, com indicação para dor e febre.\n\n2. Motivo do alerta  \nA análise baseia-se no contexto clínico consolidado e na prescrição submetida. Não foram identificados alertas relevantes, pois o utente não tem condições, alergias ou medicações ativas, e o estado renal é normal.\n\n3. Motivo da recomendação  \nNa base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa. O sistema não identificou uma alternativa terapêutica admissível dentro da sua base atual.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. A ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Omeprazol + clopidogrel (eficácia)",
+    "expectativa": "Alerta moderado: IBP reduz eficácia do clopidogrel.",
+    "patient": {
+      "patient_id": "H27",
+      "age": 68,
+      "sex": "M",
+      "main_problem": "active_gi_ulcer",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "clopidogrel"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "omeprazole"
+      }
+    ],
+    "analysis_id": "2aa0c3ae-0c60-43f5-b89c-6c42ebec835d",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Clopidogrel + Omeprazol",
+        "description": "Os inibidores da bomba de protões (ex.: omeprazol) podem reduzir a eficácia antiagregante do clopidogrel. Considerar IBP alternativo ou separação temporal. (Norma DGS Antiagregantes, p.11)",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "ibp_clopidogrel_eficacia",
+        "medication_ids": [
+          "clopidogrel",
+          "omeprazole"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta um úlcero ativo no trato gastrointestinal. Foi submetida prescrição de omeprazol, tendo sido identificados alertas relevantes.\n\n2. Motivo do alerta  \nO sistema identificou uma interação entre clopidogrel e omeprazol, com base nas regras implementadas e no contexto clínico consolidado. O omeprazol, como inibidor da bomba de protões (IBP), pode reduzir a eficácia antiagregante do clopidogrel. Este alerta envolve tanto a medicação ativa do utente como a prescrição submetida.\n\n3. Motivo da recomendação  \nO protótipo não identificou uma alternativa admissível dentro da sua base de conhecimento atual.\n\n4. Limitações  \nA ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual. A análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Tramadol + ISRS (serotoninérgico)",
+    "expectativa": "Alerta moderado serotoninérgico.",
+    "patient": {
+      "patient_id": "H28",
+      "age": 55,
+      "sex": "F",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "sertraline"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "tramadol"
+      }
+    ],
+    "analysis_id": "6d9325cf-b37a-4354-89f9-f193551a15b2",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Sertralina + Tramadol",
+        "description": "A associação de tramadol com ISRS aumenta o risco de síndrome serotoninérgica e de convulsões.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "tramadol_isrs_serotoninergico",
+        "medication_ids": [
+          "sertraline",
+          "tramadol"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.752,
+        "score_final": 0.752,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.301
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de tramadol, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou uma interação entre Sertralina e Tramadol. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo. A associação aumenta o risco de síndrome serotoninérgica e convulsões.  \n\n3. Motivo da recomendação  \nO sistema identificou Paracetamol como alternativa admissível. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "AINE + apixabano (DOAC, hemorragia)",
+    "expectativa": "Alerta de hemorragia (DOAC herda regra AINE+anticoagulante).",
+    "patient": {
+      "patient_id": "H29",
+      "age": 70,
+      "sex": "M",
+      "main_problem": "pain",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "apixaban"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "54c828d8-e207-4563-993e-6ee65c2bdcee",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Apixabano + Ibuprofeno",
+        "description": "A associacao de um AINE com um anticoagulante aumenta o risco de hemorragia e deve ser evitada ou monitorizada.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_anticoagulante_hemorragia",
+        "medication_ids": [
+          "apixaban",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.909,
+        "score_final": 0.909,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.343
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.811,
+        "score_final": 0.811,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre ibuprofeno e apixabano. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo. A associação de um AINE com um anticoagulante aumenta o risco de hemorragia.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Macrólido+varfarina → amoxicilina alternativa",
+    "expectativa": "Alerta varfarina+macrólido; amoxicilina deve surgir como alternativa segura.",
+    "patient": {
+      "patient_id": "H30",
+      "age": 69,
+      "sex": "F",
+      "main_problem": "infection",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "warfarin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "clarithromycin"
+      }
+    ],
+    "analysis_id": "248469c6-fdf6-44ed-a825-7e511bc11af0",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Varfarina + Claritromicina",
+        "description": "A associacao de varfarina com antibioticos macrolidos pode aumentar o efeito anticoagulante e o risco de hemorragia. Deve ser considerada monitorizacao do INR.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "varfarina_macrolido",
+        "medication_ids": [
+          "warfarin",
+          "clarithromycin"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "amoxicillin",
+        "score_heuristic": 0.86,
+        "score_combined": 0.847,
+        "score_final": 0.847,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta infeção. Foi submetida prescrição de claritromicina, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre varfarina e claritromicina. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou amoxicilina como alternativa admissível. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Escitalopram + amiodarona (QT)",
+    "expectativa": "Alerta QT (escitalopram qt_risk).",
+    "patient": {
+      "patient_id": "H31",
+      "age": 72,
+      "sex": "M",
+      "main_problem": "depression",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": [
+        "amiodarone"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "escitalopram"
+      }
+    ],
+    "analysis_id": "94b5d34d-b4c4-4b62-975b-ba0ce54f5598",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Amiodarona + Escitalopram",
+        "description": "A associacao de dois farmacos com potencial de prolongamento do intervalo QT pode aumentar o risco de arritmias ventriculares, incluindo torsades de pointes.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "qt_risk_combination",
+        "medication_ids": [
+          "amiodarone",
+          "escitalopram"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta depressão e foi submetida prescrição de escitalopram. Foi identificado um alerta relevante sobre associação de fármacos com risco de prolongamento do intervalo QT.\n\n2. Motivo do alerta  \nO sistema identificou uma associação entre amiodarona e escitalopram, ambos com potencial de prolongar o intervalo QT. Este risco aumenta a probabilidade de arritmias ventriculares, incluindo torsades de pointes. O alerta envolve tanto a medicação ativa do utente como a prescrição submetida.\n\n3. Motivo da recomendação  \nO protótipo não identificou uma alternativa terapêutica admissível dentro da sua base de conhecimento atual.\n\n4. Limitações  \nA ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual. A análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual do sistema."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Metformina em insuf. renal grave",
+    "expectativa": "Alerta renal (metformina contraindicada em TFG<30; via renal_caution).",
+    "patient": {
+      "patient_id": "H32",
+      "age": 75,
+      "sex": "M",
+      "main_problem": "diabetes",
+      "renal_status": "severe_impairment",
+      "conditions": [
+        "renal_disease"
+      ],
+      "allergies": [],
+      "active_medications": []
+    },
+    "prescription": [
+      {
+        "medication": "metformin"
+      }
+    ],
+    "analysis_id": "12153c89-7512-45d1-be61-e82dd0f0cd68",
+    "alerts": [
+      {
+        "type": "renal_risk",
+        "severity": "critical",
+        "medication": "Metformina",
+        "description": "Metformina requer precaução acrescida em doentes com compromisso renal grave.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": false,
+        "rule_id": "renal_caution",
+        "medication_ids": [
+          "metformin"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta diabetes e compromisso renal grave. Foi submetida prescrição de metformina, tendo sido identificados alertas relevantes.\n\n2. Motivo do alerta  \nO sistema identificou um alerta de risco renal associado à metformina, com base nas regras implementadas e no contexto clínico consolidado. A metformina requer precaução acrescida em utentes com compromisso renal grave.\n\n3. Motivo da recomendação  \nO protótipo não identificou uma alternativa admissível dentro da sua base de conhecimento atual.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual do protótipo. A ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual."
+  },
+  {
+    "grupo": "hand-crafted",
+    "nome": "Infeção com amoxicilina (controlo)",
+    "expectativa": "Sem alerta; 1ª linha adequada.",
+    "patient": {
+      "patient_id": "H33",
+      "age": 40,
+      "sex": "M",
+      "main_problem": "infection",
+      "renal_status": "normal",
+      "conditions": [],
+      "allergies": [],
+      "active_medications": []
+    },
+    "prescription": [
+      {
+        "medication": "amoxicillin"
+      }
+    ],
+    "analysis_id": "fbb1615d-210a-4e24-ac02-0584f5440450",
+    "alerts": [],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta uma infeção. Foi submetida prescrição de amoxicilina, que está indicada para tratamento de infecções.\n\n2. Motivo do alerta  \nA análise baseia-se no contexto clínico consolidado e na prescrição submetida. Não foram identificados alertas relevantes, pois a amoxicilina é indicada para infeções e o estado renal é normal.\n\n3. Motivo da recomendação  \nNa base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa. O protótipo não identificou uma alternativa terapêutica admissível dentro da sua base atual.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. A ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea a71a4da3 (56a F, 3 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "a71a4da3-c7b3-1c86-c972-a3ca0c4eac88",
+      "age": 56,
+      "sex": "F",
+      "renal_status": "normal",
+      "main_problem_guess": "diabetes",
+      "active_medications": [
+        "clopidogrel",
+        "metoprolol",
+        "simvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "6224d343-d39c-4ac4-a4f5-7105e90ffe22",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Clopidogrel + Ibuprofeno",
+        "description": "A associacao de um AINE com um antiagregante plaquetario aumenta o risco de hemorragia gastrointestinal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_antiagregante_hemorragia",
+        "medication_ids": [
+          "clopidogrel",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.991,
+        "score_final": 0.991,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.301
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.878,
+        "score_final": 0.878,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.\n\n2. Motivo do alerta  \nO sistema identificou interação entre ibuprofeno e clopidogrel. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo. A associação de um AINE com um antiagregante plaquetário aumenta o risco de hemorragia gastrointestinal.\n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas. Ambas apresentam finalidade terapêutica compatível com a dor.\n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea 8e6a93c0 (59a M, 4 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "8e6a93c0-2e78-30d9-a564-51cb8a61dc32",
+      "age": 59,
+      "sex": "M",
+      "renal_status": "severe_impairment",
+      "main_problem_guess": "pain",
+      "active_medications": [
+        "clopidogrel",
+        "metoprolol",
+        "paracetamol",
+        "simvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "d488936a-7501-4e48-92c2-ed720afefaab",
+    "alerts": [
+      {
+        "type": "renal_risk",
+        "severity": "high",
+        "medication": "Ibuprofeno",
+        "description": "Ibuprofeno requer precaução acrescida em doentes com compromisso renal grave.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": false,
+        "rule_id": "renal_caution",
+        "medication_ids": [
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Clopidogrel + Ibuprofeno",
+        "description": "A associacao de um AINE com um antiagregante plaquetario aumenta o risco de hemorragia gastrointestinal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_antiagregante_hemorragia",
+        "medication_ids": [
+          "clopidogrel",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "recommendation_notes": [
+      {
+        "type": "already_active_candidate",
+        "medication": "Paracetamol",
+        "description": "Paracetamol já consta da medicação ativa do utente e tem indicação compatível com o problema clínico principal na base de conhecimento atual do protótipo. Por esse motivo, não foi apresentado como nova alternativa."
+      }
+    ],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor e foi submetida prescrição de ibuprofeno, que originou alertas relevantes.\n\n2. Motivo do alerta  \nO sistema identificou dois alertas relacionados com a prescrição submetida: um de interação entre AINE e antiagregante plaquetário, aumentando o risco de hemorragia, e outro de risco renal associado ao ibuprofeno em utente com compromisso renal grave.\n\n3. Motivo da recomendação  \nNa base de conhecimento atual do protótipo não foi identificado o mesmo alerta para a alternativa paracetamol. Paracetamol já consta da medicação ativa do utente e tem indicação compatível com a dor, pelo que não foi apresentada como nova recomendação.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não avalia ajuste de dose, suspensão ou outras opções clínicas fora da base atual."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea 88c95938 (23a F, 1 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "88c95938-1340-41b9-4583-5572dc6b46ab",
+      "age": 23,
+      "sex": "F",
+      "renal_status": "normal",
+      "main_problem_guess": "pain",
+      "active_medications": [
+        "paracetamol"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "e300eec6-e245-4e6d-b540-cf4de4c5f6c6",
+    "alerts": [],
+    "recommendations": [],
+    "recommendation_notes": [
+      {
+        "type": "already_active_candidate",
+        "medication": "Paracetamol",
+        "description": "Paracetamol já consta da medicação ativa do utente e tem indicação compatível com o problema clínico principal na base de conhecimento atual do protótipo. Por esse motivo, não foi apresentado como nova alternativa."
+      }
+    ],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor e foi submetida prescrição de ibuprofeno, um AINE, com indicação compatível com a dor.\n\n2. Motivo do alerta  \nNão foram identificados alertas relevantes na análise. A análise baseia-se nos dados submetidos e na base de conhecimento atual do protótipo.\n\n3. Motivo da recomendação  \nNa base de conhecimento atual do protótipo não foi identificado o mesmo alerta para a alternativa Paracetamol. Uma alternativa candidata já consta da medicação ativa do utente, pelo que não foi apresentada como nova recomendação.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não avalia ajuste de dose, suspensão ou opções clínicas fora da base atual."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea 147f7d4f (18a F, 1 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "147f7d4f-be82-9130-285f-bfc95258345b",
+      "age": 18,
+      "sex": "F",
+      "renal_status": "normal",
+      "main_problem_guess": "pain",
+      "active_medications": [
+        "paracetamol"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "107d5239-e0d8-41f7-be0d-c0e7bcd9e906",
+    "alerts": [],
+    "recommendations": [],
+    "recommendation_notes": [
+      {
+        "type": "already_active_candidate",
+        "medication": "Paracetamol",
+        "description": "Paracetamol já consta da medicação ativa do utente e tem indicação compatível com o problema clínico principal na base de conhecimento atual do protótipo. Por esse motivo, não foi apresentado como nova alternativa."
+      }
+    ],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor e foi submetida prescrição de ibuprofeno, um AINE, com indicação para alívio de dor.\n\n2. Motivo do alerta  \nNão foram identificados alertas relevantes na análise. A prescrição de ibuprofeno não gerou interações clínicas com a medicação ativa do utente, que é apenas paracetamol.\n\n3. Motivo da recomendação  \nNa base de conhecimento atual do protótipo, não foi identificada uma nova alternativa admissível. O paracetamol já consta da medicação ativa do utente e tem indicação compatível com a dor, pelo que não foi apresentada como nova opção.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não avalia ajuste de dose, suspensão ou opções terapêuticas fora da base atual."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea 119aedc5 (71a M, 3 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "119aedc5-bbb8-b25e-45fc-fcb88fe90698",
+      "age": 71,
+      "sex": "M",
+      "renal_status": "normal",
+      "main_problem_guess": "inflammation",
+      "active_medications": [
+        "naproxen",
+        "ramipril",
+        "simvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "7448ee9a-9293-4e62-9683-d252d09cf677",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Naproxeno + Ramipril",
+        "description": "A associacao de AINEs com inibidores da ECA pode reduzir o efeito anti-hipertensor e aumentar o risco de deterioracao da funcao renal.",
+        "origin": "active_medication_existing",
+        "involves_prescribed_medication": false,
+        "involves_active_medication": true,
+        "rule_id": "aine_ieca_risco_renal",
+        "medication_ids": [
+          "naproxen",
+          "ramipril"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Naproxeno + Ibuprofeno",
+        "description": "A utilizacao concomitante de dois AINEs deve ser evitada devido ao aumento do risco de toxicidade gastrointestinal, renal e hemorragica.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_aine_duplicacao",
+        "medication_ids": [
+          "naproxen",
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Ramipril + Ibuprofeno",
+        "description": "A associacao de AINEs com inibidores da ECA pode reduzir o efeito anti-hipertensor e aumentar o risco de deterioracao da funcao renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_ieca_risco_renal",
+        "medication_ids": [
+          "ramipril",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.88,
+        "score_final": 0.88,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.343
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.619,
+        "score_final": 0.619,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor, problema clínico principal. Foi submetida prescrição de Ibuprofeno, avaliada no contexto da medicação ativa.\n\n2. Motivo do alerta  \nO sistema identificou duplicação terapêutica de AINEs entre Naproxeno e Ibuprofeno, bem como interação AINE + IECA com Ramipril. Ambos os alertas estão relacionados com a prescrição submetida e resultam das regras implementadas na base de conhecimento atual.\n\n3. Motivo da recomendação  \nO sistema identificou Paracetamol e Tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.\n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea f777959f (47a M, 1 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "f777959f-4183-4fdc-dab5-907c175a9eda",
+      "age": 47,
+      "sex": "M",
+      "renal_status": "normal",
+      "main_problem_guess": "pain",
+      "active_medications": [
+        "ibuprofen"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "5f47e322-9983-40e5-9fda-128bbf05a286",
+    "alerts": [],
+    "recommendations": [],
+    "recommendation_notes": [
+      {
+        "type": "already_active_candidate",
+        "medication": "Ibuprofeno",
+        "description": "Ibuprofeno já consta da medicação ativa do utente e tem indicação compatível com o problema clínico principal na base de conhecimento atual do protótipo. Por esse motivo, não foi apresentado como nova alternativa."
+      }
+    ],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor e foi submetida prescrição de ibuprofeno, que tem indicação compatível com o problema clínico principal na base de conhecimento atual do protótipo.\n\n2. Motivo do alerta  \nNão foram identificados alertas relevantes, pois a prescrição de ibuprofeno está alinhada com o contexto clínico consolidado e não há interações detectadas com a medicação ativa.\n\n3. Motivo da recomendação  \nNa base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa. Uma alternativa candidata já consta da medicação ativa do utente, pelo que não foi apresentada como nova recomendação.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não avalia ajuste de dose, suspensão ou opções clínicas fora da base atual."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea 690a7c16 (85a M, 6 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "690a7c16-97a6-9756-7aca-1da5540eba0a",
+      "age": 85,
+      "sex": "M",
+      "renal_status": "normal",
+      "main_problem_guess": "unspecified",
+      "active_medications": [
+        "acetylsalicylic_acid",
+        "atorvastatin",
+        "clopidogrel",
+        "metoprolol",
+        "ramipril",
+        "simvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "66932c61-f8fb-4696-9f54-d3ca70f75ba6",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Acido acetilsalicilico + Ibuprofeno",
+        "description": "A associacao de um AINE com um antiagregante plaquetario aumenta o risco de hemorragia gastrointestinal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_antiagregante_hemorragia",
+        "medication_ids": [
+          "acetylsalicylic_acid",
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Clopidogrel + Ibuprofeno",
+        "description": "A associacao de um AINE com um antiagregante plaquetario aumenta o risco de hemorragia gastrointestinal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_antiagregante_hemorragia",
+        "medication_ids": [
+          "clopidogrel",
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Ramipril + Ibuprofeno",
+        "description": "A associacao de AINEs com inibidores da ECA pode reduzir o efeito anti-hipertensor e aumentar o risco de deterioracao da funcao renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_ieca_risco_renal",
+        "medication_ids": [
+          "ramipril",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.648,
+        "score_final": 0.648,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.343
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.589,
+        "score_final": 0.589,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre ibuprofeno e acido acetilsalicilico, bem como entre ibuprofeno e clopidogrel. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo. Também foi detectada interação entre ibuprofeno e ramipril, com risco de deterioração da função renal.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas. Paracetamol tem indicação para dor e não apresenta riscos associados aos AINEs. Tramadol é indicado para dor, mas requer validação clínica.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual do protótipo. Não substitui validação clínica."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea 09807e61 (64a F, 3 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "09807e61-9daa-d177-5a4c-4a8fadeb34c8",
+      "age": 64,
+      "sex": "F",
+      "renal_status": "normal",
+      "main_problem_guess": "pain",
+      "active_medications": [
+        "clopidogrel",
+        "metoprolol",
+        "simvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "0a89b00c-d881-4694-8fd8-f7c531935729",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Clopidogrel + Ibuprofeno",
+        "description": "A associacao de um AINE com um antiagregante plaquetario aumenta o risco de hemorragia gastrointestinal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_antiagregante_hemorragia",
+        "medication_ids": [
+          "clopidogrel",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.991,
+        "score_final": 0.991,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.301
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.876,
+        "score_final": 0.876,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.\n\n2. Motivo do alerta  \nO sistema identificou interação entre ibuprofeno e clopidogrel. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.\n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.\n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea 75089c8b (57a M, 1 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "75089c8b-a95c-2147-d330-18dddf28d5bb",
+      "age": 57,
+      "sex": "M",
+      "renal_status": "normal",
+      "main_problem_guess": "hypertension",
+      "active_medications": [
+        "hydrochlorothiazide"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "b8ce7809-5d66-4067-9f18-4c66533e936e",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Hidroclorotiazida + Ibuprofeno",
+        "description": "A associacao de AINEs com diureticos tiazidicos pode reduzir a eficacia anti-hipertensora e aumentar o risco de deterioracao da funcao renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_tiazida_risco_renal",
+        "medication_ids": [
+          "hydrochlorothiazide",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.95,
+        "score_final": 0.95,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.301
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.743,
+        "score_final": 0.743,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.\n\n2. Motivo do alerta  \nO sistema identificou interação entre hidroclorotiazida e ibuprofeno. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.\n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.\n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea 70e4cf5c (43a F, 1 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "70e4cf5c-85aa-8fc7-0bc1-b13c7b2f8567",
+      "age": 43,
+      "sex": "F",
+      "renal_status": "normal",
+      "main_problem_guess": "diabetes",
+      "active_medications": [
+        "simvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "1e6dc226-628b-4cc0-85d8-4fa675fa0ea5",
+    "alerts": [],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, um AINE indicado para dor, febre e inflamação.\n\n2. Motivo do alerta  \nA análise baseia-se no contexto clínico consolidado e na base de conhecimento atual do protótipo. Não foram identificados alertas relevantes, pois o estado renal é normal e não há interações com a medicação ativa (sinvastatina).\n\n3. Motivo da recomendação  \nNa base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa. O protótipo não identificou uma alternativa terapêutica admissível dentro da sua base atual.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. A ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea b01206ca (58a F, 1 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "b01206ca-8306-5b75-d827-e3631625dab4",
+      "age": 58,
+      "sex": "F",
+      "renal_status": "normal",
+      "main_problem_guess": "diabetes",
+      "active_medications": [
+        "simvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "4849cba0-9d3d-4c33-b0ee-18491b7566d7",
+    "alerts": [],
+    "recommendations": [],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, um AINE indicado para dor, febre e inflamação.\n\n2. Motivo do alerta  \nA análise baseia-se no contexto clínico consolidado e no base de conhecimento atual do protótipo. Não foram identificados alertas relevantes, pois o estado renal é normal e o utente não tem contraindicações específicas para AINEs.\n\n3. Motivo da recomendação  \nNa base de conhecimento atual do protótipo não foi identificado o mesmo alerta para esta alternativa. O sistema não identificou uma alternativa terapêutica admissível dentro da sua base atual.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. A ausência de recomendação não significa ausência de opções clínicas; significa apenas que o protótipo não identificou alternativa admissível na sua base atual."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea aa442ba0 (45a M, 1 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "aa442ba0-a8b0-127b-0865-1067bcc8eccf",
+      "age": 45,
+      "sex": "M",
+      "renal_status": "normal",
+      "main_problem_guess": "pain",
+      "active_medications": [
+        "paracetamol"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "f86ae8e3-b6ab-4e23-bc37-36fb3aef1f5c",
+    "alerts": [],
+    "recommendations": [],
+    "recommendation_notes": [
+      {
+        "type": "already_active_candidate",
+        "medication": "Paracetamol",
+        "description": "Paracetamol já consta da medicação ativa do utente e tem indicação compatível com o problema clínico principal na base de conhecimento atual do protótipo. Por esse motivo, não foi apresentado como nova alternativa."
+      }
+    ],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. Não foi identificada uma alternativa terapêutica admissível dentro da base de conhecimento atual do protótipo. Recomenda-se revisão clínica da prescrição e/ou validação por farmacêutico clínico.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor e foi submetida prescrição de ibuprofeno, um AINE, com indicação para alívio de dor.\n\n2. Motivo do alerta  \nNão foram identificados alertas relevantes na análise. A análise baseia-se nos dados do utente e na base de conhecimento atual do protótipo.\n\n3. Motivo da recomendação  \nNa base de conhecimento atual do protótipo não foi identificado o mesmo alerta para a alternativa Paracetamol. Paracetamol já consta da medicação ativa do utente e tem indicação compatível com a dor, pelo que não foi apresentada como nova alternativa.\n\n4. Limitações  \nA análise depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não avalia ajuste de dose, suspensão ou opções clínicas fora da base atual."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea c0e63b08 (51a F, 1 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "c0e63b08-780d-bfba-5f39-dcc8c4fa430b",
+      "age": 51,
+      "sex": "F",
+      "renal_status": "normal",
+      "main_problem_guess": "pain",
+      "active_medications": [
+        "hydrochlorothiazide"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "75c67ad7-e8ec-4c16-9393-da0ae5c40ced",
+    "alerts": [
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Hidroclorotiazida + Ibuprofeno",
+        "description": "A associacao de AINEs com diureticos tiazidicos pode reduzir a eficacia anti-hipertensora e aumentar o risco de deterioracao da funcao renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_tiazida_risco_renal",
+        "medication_ids": [
+          "hydrochlorothiazide",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.957,
+        "score_final": 0.957,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.301
+      },
+      {
+        "medication": "tramadol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.746,
+        "score_final": 0.746,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.0
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct",
+    "llm_explanation": "1. Problema identificado  \nO utente apresenta dor. Foi submetida prescrição de ibuprofeno, avaliada no contexto da medicação ativa.  \n\n2. Motivo do alerta  \nO sistema identificou interação entre hidroclorotiazida e ibuprofeno. O alerta está relacionado com a prescrição submetida e resulta das regras implementadas na base de conhecimento atual do protótipo.  \n\n3. Motivo da recomendação  \nO sistema identificou paracetamol e tramadol como alternativas admissíveis. Na base de conhecimento atual do protótipo não foi identificado o mesmo alerta para estas alternativas.  \n\n4. Limitações  \nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual. Não substitui validação clínica."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea 217a7c06 (76a F, 4 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "217a7c06-2d5e-99aa-0c39-f6126ed5b266",
+      "age": 76,
+      "sex": "F",
+      "renal_status": "severe_impairment",
+      "main_problem_guess": "inflammation",
+      "active_medications": [
+        "clopidogrel",
+        "hydrochlorothiazide",
+        "metoprolol",
+        "simvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "e0302b96-29b2-4a1b-bac9-0c7f5f1e7851",
+    "alerts": [
+      {
+        "type": "renal_risk",
+        "severity": "high",
+        "medication": "Ibuprofeno",
+        "description": "Ibuprofeno requer precaução acrescida em doentes com compromisso renal grave.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": false,
+        "rule_id": "renal_caution",
+        "medication_ids": [
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Clopidogrel + Ibuprofeno",
+        "description": "A associacao de um AINE com um antiagregante plaquetario aumenta o risco de hemorragia gastrointestinal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_antiagregante_hemorragia",
+        "medication_ids": [
+          "clopidogrel",
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Hidroclorotiazida + Ibuprofeno",
+        "description": "A associacao de AINEs com diureticos tiazidicos pode reduzir a eficacia anti-hipertensora e aumentar o risco de deterioracao da funcao renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_tiazida_risco_renal",
+        "medication_ids": [
+          "hydrochlorothiazide",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.718,
+        "score_final": 0.718,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.433
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct + fallback determinístico",
+    "llm_explanation": "1. Problema identificado\nO utente apresenta dor. Foi submetida prescrição de Ibuprofeno, avaliada no contexto da medicação ativa.\n\n2. Motivo do alerta\nForam identificados alertas relacionados com a prescrição submetida: Interação AINE + antiagregante plaquetário (Clopidogrel + Ibuprofeno); Risco renal associado ao medicamento prescrito (Ibuprofeno); Interação AINE + diurético tiazídico (Hidroclorotiazida + Ibuprofeno).\n\n3. Motivo da recomendação\nParacetamol foi identificado como alternativa sugerida na base de conhecimento atual.\n\n4. Limitações\nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual do protótipo. Não substitui validação clínica."
+  },
+  {
+    "grupo": "synthea",
+    "nome": "Synthea 1353b50a (95a M, 5 ativos)",
+    "expectativa": "Perfil realista — sonda com ibuprofeno (AINE) para revelar interações.",
+    "patient": {
+      "patient_id": "1353b50a-5b6f-dcfe-683d-277a0f5bafc0",
+      "age": 95,
+      "sex": "M",
+      "renal_status": "severe_impairment",
+      "main_problem_guess": "inflammation",
+      "active_medications": [
+        "furosemide",
+        "losartan",
+        "metoprolol",
+        "naproxen",
+        "simvastatin"
+      ]
+    },
+    "prescription": [
+      {
+        "medication": "ibuprofen"
+      }
+    ],
+    "analysis_id": "79be467d-0432-4acd-83dd-1f571a892197",
+    "alerts": [
+      {
+        "type": "renal_risk",
+        "severity": "high",
+        "medication": "Ibuprofeno",
+        "description": "Ibuprofeno requer precaução acrescida em doentes com compromisso renal grave.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": false,
+        "rule_id": "renal_caution",
+        "medication_ids": [
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Furosemida + Naproxeno",
+        "description": "A associacao de AINEs com diureticos pode atenuar o efeito diuretico e aumentar o risco de compromisso renal.",
+        "origin": "active_medication_existing",
+        "involves_prescribed_medication": false,
+        "involves_active_medication": true,
+        "rule_id": "aine_diuretico_risco_renal",
+        "medication_ids": [
+          "furosemide",
+          "naproxen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Furosemida + Ibuprofeno",
+        "description": "A associacao de AINEs com diureticos pode atenuar o efeito diuretico e aumentar o risco de compromisso renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_diuretico_risco_renal",
+        "medication_ids": [
+          "furosemide",
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Losartan + Naproxeno",
+        "description": "A associacao de AINEs com antagonistas dos recetores da angiotensina II pode reduzir o efeito anti-hipertensor e aumentar o risco de agravamento da funcao renal.",
+        "origin": "active_medication_existing",
+        "involves_prescribed_medication": false,
+        "involves_active_medication": true,
+        "rule_id": "aine_ara_risco_renal",
+        "medication_ids": [
+          "losartan",
+          "naproxen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "moderate",
+        "medication": "Losartan + Ibuprofeno",
+        "description": "A associacao de AINEs com antagonistas dos recetores da angiotensina II pode reduzir o efeito anti-hipertensor e aumentar o risco de agravamento da funcao renal.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_ara_risco_renal",
+        "medication_ids": [
+          "losartan",
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "Naproxeno + Ibuprofeno",
+        "description": "A utilizacao concomitante de dois AINEs deve ser evitada devido ao aumento do risco de toxicidade gastrointestinal, renal e hemorragica.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "aine_aine_duplicacao",
+        "medication_ids": [
+          "naproxen",
+          "ibuprofen"
+        ]
+      },
+      {
+        "type": "interaction",
+        "severity": "high",
+        "medication": "AINE + IECA/ARA + diurético",
+        "description": "Associação com risco aumentado de deterioração da função renal: AINE em combinação com inibidor da ECA ou antagonista dos recetores da angiotensina II e diurético. Recomenda-se evitar a associação ou monitorizar função renal, hidratação e eletrólitos.",
+        "origin": "prescription_related",
+        "involves_prescribed_medication": true,
+        "involves_active_medication": true,
+        "rule_id": "triple_whammy",
+        "medication_ids": [
+          "furosemide",
+          "losartan",
+          "naproxen",
+          "ibuprofen"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "medication": "paracetamol",
+        "score_heuristic": 0.86,
+        "score_combined": 0.594,
+        "score_final": 0.594,
+        "reasons": [
+          "Adequado ao problema clínico principal.",
+          "Pertence a uma classe diferente, mas apresenta finalidade terapêutica compatível."
+        ],
+        "secondary_historical_score": 0.433
+      }
+    ],
+    "recommendation_notes": [],
+    "explanation": "A prescrição foi analisada através de regras determinísticas de segurança clínica. As alternativas candidatas foram geradas a partir da base de conhecimento farmacológico e ordenadas de acordo com segurança clínica, adequação contextual, proximidade terapêutica e, quando aplicável, padrões observados em dados clínicos.",
+    "llm_model": "qwen3:4b-instruct + fallback determinístico",
+    "llm_explanation": "1. Problema identificado\nO utente apresenta dor. Foi submetida prescrição de Ibuprofeno, avaliada no contexto da medicação ativa.\n\n2. Motivo do alerta\nForam identificados alertas relacionados com a prescrição submetida: Associação AINE + IECA/ARA + diurético (AINE + IECA/ARA + diurético); Duplicação terapêutica de AINEs (Naproxeno + Ibuprofeno); Risco renal associado ao medicamento prescrito (Ibuprofeno); Interação AINE + ARA (Losartan + Ibuprofeno); Interação AINE + diurético (Furosemida + Ibuprofeno). Foram também identificados alertas pré-existentes na medicação ativa: Interação AINE + ARA (Losartan + Naproxeno); Interação AINE + diurético (Furosemida + Naproxeno).\n\n3. Motivo da recomendação\nParacetamol foi identificado como alternativa sugerida na base de conhecimento atual.\n\n4. Limitações\nA explicação depende dos dados submetidos, das regras implementadas e da base de conhecimento atual do protótipo. Não substitui validação clínica."
+  }
+]

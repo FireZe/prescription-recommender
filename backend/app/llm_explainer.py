@@ -755,6 +755,7 @@ def clean_llm_output(text: str) -> str:
         "a análise se baseia": "a análise baseia-se",
         "A análise se baseia": "A análise baseia-se",
         "afectar": "afetar",
+        "registrada": "registada",
 
         # Segurança excessivamente forte
         "alternativa terapêutica segura": "alternativa admissível",

@@ -3,21 +3,27 @@ Script de treino — Modelo de Ranking Supervisionado
 ====================================================
 
 Contexto no sistema híbrido de recomendação:
-  - Filtragem baseada em conhecimento: motor de regras determinístico (rules_engine.py)
-  - Filtragem baseada em conteúdo: scoring heurístico (Sseg, Sctx, Ssim, Sfb)
-  - Ranking supervisionado: este modelo (GradientBoostingClassifier)
+  - Filtragem por conhecimento: motor de regras determinístico (rules_engine.py)
+  - Filtragem por conteúdo: scoring heurístico (Sseg, Sctx, Ssim, Sfb)
+  - Ranking supervisionado: este modelo
 
-O modelo aprende a estimar a admissibilidade terapêutica de um candidato
-dado o contexto clínico do doente. O output (probabilidades por classe) é
-combinado com o score heurístico na proporção 70% heurístico + 30% ML.
+Treina e compara 4 classificadores (decision_tree, random_forest,
+logistic_regression e HistGradientBoosting calibrado), seleciona o melhor
+por macro-F1 e guarda-o em ranking_model.joblib. Cada candidato é pontuado
+quanto à probabilidade de ser uma prescrição adequada ao contexto do doente.
+Esta probabilidade é depois combinada com o score heurístico pelo
+meta-learner (train_meta_learner.py), que aprende os pesos dinamicamente.
 
-Classes:
-  0 = não admissível
-  1 = admissível com precaução
-  2 = admissível
+Validação sem leakage: o split treino/teste é feito por grupos (query_id =
+admissão), garantindo que linhas do mesmo doente não caem em ambos os lados.
+Categóricas tratadas nativamente pelo HistGB; ordinal nas árvores; OneHot +
+scaling na regressão logística.
 
-Dataset de treino: training_examples_reviewed.csv (exemplos com revisão manual)
-Dataset de feedback: training_examples_feedback.csv (gerado por build_feedback_training_dataset.py)
+Classes (feedback implícito do MIMIC-IV):
+  0 = indicado mas não prescrito pelo médico
+  1 = prescrito pelo médico
+
+Dataset: training_examples_mimic.csv (gerado por extract_mimic_training_data.py)
 
 Executa com:
     python backend/scripts/train_supervised_ranking_model.py
@@ -45,13 +51,18 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.calibration import CalibratedClassifierCV
+from sklearn.model_selection import GroupShuffleSplit
+from sklearn.ensemble import HistGradientBoostingClassifier
+from sklearn.preprocessing import OrdinalEncoder
 
-
-
-BASE_DIR = Path(__file__).resolve().parents[1]
+import os
+BASE_DIR = Path(os.getcwd()) / "backend"
 
 GOLDEN_DATA_PATH = BASE_DIR / "data" / "training_examples_reviewed.csv"
 FEEDBACK_DATA_PATH = BASE_DIR / "data" / "training_examples_feedback.csv"
+MIMIC_DATA_PATH = BASE_DIR / "data" / "training_examples_mimic.csv"
 SILVER_DATA_PATH = BASE_DIR / "data" / "training_examples.csv"
 
 MODEL_DIR = BASE_DIR / "models"
@@ -62,36 +73,20 @@ METRICS_PATH = MODEL_DIR / "ranking_model_metrics.json"
 CLASS_COLUMN = "label_class"
 
 NUMERIC_FEATURES = [
-    "age",
-    "age_squared",
-    "is_elderly",
-    "is_female",
-    "active_medication_count",
-    "condition_count",
-    "renal_status_score",
-    "candidate_renal_caution",
-    "candidate_qt_risk",
-    "has_anticoagulant",
-    "has_antiplatelet",
-    "has_diuretic",
-    "has_acei_or_arb",
-    "has_qt_risk_medication",
-    "same_therapeutic_class",
+    "age", "age_squared", "is_elderly", "is_female",
+    "active_medication_count", "condition_count", "renal_status_score",
+    "candidate_renal_caution", "candidate_qt_risk",
+    "has_anticoagulant", "has_antiplatelet", "has_diuretic",
+    "has_acei_or_arb", "has_qt_risk_medication",
     "candidate_is_nsaid",
 ]
-
 CATEGORICAL_FEATURES = [
-    "candidate",
-    "candidate_class",
-    "original_medication",
-    "original_class",
-    "main_problem",
+    "candidate", "candidate_class", "main_problem",
 ]
 
 CLASS_NAMES = {
     0: "0_nao_admissivel",
-    1: "1_admissivel_com_precaucao",
-    2: "2_admissivel",
+    1: "1_admissivel",
 }
 
 
@@ -99,23 +94,28 @@ def load_training_dataset() -> tuple[pd.DataFrame, str]:
     frames = []
     sources = []
 
-    if GOLDEN_DATA_PATH.exists():
-        df_golden = pd.read_csv(GOLDEN_DATA_PATH)
-        frames.append(df_golden)
-        sources.append(f"golden_reviewed ({len(df_golden)} linhas)")
+    #if GOLDEN_DATA_PATH.exists():
+    #    df_golden = pd.read_csv(GOLDEN_DATA_PATH)
+    #    frames.append(df_golden)
+    #    sources.append(f"golden_reviewed ({len(df_golden)} linhas)")
 
-    if FEEDBACK_DATA_PATH.exists():
-        df_feedback = pd.read_csv(FEEDBACK_DATA_PATH)
-        frames.append(df_feedback)
-        sources.append(f"feedback ({len(df_feedback)} linhas)")
+    #if FEEDBACK_DATA_PATH.exists():
+    #    df_feedback = pd.read_csv(FEEDBACK_DATA_PATH)
+    #    frames.append(df_feedback)
+    #    sources.append(f"feedback ({len(df_feedback)} linhas)")
+
+    if MIMIC_DATA_PATH.exists():
+        df_mimic = pd.read_csv(MIMIC_DATA_PATH)
+        frames.append(df_mimic)
+        sources.append(f"mimic_iv ({len(df_mimic)} linhas)")
 
     if frames:
         df_combined = pd.concat(frames, ignore_index=True)
         return df_combined, " + ".join(sources)
 
-    if SILVER_DATA_PATH.exists():
-        df = pd.read_csv(SILVER_DATA_PATH)
-        return df, "silver_fallback"
+    #if SILVER_DATA_PATH.exists():
+    #    df = pd.read_csv(SILVER_DATA_PATH)
+    #    return df, "silver_fallback"
 
     raise FileNotFoundError(
         "Não foi encontrado dataset de treino. "
@@ -124,6 +124,11 @@ def load_training_dataset() -> tuple[pd.DataFrame, str]:
 
 
 def validate_dataset(df: pd.DataFrame, dataset_source: str) -> pd.DataFrame:
+    # Preenche colunas numéricas ausentes com 0 (compatibilidade com datasets antigos)
+    for col in NUMERIC_FEATURES:
+        if col not in df.columns:
+            df[col] = 0
+
     required_columns = NUMERIC_FEATURES + CATEGORICAL_FEATURES + [CLASS_COLUMN]
     missing = [column for column in required_columns if column not in df.columns]
 
@@ -170,7 +175,10 @@ def build_preprocessor() -> ColumnTransformer:
             ),
             (
                 "numeric",
-                StandardScaler(),
+                Pipeline([
+                    ("imputer", SimpleImputer(strategy="median")),
+                    ("scaler", StandardScaler()),
+                ]),
                 NUMERIC_FEATURES,
             ),
         ]
@@ -190,14 +198,27 @@ def build_models() -> dict[str, object]:
             min_samples_leaf=3,
             class_weight="balanced",
             n_jobs=-1,
+            verbose=1,
         ),
         "logistic_regression": LogisticRegression(
             max_iter=5000,
             class_weight="balanced",
             solver="lbfgs",
         ),
-        "gradient_boosting": GradientBoostingClassifier(
-            random_state=42,
+        "gradient_boosting": CalibratedClassifierCV(
+            HistGradientBoostingClassifier(
+                max_iter=300,
+                learning_rate=0.05,
+                max_leaf_nodes=31,
+                l2_regularization=1.0,
+                early_stopping=True,
+                validation_fraction=0.1,
+                class_weight="balanced",   # requer scikit-learn >= 1.2 (1.8.0 atual)
+                categorical_features="from_dtype",
+                random_state=42,
+            ),
+            method="isotonic",
+            cv=3,
         ),
     }
 
@@ -274,28 +295,44 @@ def train() -> None:
     df, dataset_source = load_training_dataset()
     df = validate_dataset(df, dataset_source)
 
-    X = df[NUMERIC_FEATURES + CATEGORICAL_FEATURES]
+    X = df[NUMERIC_FEATURES + CATEGORICAL_FEATURES].copy()
+    for col in CATEGORICAL_FEATURES:
+        X[col] = X[col].astype("category")
     y = df[CLASS_COLUMN]
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.25,
-        random_state=42,
-        stratify=y,
-    )
+    
+    groups = df["subject_id"]
+    splitter = GroupShuffleSplit(n_splits=1, test_size=0.25, random_state=42)
+    train_idx, test_idx = next(splitter.split(X, y, groups))
+    X_train, X_test = X.iloc[train_idx], X.iloc[test_idx]
+    y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
 
     model_results = []
 
-    for name, estimator in build_models().items():
-        pipeline = Pipeline(
-            steps=[
-                ("preprocessor", build_preprocessor()),
-                ("model", estimator),
-            ]
-        )
+    models = build_models()
+    n_models = len(models)
 
+    for i, (name, estimator) in enumerate(models.items(), start=1):
+        t0 = datetime.now()
+        print(f"\n[{i}/{n_models}] A treinar: {name} — iniciado às {t0.strftime('%H:%M:%S')}")
+
+        def make_pipeline(name, estimator):
+            if name == "gradient_boosting":          # HistGB: categóricas nativas
+                return Pipeline([("model", estimator)])
+            if name in ("random_forest", "decision_tree"):   # árvores: ordinal basta
+                pre = ColumnTransformer([
+                    ("categorical", OrdinalEncoder(handle_unknown="use_encoded_value",
+                                                unknown_value=-1), CATEGORICAL_FEATURES),
+                    ("numeric", SimpleImputer(strategy="median"), NUMERIC_FEATURES),
+                ])
+                return Pipeline([("preprocessor", pre), ("model", estimator)])
+            return Pipeline([("preprocessor", build_preprocessor()),  # LogReg: OneHot+scale
+                            ("model", estimator)])
+
+        pipeline = make_pipeline(name, estimator)
         pipeline.fit(X_train, y_train)
+
+        elapsed = (datetime.now() - t0).total_seconds()
+        print(f"  ✓ {name} concluído em {elapsed/60:.1f} min")
 
         metrics = evaluate_model(
             name=name,
@@ -329,9 +366,10 @@ def train() -> None:
     metrics_payload = {
         "trained_at": datetime.now(timezone.utc).isoformat(),
         "dataset_source": dataset_source,
-        "dataset_path": str(
-            GOLDEN_DATA_PATH if dataset_source.startswith("golden") else SILVER_DATA_PATH
-        ),
+        #"dataset_path": str(
+        #    GOLDEN_DATA_PATH if dataset_source.startswith("golden") else SILVER_DATA_PATH
+        #),
+        "dataset_path": str(MIMIC_DATA_PATH),
         "n_rows": int(len(df)),
         "class_distribution": {
             str(label): int(total)

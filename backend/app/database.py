@@ -54,6 +54,20 @@ def init_db() -> None:
             )
         """)
 
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS outcomes (
+                outcome_id TEXT PRIMARY KEY,
+                analysis_id TEXT NOT NULL,
+                patient_id TEXT NOT NULL,
+                medication TEXT,
+                outcome TEXT NOT NULL CHECK(outcome IN ('resolved', 'not_resolved', 'adverse_event')),
+                comment TEXT,
+                follow_up_days INTEGER,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (analysis_id) REFERENCES analyses (analysis_id)
+            )
+        """)
+
         conn.commit()
 
 
@@ -161,6 +175,73 @@ def save_feedback(
             ),
         )
         conn.commit()
+
+
+def save_outcome(
+    outcome_id: str,
+    analysis_id: str,
+    patient_id: str,
+    medication: Optional[str],
+    outcome: str,
+    comment: Optional[str],
+    analysis_created_at: Optional[str] = None,
+) -> None:
+    follow_up_days = None
+    if analysis_created_at:
+        try:
+            created = datetime.fromisoformat(analysis_created_at)
+            follow_up_days = (datetime.now(timezone.utc) - created).days
+        except Exception:
+            follow_up_days = None
+
+    with get_connection() as conn:
+        conn.execute(
+            """
+            INSERT INTO outcomes (
+                outcome_id, analysis_id, patient_id, medication,
+                outcome, comment, follow_up_days, created_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                outcome_id, analysis_id, patient_id, medication,
+                outcome, comment, follow_up_days, utc_now_iso(),
+            ),
+        )
+        conn.commit()
+
+
+def get_pending_followups(min_days: int = 14, limit: int = 50) -> list[dict[str, Any]]:
+    """Análises com >= min_days e ainda sem desfecho registado (lembretes de follow-up)."""
+    with get_connection() as conn:
+        rows = conn.execute(
+            """
+            SELECT a.analysis_id, a.patient_id, a.created_at
+            FROM analyses a
+            LEFT JOIN outcomes o ON a.analysis_id = o.analysis_id
+            WHERE o.outcome_id IS NULL
+              AND julianday('now') - julianday(a.created_at) >= ?
+            ORDER BY a.created_at ASC
+            LIMIT ?
+            """,
+            (min_days, limit),
+        ).fetchall()
+
+    items = []
+    for r in rows:
+        days_elapsed = None
+        try:
+            created = datetime.fromisoformat(r["created_at"])
+            days_elapsed = (datetime.now(timezone.utc) - created).days
+        except Exception:
+            days_elapsed = None
+        items.append({
+            "analysis_id": r["analysis_id"],
+            "patient_id": r["patient_id"],
+            "created_at": r["created_at"],
+            "days_elapsed": days_elapsed if days_elapsed is not None else 0,
+        })
+    return items
 
 
 def get_metrics() -> dict[str, Any]:

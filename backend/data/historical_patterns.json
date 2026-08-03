@@ -1,17 +1,233 @@
 {
+  "active_gi_ulcer|adult|normal_renal": {
+    "paracetamol": 0.271
+  },
+  "active_gi_ulcer|elderly|normal_renal": {
+    "paracetamol": 0.258
+  },
+  "atrial_fibrillation|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.29,
+    "amiodarone": 0.164,
+    "digoxin": 0.231,
+    "ibuprofen": 0.179,
+    "paracetamol": 0.337
+  },
+  "atrial_fibrillation|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.4,
+    "paracetamol": 0.343
+  },
+  "atrial_fibrillation|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.275,
+    "amiodarone": 0.2,
+    "digoxin": 0.338,
+    "ibuprofen": 0.071,
+    "paracetamol": 0.306
+  },
+  "atrial_fibrillation|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.359,
+    "amiodarone": 0.292,
+    "paracetamol": 0.456
+  },
+  "diabetes|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.402,
+    "ibuprofen": 0.314,
+    "naproxen": 0.3,
+    "paracetamol": 0.375
+  },
+  "diabetes|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.536,
+    "paracetamol": 0.446
+  },
+  "diabetes|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.332,
+    "ibuprofen": 0.292,
+    "paracetamol": 0.402
+  },
+  "diabetes|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.457,
+    "paracetamol": 0.385
+  },
+  "heart_failure|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.475,
+    "carvedilol": 0.27,
+    "digoxin": 0.382,
+    "enalapril": 0.324,
+    "furosemide": 0.076,
+    "ibuprofen": 0.15,
+    "losartan": 0.228,
+    "naproxen": 0.13,
+    "paracetamol": 0.425,
+    "valsartan": 0.195
+  },
+  "heart_failure|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.51,
+    "carvedilol": 0.371,
+    "digoxin": 0.296,
+    "furosemide": 0.083,
+    "ibuprofen": 0.231,
+    "losartan": 0.325,
+    "paracetamol": 0.468,
+    "valsartan": 0.273
+  },
+  "heart_failure|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.468,
+    "carvedilol": 0.301,
+    "digoxin": 0.358,
+    "enalapril": 0.21,
+    "furosemide": 0.096,
+    "ibuprofen": 0.108,
+    "losartan": 0.293,
+    "paracetamol": 0.448,
+    "ramipril": 0.2,
+    "valsartan": 0.253
+  },
+  "heart_failure|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.512,
+    "carvedilol": 0.316,
+    "digoxin": 0.396,
+    "enalapril": 0.12,
+    "furosemide": 0.07,
+    "ibuprofen": 0.136,
+    "losartan": 0.291,
+    "paracetamol": 0.485,
+    "valsartan": 0.32
+  },
+  "hypertension|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.309,
+    "atenolol": 0.252,
+    "carvedilol": 0.272,
+    "enalapril": 0.238,
+    "furosemide": 0.134,
+    "hydrochlorothiazide": 0.247,
+    "ibuprofen": 0.222,
+    "losartan": 0.236,
+    "metoprolol": 0.215,
+    "naproxen": 0.299,
+    "paracetamol": 0.302,
+    "ramipril": 0.171,
+    "valsartan": 0.287
+  },
+  "hypertension|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.431,
+    "atenolol": 0.207,
+    "carvedilol": 0.217,
+    "furosemide": 0.132,
+    "hydrochlorothiazide": 0.186,
+    "ibuprofen": 0.083,
+    "losartan": 0.225,
+    "metoprolol": 0.322,
+    "paracetamol": 0.393,
+    "valsartan": 0.326
+  },
+  "hypertension|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.313,
+    "atenolol": 0.282,
+    "carvedilol": 0.233,
+    "enalapril": 0.203,
+    "furosemide": 0.112,
+    "hydrochlorothiazide": 0.254,
+    "ibuprofen": 0.197,
+    "losartan": 0.247,
+    "metoprolol": 0.209,
+    "naproxen": 0.176,
+    "paracetamol": 0.322,
+    "ramipril": 0.321,
+    "valsartan": 0.256
+  },
+  "hypertension|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.371,
+    "atenolol": 0.196,
+    "carvedilol": 0.235,
+    "enalapril": 0.2,
+    "furosemide": 0.126,
+    "hydrochlorothiazide": 0.098,
+    "losartan": 0.258,
+    "metoprolol": 0.266,
+    "paracetamol": 0.337,
+    "valsartan": 0.18
+  },
+  "infection|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.566,
+    "azithromycin": 0.189,
+    "ibuprofen": 0.245,
+    "naproxen": 0.423,
+    "paracetamol": 0.443
+  },
+  "infection|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.65,
+    "azithromycin": 0.207,
+    "paracetamol": 0.596
+  },
+  "infection|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.534,
+    "azithromycin": 0.199,
+    "ibuprofen": 0.224,
+    "naproxen": 0.16,
+    "paracetamol": 0.467
+  },
+  "infection|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.627,
+    "azithromycin": 0.194,
+    "paracetamol": 0.51
+  },
+  "myocardial_infarction|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.221,
+    "paracetamol": 0.198
+  },
+  "myocardial_infarction|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.311,
+    "paracetamol": 0.269
+  },
+  "myocardial_infarction|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.316,
+    "paracetamol": 0.579
+  },
   "pain|adult|normal_renal": {
-    "paracetamol": 0.72,
-    "ibuprofen": 0.55,
-    "naproxen": 0.37
+    "acetylsalicylic_acid": 0.372,
+    "ibuprofen": 0.263,
+    "naproxen": 0.314,
+    "paracetamol": 0.301
+  },
+  "pain|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.539,
+    "paracetamol": 0.366
+  },
+  "pain|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.422,
+    "ibuprofen": 0.198,
+    "naproxen": 0.1,
+    "paracetamol": 0.343
   },
   "pain|elderly|renal_impairment": {
-    "paracetamol": 0.81,
-    "ibuprofen": 0.12,
-    "naproxen": 0.10
+    "acetylsalicylic_acid": 0.503,
+    "paracetamol": 0.433
   },
-  "inflammation|adult|normal_renal": {
-    "ibuprofen": 0.66,
-    "naproxen": 0.58,
-    "paracetamol": 0.21
+  "renal_disease|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.41,
+    "paracetamol": 0.33
+  },
+  "renal_disease|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.541,
+    "paracetamol": 0.373
+  },
+  "renal_disease|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.333,
+    "paracetamol": 0.355
+  },
+  "renal_disease|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.389,
+    "paracetamol": 0.357
+  },
+  "unspecified|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.281,
+    "ibuprofen": 0.262,
+    "naproxen": 0.384,
+    "paracetamol": 0.283
+  },
+  "unspecified|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.303,
+    "ibuprofen": 0.135,
+    "naproxen": 0.2,
+    "paracetamol": 0.306
   }
 }

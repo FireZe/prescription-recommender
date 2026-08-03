@@ -19,8 +19,9 @@ import sqlite3
 from collections import defaultdict
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parents[1]
-DB_PATH = BASE_DIR / "data" / "prescription_data.db"
+import os
+BASE_DIR = Path(os.getcwd()) / "backend"
+DB_PATH = BASE_DIR / "data" / "prescription_feedback.db"
 OUTPUT_PATH = BASE_DIR / "data" / "historical_patterns.json"
 
 # Mínimo de decisões (accepted+rejected) para o padrão ser considerado fiável
@@ -63,7 +64,7 @@ def main():
     for row in rows:
         try:
             request_data = json.loads(row["request_json"])
-            patient_ctx = request_data.get("patient_context", {})
+            patient_ctx = request_data.get("patient", {})
             age = patient_ctx.get("age", 50)
             renal_status = patient_ctx.get("renal_status", "normal")
             main_problem = patient_ctx.get("main_problem", "unspecified")

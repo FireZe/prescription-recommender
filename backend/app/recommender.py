@@ -3,7 +3,7 @@ from typing import List, Dict, Any, Tuple
 from app.schemas import PatientContext, MedicationLine, Alert, Recommendation
 from app.normalization import normalize_medication_id, normalize_condition_id
 from app.rules_engine import run_safety_checks
-from app.ml_model import predict_candidate_adequacy
+from app.ml_model import predict_candidate_adequacy, predict_combined_score
 
 import logging
 logger = logging.getLogger(__name__)
@@ -354,13 +354,13 @@ def score_candidate_base(
         if SYMPTOMATIC_ANALGESIC_REASON not in reasons:
             reasons.append(SYMPTOMATIC_ANALGESIC_REASON)
 
-    # Sfb: feedback histórico, ainda placeholder
-    sfb = feedback_score
-
     # Pesos heurísticos iniciais
-    w1, w2, w3, w4 = 0.45, 0.30, 0.20, 0.05
+    import os
+    w1 = float(os.getenv("W_SEG", "0.50"))
+    w2 = float(os.getenv("W_CTX", "0.30"))
+    w3 = float(os.getenv("W_SIM", "0.20"))
 
-    score = (w1 * sseg) + (w2 * sctx) + (w3 * ssim) + (w4 * sfb)
+    score = (w1 * sseg) + (w2 * sctx) + (w3 * ssim)
     score = round(max(0.0, min(1.0, score)), 3)
 
     if not reasons:
@@ -595,6 +595,10 @@ def recommend_alternatives(
 
         candidate_relevant_alerts = clinically_relevant_alerts(candidate_alerts)
 
+        # Não recomendar alternativa que reintroduz uma duplicação terapêutica (mesma classe)
+        if any("duplicacao" in (a.rule_id or "") for a in candidate_relevant_alerts):
+            continue
+
         # Barreira determinística: candidatos com alerta high/critical não entram.
         if has_blocking_alert(candidate_relevant_alerts):
             continue
@@ -685,17 +689,13 @@ def recommend_alternatives(
             kb=kb,
         )
 
-        ml_score = predict_candidate_adequacy(ml_features)
+        score_base = predict_combined_score(
+            features=ml_features,
+            heuristic_score=score_base,
+        )
 
-        if ml_score is not None:
-            score_base = combine_heuristic_and_ml_score(
-                heuristic_score=score_base,
-                ml_score=ml_score,
-                ml_weight=0.30,
-            )
-
-            # Não acrescentar score técnico às razões clínicas visíveis.
-            # O modelo continua a influenciar o ranking, mas não polui a interface.
+        # Não acrescentar score técnico às razões clínicas visíveis.
+        # O modelo continua a influenciar o ranking, mas não polui a interface.
 
         historical_score = get_historical_score(candidate, patient, historical_patterns)
 

@@ -6,7 +6,8 @@ import pandas as pd
 
 # Permite importar app.normalization quando o script é executado a partir de backend/
 import sys
-BASE_DIR = Path(__file__).resolve().parents[1]
+import os
+BASE_DIR = Path(os.getcwd()) / "backend"
 sys.path.append(str(BASE_DIR))
 
 from app.normalization import (

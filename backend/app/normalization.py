@@ -81,6 +81,49 @@ MEDICATION_SYNONYMS = {
     "atenolol": [
         "atenolol", "atenolol generis"
     ],
+    "metformin": [
+        "metformin", "metformina", "metformina basi", "metformina generis"
+    ],
+    "gliclazide": [
+        "gliclazide", "gliclazida", "gliclazida generis", "diamicron"
+    ],
+    "amoxicillin_clavulanate": [
+        "amoxicillin_clavulanate", "amoxicilina + acido clavulanico",
+        "amoxicilina mais acido clavulanico", "amoxicilina/acido clavulanico",
+        "amoxicilina e acido clavulanico", "acido clavulanico", "clavulanico",
+        "augmentin", "co-amoxiclav"
+    ],
+    "amoxicillin": [
+        "amoxicillin", "amoxicilina", "amoxicilina generis", "amoxil"
+    ],
+    "omeprazole": [
+        "omeprazole", "omeprazol", "omeprazol generis", "losec"
+    ],
+    "tramadol": [
+        "tramadol", "tramadol generis", "cloridrato de tramadol"
+    ],
+    "apixaban": [
+        "apixaban", "apixabano", "eliquis"
+    ],
+    "enoxaparin": [
+        "enoxaparin", "enoxaparina", "enoxaparina sodica", "lovenox"
+    ],
+    "escitalopram": [
+        "escitalopram", "escitalopram alter", "oxalato de escitalopram"
+    ],
+    "nebivolol": [
+        "nebivolol", "nebivolol generis", "cloridrato de nebivolol"
+    ],
+    "salbutamol": [
+        "salbutamol", "ventilan", "sulfato de salbutamol"
+    ],
+    "budesonide_formoterol": [
+        "budesonide_formoterol", "budesonida + formoterol", "budesonida/formoterol",
+        "budesonida e formoterol", "symbicort"
+    ],
+        "mexazolam": [
+        "mexazolam", "sedoxil"
+    ],
 }
 
 

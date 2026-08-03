@@ -136,6 +136,7 @@ def check_contraindications(
                         origin="prescription_related",
                         involves_prescribed_medication=True,
                         involves_active_medication=False,
+                        rule_id="contraindication",
                         medication_ids=[med_id],
                     )
                 )
@@ -162,6 +163,53 @@ def check_contraindications(
 
     return alerts
 
+def check_allergies(
+    patient: PatientContext,
+    prescribed_medications: List[str],
+    kb: Dict[str, Any],
+) -> List[Alert]:
+    """Alerta se um medicamento coincide com uma alergia do utente (direta) ou
+    pertence à mesma classe terapêutica de um alergénio (reatividade cruzada)."""
+    alerts = []
+    if not patient.allergies:
+        return alerts
+
+    allergy_text = {a.strip().lower() for a in patient.allergies if a and a.strip()}
+    allergy_ids = {nid for a in patient.allergies if (nid := normalize_medication_id(a))}
+    allergen_classes = {
+        c for aid in allergy_ids
+        if (c := get_class(kb, aid))
+    }
+
+    for med_id in prescribed_medications:
+        med = get_medication(kb, med_id)
+        substance = (med.get("active_substance", "").lower() if med else "")
+        med_class = get_class(kb, med_id)
+
+        direta = (med_id in allergy_ids) or (med_id.lower() in allergy_text) \
+                 or (substance and substance in allergy_text)
+        cruzada = (not direta) and med_class is not None and med_class in allergen_classes
+
+        if direta:
+            alerts.append(build_alert(
+                alert_type="allergy", severity="critical",
+                medication=get_display_name(kb, med_id),
+                description=(f"{get_display_name(kb, med_id)} está registado como alergia "
+                             "do utente. A prescrição deve ser evitada."),
+                origin="prescription_related", involves_prescribed_medication=True,
+                rule_id="allergy_conflict", medication_ids=[med_id],
+            ))
+        elif cruzada:
+            alerts.append(build_alert(
+                alert_type="allergy", severity="high",
+                medication=get_display_name(kb, med_id),
+                description=(f"{get_display_name(kb, med_id)} pertence à mesma classe terapêutica "
+                             "({}) de um fármaco a que o utente é alérgico — possível "
+                             "reatividade cruzada.".format(med_class)),
+                origin="prescription_related", involves_prescribed_medication=True,
+                rule_id="allergy_cross_class", medication_ids=[med_id],
+            ))
+    return alerts
 
 def rule_matches_drug_drug(rule: Dict[str, Any], med_a: str, med_b: str) -> bool:
     return pair_key(rule.get("medication_a"), rule.get("medication_b")) == pair_key(med_a, med_b)
@@ -435,6 +483,7 @@ def run_safety_checks(
 
     alerts.extend(check_unknown_medications(prescription))
     alerts.extend(check_contraindications(patient, prescribed_medications, kb))
+    alerts.extend(check_allergies(patient, prescribed_medications, kb))
 
     alerts.extend(
         check_interactions(

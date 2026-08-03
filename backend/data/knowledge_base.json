@@ -4,241 +4,745 @@
       "display_name": "Ibuprofeno",
       "active_substance": "ibuprofeno",
       "therapeutic_class": "aine",
-      "indications": ["pain", "fever", "inflammation"],
-      "contraindicated_conditions": ["severe_renal_impairment","severe_hepatic_impairment","severe_heart_failure","active_gi_ulcer","active_bleeding","history_nsaid_hypersensitivity"],
+      "indications": [
+        "pain",
+        "fever",
+        "inflammation"
+      ],
+      "contraindicated_conditions": [
+        "severe_hepatic_impairment",
+        "severe_heart_failure",
+        "active_gi_ulcer",
+        "active_bleeding",
+        "history_nsaid_hypersensitivity"
+      ],
       "renal_caution": true,
-      "alternatives": ["paracetamol", "naproxen"]
+      "alternatives": [
+        "paracetamol",
+        "tramadol"
+      ],
+      "alternatives_fonte": "Escada analgésica OMS, Passo I (IASP FS18, p.1); contraindicações de classe AINE - RCM Ibuprofeno Generis, secção 4.3 (p.2). AINE substituído por não-opióide de classe diferente."
     },
     "naproxen": {
       "display_name": "Naproxeno",
       "active_substance": "naproxeno",
       "therapeutic_class": "aine",
-      "indications": ["pain", "fever", "inflammation"],
-      "contraindicated_conditions": ["severe_renal_impairment","severe_hepatic_impairment","severe_heart_failure","active_gi_ulcer","active_bleeding","history_nsaid_hypersensitivity"],
+      "indications": [
+        "pain",
+        "fever",
+        "inflammation"
+      ],
+      "contraindicated_conditions": [
+        "severe_hepatic_impairment",
+        "severe_heart_failure",
+        "active_gi_ulcer",
+        "active_bleeding",
+        "history_nsaid_hypersensitivity"
+      ],
       "renal_caution": true,
-      "alternatives": ["paracetamol", "ibuprofen"]
+      "alternatives": [
+        "paracetamol",
+        "tramadol"
+      ],
+      "alternatives_fonte": "Escada analgésica OMS, Passo I (IASP FS18, p.1); contraindicações de classe AINE — RCM Naproxeno Generis, secção 4.3 (p.4). AINE substituído por não-opióide de classe diferente."
     },
     "paracetamol": {
       "display_name": "Paracetamol",
       "active_substance": "paracetamol",
       "therapeutic_class": "analgesico_antipiretico",
-      "indications": ["pain", "fever"],
-      "contraindicated_conditions": ["severe_hepatic_impairment"],
-      "renal_caution": true,
+      "indications": [
+        "pain",
+        "fever"
+      ],
+      "contraindicated_conditions": [
+        "severe_hepatic_impairment"
+      ],
+      "renal_caution": false,
       "renal_alert_severity": "moderate",
-      "alternatives": ["ibuprofen", "naproxen"]
+      "alternatives": [
+        "ibuprofen",
+        "naproxen",
+        "tramadol"
+      ],
+      "alternatives_fonte": "Escada analgésica OMS, Passo I (IASP FS18, p.1-2): quando há componente inflamatória e sem contraindicação, o AINE é o passo apropriado. A verificação de segurança do candidato exclui o AINE se houver contraindicação."
     },
     "acetylsalicylic_acid": {
       "display_name": "Acido acetilsalicilico",
       "active_substance": "acido acetilsalicilico",
       "therapeutic_class": "antiagregante",
-      "indications": ["antiplatelet", "cardiovascular_prevention"],
-      "contraindicated_conditions": ["active_gi_ulcer","active_bleeding","bleeding_diathesis","severe_renal_impairment","severe_hepatic_impairment","severe_heart_failure"],
+      "indications": [
+        "antiplatelet",
+        "cardiovascular_prevention"
+      ],
+      "contraindicated_conditions": [
+        "active_gi_ulcer",
+        "active_bleeding",
+        "bleeding_diathesis",
+        "severe_hepatic_impairment",
+        "severe_heart_failure"
+      ],
       "renal_caution": true,
-      "alternatives": ["clopidogrel"]
+      "alternatives": [
+        "clopidogrel"
+      ],
+      "alternatives_fonte": "Norma DGS Antiagregantes Plaquetários (p.2: abrange AAS, triflusal e clopidogrel; p.8: ensaio CAPRIE, clopidogrel vs AAS). Clopidogrel como antiagregante alternativo quando o AAS é contraindicado/intolerado."
     },
     "clopidogrel": {
       "display_name": "Clopidogrel",
       "active_substance": "clopidogrel",
       "therapeutic_class": "antiagregante",
-      "indications": ["antiplatelet", "cardiovascular_prevention"],
-      "contraindicated_conditions": ["active_bleeding","severe_hepatic_impairment"],
+      "indications": [
+        "antiplatelet",
+        "cardiovascular_prevention"
+      ],
+      "contraindicated_conditions": [
+        "active_bleeding",
+        "severe_hepatic_impairment"
+      ],
       "renal_caution": false,
-      "alternatives": ["acetylsalicylic_acid"]
+      "alternatives": [
+        "acetylsalicylic_acid"
+      ],
+      "alternatives_fonte": "Norma DGS Antiagregantes Plaquetários (p.2; p.8 ensaio CAPRIE). AAS como antiagregante alternativo de base na prevenção cardiovascular."
     },
     "warfarin": {
       "display_name": "Varfarina",
       "active_substance": "varfarina sodica",
       "therapeutic_class": "anticoagulante",
-      "indications": ["anticoagulation", "thromboembolism_prevention"],
-      "contraindicated_conditions": ["active_bleeding","recent_hemorrhagic_stroke","high_bleeding_risk","pregnancy"],
+      "indications": [
+        "anticoagulation",
+        "thromboembolism_prevention"
+      ],
+      "contraindicated_conditions": [
+        "active_bleeding",
+        "recent_hemorrhagic_stroke",
+        "high_bleeding_risk",
+        "pregnancy"
+      ],
       "renal_caution": true,
       "qt_risk": false,
-      "alternatives": ["acenocoumarol"]
+      "alternatives": [
+        "acenocoumarol",
+        "apixaban"
+      ],
+      "alternatives_fonte": "DGS Manual Boas Práticas, Anexo VI - Hipocoagulação (p.6: varfarina e acenocumarol são ambos AVK; p.16: os AVK partilham inúmeras interações). Troca AVK<->AVK é like-for-like e NÃO resolve alertas de interação; a alternativa real seria um DOAC, ausente do formulário."
     },
     "acenocoumarol": {
       "display_name": "Acenocumarol",
       "active_substance": "acenocoumarol",
       "therapeutic_class": "anticoagulante",
-      "indications": ["anticoagulation", "thromboembolism_prevention", "atrial_fibrillation"],
-      "contraindicated_conditions": ["active_bleeding","active_gi_ulcer"],
+      "indications": [
+        "anticoagulation",
+        "thromboembolism_prevention",
+        "atrial_fibrillation"
+      ],
+      "contraindicated_conditions": [
+        "active_bleeding",
+        "active_gi_ulcer"
+      ],
       "renal_caution": true,
       "qt_risk": false,
-      "alternatives": ["warfarin"]
+      "alternatives": [
+        "warfarin",
+        "apixaban"
+      ],
+      "alternatives_fonte": "DGS Manual Boas Práticas, Anexo VI - Hipocoagulação (p.6: ambos AVK; p.16: interações dos AVK). Troca AVK<->AVK não resolve alertas de interação; alternativa real seria um DOAC (ausente do formulário)."
     },
     "enalapril": {
       "display_name": "Enalapril",
       "active_substance": "enalapril",
       "therapeutic_class": "ieca",
-      "indications": ["hypertension", "heart_failure"],
-      "contraindicated_conditions": ["history_acei_angioedema","pregnancy","bilateral_renal_artery_stenosis"],
+      "indications": [
+        "hypertension",
+        "heart_failure"
+      ],
+      "contraindicated_conditions": [
+        "history_acei_angioedema",
+        "pregnancy",
+        "bilateral_renal_artery_stenosis"
+      ],
       "renal_caution": true,
-      "alternatives": ["losartan", "valsartan"]
+      "alternatives": [
+        "ramipril",
+        "losartan",
+        "valsartan"
+      ],
+      "alternatives_fonte": "Norma DGS 026/2011, ponto 6.b (p.2) — IECA ou, em alternativa, ARA, como modificadores do eixo renina-angiotensina."
     },
     "ramipril": {
       "display_name": "Ramipril",
       "active_substance": "ramipril",
       "therapeutic_class": "ieca",
-      "indications": ["hypertension", "heart_failure", "cardiovascular_prevention"],
-      "contraindicated_conditions": ["history_acei_angioedema","pregnancy","bilateral_renal_artery_stenosis"],
+      "indications": [
+        "hypertension",
+        "heart_failure",
+        "cardiovascular_prevention"
+      ],
+      "contraindicated_conditions": [
+        "history_acei_angioedema",
+        "pregnancy",
+        "bilateral_renal_artery_stenosis"
+      ],
       "renal_caution": true,
-      "alternatives": ["losartan", "valsartan"]
+      "alternatives": [
+        "enalapril",
+        "losartan",
+        "valsartan"
+      ],
+      "alternatives_fonte": "Norma DGS 026/2011, ponto 6.b (p.2) — IECA ou, em alternativa, ARA, como modificadores do eixo renina-angiotensina."
     },
     "losartan": {
       "display_name": "Losartan",
       "active_substance": "losartan",
       "therapeutic_class": "ara",
-      "indications": ["hypertension", "heart_failure", "renal_protection"],
-      "contraindicated_conditions": ["pregnancy","severe_hepatic_impairment"],
+      "indications": [
+        "hypertension",
+        "heart_failure",
+        "renal_protection"
+      ],
+      "contraindicated_conditions": [
+        "pregnancy",
+        "severe_hepatic_impairment"
+      ],
       "renal_caution": true,
-      "alternatives": ["enalapril", "ramipril", "valsartan"]
+      "alternatives": [
+        "valsartan",
+        "ramipril",
+        "enalapril"
+      ],
+      "alternatives_fonte": "idem, ponto 6.b (p.2)."
     },
     "valsartan": {
       "display_name": "Valsartan",
       "active_substance": "valsartan",
       "therapeutic_class": "ara",
-      "indications": ["hypertension", "heart_failure"],
-      "contraindicated_conditions": ["pregnancy","severe_hepatic_impairment"],
+      "indications": [
+        "hypertension",
+        "heart_failure"
+      ],
+      "contraindicated_conditions": [
+        "pregnancy",
+        "severe_hepatic_impairment"
+      ],
       "renal_caution": true,
-      "alternatives": ["enalapril", "ramipril", "losartan"]
+      "alternatives": [
+        "losartan",
+        "ramipril",
+        "enalapril"
+      ],
+      "alternatives_fonte": "idem, ponto 6.b (p.2)."
     },
     "furosemide": {
       "display_name": "Furosemida",
       "active_substance": "furosemida",
       "therapeutic_class": "diuretico_ansa",
-      "indications": ["hypertension", "heart_failure", "fluid_retention"],
-      "contraindicated_conditions": ["dehydration","hypovolemia","severe_hypokalemia","severe_hyponatremia","anuria"],
+      "indications": [
+        "hypertension",
+        "heart_failure",
+        "fluid_retention"
+      ],
+      "contraindicated_conditions": [
+        "dehydration",
+        "hypovolemia",
+        "severe_hypokalemia",
+        "severe_hyponatremia",
+        "anuria"
+      ],
       "renal_caution": true,
-      "alternatives": ["hydrochlorothiazide"]
+      "alternatives": [],
+      "alternatives_fonte": "Norma DGS 026/2011, ponto II-H (p.5). Diurético de ansa para IC/edema/insuf. renal — sem substituto de classe no formulário atual."
     },
     "hydrochlorothiazide": {
       "display_name": "Hidroclorotiazida",
       "active_substance": "hidroclorotiazida",
       "therapeutic_class": "diuretico_tiazidico",
-      "indications": ["hypertension", "edema"],
-      "contraindicated_conditions": ["anuria","severe_renal_impairment"],
+      "indications": [
+        "hypertension",
+        "edema"
+      ],
+      "contraindicated_conditions": [
+        "anuria"
+      ],
       "renal_caution": true,
-      "alternatives": ["furosemide"]
+      "alternatives": [
+        "furosemide"
+      ],
+      "alternatives_fonte": "Norma DGS 026/2011, ponto II-H (p.5). furosemida: diurético de ansa para IC/edema/insuf. renal."
     },
     "simvastatin": {
       "display_name": "Sinvastatina",
       "active_substance": "sinvastatina",
       "therapeutic_class": "estatina",
-      "indications": ["dyslipidemia", "cardiovascular_prevention"],
-      "contraindicated_conditions": ["active_liver_disease","pregnancy","breastfeeding"],
+      "indications": [
+        "dyslipidemia",
+        "cardiovascular_prevention"
+      ],
+      "contraindicated_conditions": [
+        "active_liver_disease",
+        "pregnancy",
+        "breastfeeding"
+      ],
       "renal_caution": true,
-      "alternatives": ["atorvastatin"]
+      "alternatives": [
+        "atorvastatin"
+      ],
+      "alternatives_fonte": "Norma DGS Dislipidemias (p.3/p.6: estatinas são fármacos de 1ª escolha; p.16: quadro de equivalência terapêutica entre estatinas). Atorvastatina como estatina equivalente; a sinvastatina é mais sensível a inibidores do CYP3A4 (ex.: claritromicina — RCM Sinvastatina, secção 4.5)."
     },
     "atorvastatin": {
       "display_name": "Atorvastatina",
       "active_substance": "atorvastatina",
       "therapeutic_class": "estatina",
-      "indications": ["dyslipidemia", "cardiovascular_prevention"],
-      "contraindicated_conditions": ["active_liver_disease","pregnancy","breastfeeding"],
+      "indications": [
+        "dyslipidemia",
+        "cardiovascular_prevention"
+      ],
+      "contraindicated_conditions": [
+        "active_liver_disease",
+        "pregnancy",
+        "breastfeeding"
+      ],
       "renal_caution": false,
-      "alternatives": ["simvastatin"]
+      "alternatives": [
+        "simvastatin"
+      ],
+      "alternatives_fonte": "Norma DGS Dislipidemias (p.3/p.6: estatinas 1ª escolha; p.16: equivalência terapêutica das estatinas). Sinvastatina como estatina equivalente."
     },
     "azithromycin": {
       "display_name": "Azitromicina",
       "active_substance": "azitromicina",
       "therapeutic_class": "macrolido",
-      "indications": ["infection"],
-      "contraindicated_conditions": ["macrolide_hypersensitivity"],
+      "indications": [
+        "infection"
+      ],
+      "contraindicated_conditions": [
+        "macrolide_hypersensitivity"
+      ],
       "renal_caution": true,
       "qt_risk": true,
-      "alternatives": ["clarithromycin"]
+      "alternatives": [
+        "amoxicillin",
+        "clarithromycin"
+      ],
+      "alternatives_fonte": "Norma DGS Pneumonia (p.1/p.5: amoxicilina é 1ª linha; p.7: claritromicina em associação). NOTA: a 1ª linha na infeção respiratória é a amoxicilina (a adicionar ao formulário); claritromicina mantida como alternativa macrólido provisória."
     },
     "clarithromycin": {
       "display_name": "Claritromicina",
       "active_substance": "claritromicina",
       "therapeutic_class": "macrolido",
-      "indications": ["infection"],
-      "contraindicated_conditions": ["macrolide_hypersensitivity","qt_prolongation","severe_hepatic_impairment_with_renal_impairment","hypokalemia","hypomagnesemia"],
+      "indications": [
+        "infection"
+      ],
+      "contraindicated_conditions": [
+        "macrolide_hypersensitivity",
+        "qt_prolongation",
+        "severe_hepatic_impairment_with_renal_impairment",
+        "hypokalemia",
+        "hypomagnesemia"
+      ],
       "renal_caution": true,
       "qt_risk": true,
-      "alternatives": ["azithromycin"]
+      "alternatives": [
+        "amoxicillin",
+        "azithromycin"
+      ],
+      "alternatives_fonte": "Norma DGS Pneumonia (p.1/p.5: amoxicilina 1ª linha; p.7: claritromicina em associação). NOTA: amoxicilina deve ser a 1ª alternativa (a adicionar); azitromicina mantida como alternativa macrólido provisória."
     },
     "sertraline": {
       "display_name": "Sertralina",
       "active_substance": "sertralina",
       "therapeutic_class": "isrs",
-      "indications": ["depression", "anxiety", "ocd"],
-      "contraindicated_conditions": ["maoi_use","pimozide_use"],
+      "indications": [
+        "depression",
+        "anxiety",
+        "ocd"
+      ],
+      "contraindicated_conditions": [
+        "maoi_use",
+        "pimozide_use"
+      ],
       "renal_caution": false,
       "qt_risk": true,
-      "alternatives": ["amitriptyline"]
+      "alternatives": [
+        "escitalopram",
+        "amitriptyline"
+      ],
+      "alternatives_fonte": "Norma DGS Depressão (p.1: ISRS como 1ª linha; p.6: sertralina entre os de menor risco). Amitriptilina (tricíclico) como alternativa de classe diferente — menos preferível pelo perfil de efeitos adversos/cardíacos."
     },
     "amitriptyline": {
       "display_name": "Amitriptilina",
       "active_substance": "amitriptilina",
       "therapeutic_class": "antidepressivo_triciclico",
-      "indications": ["depression", "neuropathic_pain", "migraine_prophylaxis"],
-      "contraindicated_conditions": ["recent_myocardial_infarction","cardiac_conduction_disorder","severe_liver_disease","maoi_use"],
+      "indications": [
+        "depression",
+        "neuropathic_pain",
+        "migraine_prophylaxis"
+      ],
+      "contraindicated_conditions": [
+        "recent_myocardial_infarction",
+        "cardiac_conduction_disorder",
+        "severe_liver_disease",
+        "maoi_use"
+      ],
       "renal_caution": false,
       "qt_risk": true,
-      "alternatives": ["sertraline"]
+      "alternatives": [
+        "sertraline",
+        "escitalopram"
+      ],
+      "alternatives_fonte": "Norma DGS Depressão (p.1: ISRS 1ª linha). Sertralina (ISRS) como alternativa preferível na depressão; a amitriptilina mantém-se sobretudo para dor neuropática (Norma DGS 043/2011)."
     },
     "digoxin": {
       "display_name": "Digoxina",
       "active_substance": "digoxina",
       "therapeutic_class": "digitalico",
-      "indications": ["heart_failure", "atrial_fibrillation"],
-      "contraindicated_conditions": ["digoxin_toxicity","ventricular_fibrillation"],
+      "indications": [
+        "heart_failure",
+        "atrial_fibrillation"
+      ],
+      "contraindicated_conditions": [
+        "digoxin_toxicity",
+        "ventricular_fibrillation"
+      ],
       "renal_caution": true,
-      "alternatives": []
+      "alternatives": [],
+      "alternatives_fonte": "Sem substituto de classe (digitálico) no formulário atual. O controlo de frequência na FA pode usar beta-bloqueante (cross-indicação), fora do âmbito de substituição direta."
     },
     "amiodarone": {
       "display_name": "Amiodarona",
       "active_substance": "cloridrato de amiodarona",
       "therapeutic_class": "antiarritmico_classe_iii",
-      "indications": ["arrhythmia", "atrial_fibrillation"],
-      "contraindicated_conditions": ["bradycardia","severe_conduction_disorder","thyroid_dysfunction","pregnancy","breastfeeding"],
+      "indications": [
+        "arrhythmia",
+        "atrial_fibrillation"
+      ],
+      "contraindicated_conditions": [
+        "bradycardia",
+        "severe_conduction_disorder",
+        "thyroid_dysfunction",
+        "pregnancy",
+        "breastfeeding"
+      ],
       "renal_caution": false,
       "qt_risk": true,
-      "alternatives": []
+      "alternatives": [],
+      "alternatives_fonte": "Sem substituto de classe (antiarrítmico classe III) no formulário atual."
     },
     "metoprolol": {
       "display_name": "Metoprolol",
       "active_substance": "tartarato de metoprolol",
       "therapeutic_class": "beta_bloqueante",
-      "indications": ["hypertension", "arrhythmia", "cardiovascular_prevention"],
+      "indications": [
+        "hypertension",
+        "arrhythmia",
+        "cardiovascular_prevention"
+      ],
       "contraindicated_conditions": [],
       "renal_caution": false,
       "qt_risk": false,
-      "alternatives": ["bisoprolol", "carvedilol", "atenolol"]
+      "alternatives": [
+        "bisoprolol",
+        "carvedilol",
+        "atenolol",
+        "nebivolol"
+      ],
+      "alternatives_fonte": "Norma DGS 026/2011, ponto 8 (p.2)."
     },
     "bisoprolol": {
       "display_name": "Bisoprolol",
       "active_substance": "fumarato de bisoprolol",
       "therapeutic_class": "beta_bloqueante",
-      "indications": ["hypertension"],
+      "indications": [
+        "hypertension"
+      ],
       "contraindicated_conditions": [],
       "renal_caution": true,
       "qt_risk": false,
-      "alternatives": ["metoprolol", "carvedilol", "atenolol"]
+      "alternatives": [
+        "carvedilol",
+        "metoprolol",
+        "atenolol",
+        "nebivolol"
+      ],
+      "alternatives_fonte": "Norma DGS 026/2011, ponto 8 (p.2)."
     },
     "carvedilol": {
       "display_name": "Carvedilol",
       "active_substance": "carvedilol",
       "therapeutic_class": "beta_bloqueante",
-      "indications": ["hypertension", "heart_failure"],
+      "indications": [
+        "hypertension",
+        "heart_failure"
+      ],
       "contraindicated_conditions": [],
       "renal_caution": false,
       "qt_risk": false,
-      "alternatives": ["metoprolol", "bisoprolol", "atenolol"]
+      "alternatives": [
+        "bisoprolol",
+        "metoprolol",
+        "atenolol",
+        "nebivolol"
+      ],
+      "alternatives_fonte": "Norma DGS 026/2011, ponto 8 (p.2)."
     },
     "atenolol": {
       "display_name": "Atenolol",
       "active_substance": "atenolol",
       "therapeutic_class": "beta_bloqueante",
-      "indications": ["hypertension", "arrhythmia", "cardiovascular_prevention"],
+      "indications": [
+        "hypertension",
+        "arrhythmia",
+        "cardiovascular_prevention"
+      ],
       "contraindicated_conditions": [],
       "renal_caution": true,
       "qt_risk": false,
-      "alternatives": ["metoprolol", "bisoprolol", "carvedilol"]
+      "alternatives": [
+        "bisoprolol",
+        "carvedilol",
+        "metoprolol",
+        "nebivolol"
+      ],
+      "alternatives_fonte": "Norma DGS 026/2011, ponto 8 (p.2)."
+    },
+    "metformin": {
+      "display_name": "Metformina",
+      "active_substance": "metformina",
+      "therapeutic_class": "biguanida",
+      "indications": [
+        "diabetes"
+      ],
+      "contraindicated_conditions": [
+        "metabolic_acidosis",
+        "severe_hepatic_impairment"
+      ],
+      "renal_caution": true,
+      "qt_risk": false,
+      "alternatives": [
+        "gliclazide"
+      ],
+      "alternatives_fonte": "Norma DGS DM2 / Orientação Infarmed nº12 (CNFT): metformina é 1ª linha na DM2; sulfonilureia (gliclazida) como alternativa oral. RCM Metformina Basi, secção 4.3 (p.3): contraindicada em TFG<30 e acidose metabólica.",
+      "renal_alert_severity": "critical"
+    },
+    "gliclazide": {
+      "display_name": "Gliclazida",
+      "active_substance": "gliclazida",
+      "therapeutic_class": "sulfonilureia",
+      "indications": [
+        "diabetes"
+      ],
+      "contraindicated_conditions": [
+        "severe_hepatic_impairment",
+        "sulfonamide_allergy"
+      ],
+      "renal_caution": true,
+      "qt_risk": false,
+      "alternatives": [
+        "metformin"
+      ],
+      "alternatives_fonte": "Norma DGS DM2: metformina preferível em 1ª linha; gliclazida (sulfonilureia) como opção. RCM Gliclazida Generis, secção 4.3 (p.2): contraind. insuf. renal/hepática grave, alergia a sulfamidas."
+    },
+    "amoxicillin": {
+      "display_name": "Amoxicilina",
+      "active_substance": "amoxicilina",
+      "therapeutic_class": "penicilina",
+      "indications": [
+        "infection"
+      ],
+      "contraindicated_conditions": [
+        "penicillin_hypersensitivity"
+      ],
+      "renal_caution": true,
+      "qt_risk": false,
+      "alternatives": [
+        "amoxicillin_clavulanate",
+        "azithromycin",
+        "clarithromycin"
+      ],
+      "alternatives_fonte": "Norma DGS Pneumonia (p.1/p.5): amoxicilina é 1ª linha na infeção respiratória. RCM Amoxicilina Generis, secção 4.3 (p.5): contraind. hipersensibilidade a penicilinas/beta-lactâmicos."
+    },
+    "amoxicillin_clavulanate": {
+      "display_name": "Amoxicilina + ácido clavulânico",
+      "active_substance": "amoxicilina+acido clavulanico",
+      "therapeutic_class": "penicilina",
+      "indications": [
+        "infection"
+      ],
+      "contraindicated_conditions": [
+        "penicillin_hypersensitivity",
+        "history_amoxiclav_hepatic_injury"
+      ],
+      "renal_caution": true,
+      "qt_risk": false,
+      "alternatives": [
+        "amoxicillin",
+        "azithromycin",
+        "clarithromycin"
+      ],
+      "alternatives_fonte": "Norma DGS Pneumonia (p.6): amoxicilina/clavulânico em infeções com suspeita de resistência. RCM Amox+Clav Generis, secção 4.3 (p.4): contraind. hipersensibilidade a penicilinas e antecedente de lesão hepática por amox/clav."
+    },
+    "omeprazole": {
+      "display_name": "Omeprazol",
+      "active_substance": "omeprazol",
+      "therapeutic_class": "ibp",
+      "indications": [
+        "active_gi_ulcer",
+        "gastric_protection"
+      ],
+      "contraindicated_conditions": [],
+      "renal_caution": false,
+      "qt_risk": false,
+      "alternatives": [],
+      "alternatives_fonte": "Norma DGS Úlcera Péptica; RCM Omeprazol Generis, secção 4.3 (p.6). IBP para úlcera/gastroproteção; sem outro IBP no formulário atual (pantoprazol a considerar)."
+    },
+    "tramadol": {
+      "display_name": "Tramadol",
+      "active_substance": "tramadol",
+      "therapeutic_class": "opioide",
+      "indications": [
+        "pain"
+      ],
+      "contraindicated_conditions": [
+        "acute_intoxication",
+        "uncontrolled_epilepsy",
+        "maoi_use",
+        "severe_respiratory_depression"
+      ],
+      "renal_caution": true,
+      "qt_risk": false,
+      "alternatives": [
+        "paracetamol"
+      ],
+      "alternatives_fonte": "Escada analgésica OMS, Passo II (opióide fraco; IASP FS18 p.1). RCM Tramadol Generis, secção 4.3 (p.2): contraind. intoxicação aguda e IMAO. Risco serotoninérgico/convulsivo com ISRS e tricíclicos."
+    },
+    "apixaban": {
+      "display_name": "Apixabano",
+      "active_substance": "apixabano",
+      "therapeutic_class": "anticoagulante",
+      "indications": [
+        "anticoagulation",
+        "thromboembolism_prevention",
+        "atrial_fibrillation"
+      ],
+      "contraindicated_conditions": [
+        "active_bleeding",
+        "severe_hepatic_impairment",
+        "high_bleeding_risk"
+      ],
+      "renal_caution": true,
+      "qt_risk": false,
+      "alternatives": [
+        "warfarin",
+        "acenocoumarol",
+        "enoxaparin"
+      ],
+      "alternatives_fonte": "RCM Apixabano (Eliquis), secção 4.3 (p.7): contraind. hemorragia ativa e doença hepática com coagulopatia. DOAC como alternativa aos AVK (menos interações alimentares/medicamentosas). Classe 'anticoagulante' herda a regra AINE+anticoagulante."
+    },
+    "enoxaparin": {
+      "display_name": "Enoxaparina",
+      "active_substance": "enoxaparina sodica",
+      "therapeutic_class": "anticoagulante",
+      "indications": [
+        "thromboembolism_prevention",
+        "anticoagulation"
+      ],
+      "contraindicated_conditions": [
+        "active_bleeding",
+        "heparin_induced_thrombocytopenia"
+      ],
+      "renal_caution": true,
+      "qt_risk": false,
+      "alternatives": [
+        "apixaban",
+        "warfarin"
+      ],
+      "alternatives_fonte": "Norma DGS Tromboembolismo; RCM Enoxaparina (Lovenox), secção 4.3 (p.9): contraind. hemorragia ativa e trombocitopenia imunomediada (HIT)."
+    },
+    "escitalopram": {
+      "display_name": "Escitalopram",
+      "active_substance": "escitalopram",
+      "therapeutic_class": "isrs",
+      "indications": [
+        "depression",
+        "anxiety"
+      ],
+      "contraindicated_conditions": [
+        "maoi_use",
+        "qt_prolongation"
+      ],
+      "renal_caution": false,
+      "qt_risk": true,
+      "alternatives": [
+        "sertraline"
+      ],
+      "alternatives_fonte": "Norma DGS Depressão (p.9: citalopram/sertralina entre 1ª linha). ISRS alternativo à sertralina; prolongamento do QT dose-dependente (qt_risk)."
+    },
+    "nebivolol": {
+      "display_name": "Nebivolol",
+      "active_substance": "nebivolol",
+      "therapeutic_class": "beta_bloqueante",
+      "indications": [
+        "hypertension",
+        "heart_failure"
+      ],
+      "contraindicated_conditions": [
+        "severe_hepatic_impairment",
+        "acute_heart_failure",
+        "bradycardia"
+      ],
+      "renal_caution": false,
+      "qt_risk": false,
+      "alternatives": [
+        "bisoprolol",
+        "carvedilol",
+        "metoprolol",
+        "atenolol"
+      ],
+      "alternatives_fonte": "Norma DGS 026/2011, ponto 8 (p.2): beta-bloqueante vasodilatador preferível em doença coronária/IC. RCM Nebivolol Generis, secção 4.3 (p.3)."
+    },
+    "salbutamol": {
+      "display_name": "Salbutamol",
+      "active_substance": "salbutamol",
+      "therapeutic_class": "agonista_beta2_curta",
+      "indications": [
+        "asthma",
+        "bronchospasm"
+      ],
+      "contraindicated_conditions": [],
+      "renal_caution": false,
+      "qt_risk": false,
+      "alternatives": [
+        "budesonide_formoterol"
+      ],
+      "alternatives_fonte": "Norma DGS Asma/DPOC; RCM Salbutamol (Ventilan). Broncodilatador de curta ação (SABA) para alívio sintomático."
+    },
+    "budesonide_formoterol": {
+      "display_name": "Budesonida + formoterol",
+      "active_substance": "budesonida+formoterol",
+      "therapeutic_class": "corticoide_inalado_laba",
+      "indications": [
+        "asthma",
+        "copd"
+      ],
+      "contraindicated_conditions": [],
+      "renal_caution": false,
+      "qt_risk": false,
+      "alternatives": [
+        "salbutamol"
+      ],
+      "alternatives_fonte": "Norma DGS Asma/DPOC; RCM Symbicort. Corticoide inalado + LABA para controlo de manutenção."
+    },
+    "mexazolam": {
+      "display_name": "Mexazolam",
+      "active_substance": "mexazolam",
+      "therapeutic_class": "benzodiazepina",
+      "indications": ["anxiety"],
+      "contraindicated_conditions": ["severe_respiratory_insufficiency", "sleep_apnea", "myasthenia_gravis", "severe_hepatic_impairment"],
+      "renal_caution": false,
+      "qt_risk": false,
+      "alternatives": [],
+      "alternatives_fonte": "FT Mexazolam (Sedoxil), secções 4.3/4.4."
     }
   },
-
   "interaction_rules": [
     {
       "id": "aine_antiagregante_hemorragia",
@@ -358,7 +862,7 @@
       "class_a": "isrs",
       "class_b": "antidepressivo_triciclico",
       "severity": "high",
-      "description": "A associacao de antidepressivos serotoninergicos pode aumentar o risco de sindrome serotoninergia."
+      "description": "A associacao de antidepressivos serotoninergicos pode aumentar o risco de síndrome serotoninérgica."
     },
     {
       "id": "qt_risk_combination",
@@ -403,8 +907,64 @@
       "match": "class_class",
       "class_a": "beta_bloqueante",
       "class_b": "beta_bloqueante",
-      "severity": "moderate",
+      "severity": "high",
       "description": "A utilizacao concomitante de dois beta-bloqueantes representa duplicacao terapeutica e pode potenciar efeitos bradicardicos e hipotensores."
-    }
+    },
+    {
+      "id": "ibp_clopidogrel_eficacia",
+      "match": "class_drug",
+      "class_a": "ibp",
+      "medication_b": "clopidogrel",
+      "severity": "moderate",
+      "description": "Os inibidores da bomba de protões (ex.: omeprazol) podem reduzir a eficácia antiagregante do clopidogrel. Considerar IBP alternativo ou separação temporal. (Norma DGS Antiagregantes, p.11)"
+    },
+    {
+      "id": "tramadol_isrs_serotoninergico",
+      "match": "class_drug",
+      "class_a": "isrs",
+      "medication_b": "tramadol",
+      "severity": "moderate",
+      "description": "A associação de tramadol com ISRS aumenta o risco de síndrome serotoninérgica e de convulsões."
+    },
+    {
+      "id": "tramadol_triciclico_serotoninergico",
+      "match": "class_drug",
+      "class_a": "antidepressivo_triciclico",
+      "medication_b": "tramadol",
+      "severity": "moderate",
+      "description": "A associação de tramadol com antidepressivos tricíclicos aumenta o risco de síndrome serotoninérgica e de convulsões."
+    },
+    {
+      "id": "anticoagulante_duplicacao",
+      "match": "class_class",
+      "class_a": "anticoagulante",
+      "class_b": "anticoagulante",
+      "severity": "high",
+      "description": "A utilização concomitante de dois anticoagulantes (AVK, DOAC ou HBPM) aumenta marcadamente o risco hemorrágico e deve ser evitada, salvo indicação específica e monitorizada."
+    },
+    {
+      "id": "ieca_ara_duplo_bloqueio",
+      "match": "class_class",
+      "class_a": "ieca",
+      "class_b": "ara",
+      "severity": "high",
+      "description": "O duplo bloqueio do sistema renina-angiotensina (IECA + ARA) aumenta o risco de hipotensão, hipercaliemia e deterioração da função renal, sendo desaconselhado pelas guidelines (Norma DGS 026/2011)."
+    },
+    {
+      "id": "benzodiazepina_opioide_depressao",
+      "match": "class_class",
+      "class_a": "benzodiazepina",
+      "class_b": "opioide",
+      "severity": "high",
+      "description": "A associação de uma benzodiazepina com um opióide potencia a depressão do SNC e respiratória, podendo ser fatal (FT Mexazolam 4.5; RCM Tramadol 4.4)."
+    },
+    { "id": "ieca_duplicacao", "match": "class_class", "class_a": "ieca", "class_b": "ieca", "severity": "high",
+      "description": "A utilização concomitante de dois inibidores da ECA constitui duplicação terapêutica, com risco de hipotensão, hipercaliemia e lesão renal." },
+    { "id": "ara_duplicacao", "match": "class_class", "class_a": "ara", "class_b": "ara", "severity": "high",
+      "description": "A utilização concomitante de dois antagonistas dos recetores da angiotensina II constitui duplicação terapêutica, com risco de hipotensão e hipercaliemia." },
+    { "id": "estatina_duplicacao", "match": "class_class", "class_a": "estatina", "class_b": "estatina", "severity": "moderate",
+      "description": "A utilização concomitante de duas estatinas constitui duplicação terapêutica e aumenta o risco de miopatia." },
+    { "id": "isrs_duplicacao", "match": "class_class", "class_a": "isrs", "class_b": "isrs", "severity": "high",
+      "description": "A utilização concomitante de dois ISRS constitui duplicação terapêutica e aumenta o risco de síndrome serotoninérgica." }
   ]
 }

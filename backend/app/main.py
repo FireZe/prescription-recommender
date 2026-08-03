@@ -13,11 +13,16 @@ from app.schemas import (
     AlternativeEvaluation,
     LLMExplanationRequest,
     LLMExplanationResponse,
+    OutcomeRequest,
+    OutcomeResponse,
+    PendingFollowupItem,
 )
 from app.database import (
     init_db,
     save_analysis,
     save_feedback,
+    save_outcome,
+    get_pending_followups,
     get_metrics,
     get_analysis,
 )
@@ -401,6 +406,43 @@ def submit_feedback(request: FeedbackRequest):
         saved=True,
         alternative_evaluation=alternative_evaluation,
     )
+
+@app.post("/outcome", response_model=OutcomeResponse)
+def submit_outcome(request: OutcomeRequest):
+    """Regista o desfecho clínico (longitudinal) de uma análise: o médico,
+    dias/semanas depois, indica se a prescrição resolveu, não resolveu ou
+    causou reação adversa."""
+    analysis = get_analysis(request.analysis_id)
+    if analysis is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Análise não encontrada. O desfecho deve estar associado a um analysis_id válido.",
+        )
+
+    outcome_id = str(uuid4())
+    save_outcome(
+        outcome_id=outcome_id,
+        analysis_id=request.analysis_id,
+        patient_id=analysis["patient_id"],
+        medication=request.medication,
+        outcome=request.outcome,
+        comment=request.comment,
+        analysis_created_at=analysis.get("created_at"),
+    )
+
+    return OutcomeResponse(
+        outcome_id=outcome_id,
+        analysis_id=request.analysis_id,
+        saved=True,
+    )
+
+
+@app.get("/outcomes/pending", response_model=list[PendingFollowupItem])
+def pending_followups(min_days: int = 14):
+    """Análises com pelo menos `min_days` dias e ainda sem desfecho registado
+    — serve de lembrete de follow-up para o médico."""
+    return get_pending_followups(min_days=min_days)
+
 
 @app.get("/metrics")
 def metrics():

@@ -8,7 +8,8 @@ from typing import Any, Dict, Iterable, List, Set
 
 import pandas as pd
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+import os
+BASE_DIR = Path(os.getcwd()) / "backend"
 sys.path.append(str(BASE_DIR))
 
 from app.schemas import PatientContext, MedicationLine, Alert

@@ -172,6 +172,11 @@ export default function App() {
   const [llmExplanation, setLlmExplanation] = useState(null);
   const [loadingLlmExplanation, setLoadingLlmExplanation] = useState(false);
 
+  const [outcome, setOutcome] = useState("");
+  const [outcomeResult, setOutcomeResult] = useState(null);
+  const [loadingOutcome, setLoadingOutcome] = useState(false);
+  const [pendingFollowups, setPendingFollowups] = useState([]);
+
   const selectedRecommendation = useMemo(() => {
     if (!analysisResult?.recommendations?.length) return "";
     return analysisResult.recommendations[0].medication;
@@ -235,7 +240,7 @@ export default function App() {
 
     if (analysisMode === "synthea") {
       if (!patient.patient_id.trim()) {
-        setError("No modo Synthea, indica o identificador do utente.");
+        setError("No modo Synthea, indique o identificador do utente.");
         setLoadingAnalysis(false);
         return;
       }
@@ -249,13 +254,18 @@ export default function App() {
       };
     } else {
       if (!patient.patient_id.trim()) {
-        setError("Indica o identificador do utente.");
+        setError("Indique o identificador do utente.");
         setLoadingAnalysis(false);
         return;
       }
 
-      if (!patient.age || !patient.sex || !patient.renal_status || !patient.main_problem) {
-        setError("No modo manual, preenche idade, sexo, estado renal e problema clínico principal.");
+      const missing = [];
+      if (!patient.age) missing.push("idade");
+      if (!patient.sex) missing.push("sexo");
+      if (!patient.renal_status) missing.push("estado renal");
+      if (!patient.main_problem) missing.push("problema clínico principal");
+      if (missing.length > 0) {
+        setError(`No modo manual, preencha: ${missing.join(", ")}.`);
         setLoadingAnalysis(false);
         return;
       }
@@ -337,7 +347,8 @@ export default function App() {
         : null,
       user_alternative_justification:
         feedback.userAlternativeJustification || null,
-    };
+    }; 
+    /*Foi usado min_days=0 para teste agora; Em uso real é necessário ex. min_days=14.)*/
 
     try {
       const response = await fetch(`${API_URL}/feedback`, {
@@ -362,6 +373,57 @@ export default function App() {
       setLoadingFeedback(false);
     }
   }
+
+  async function submitOutcome(outcomeValue, analysisId = null, medication = undefined) {
+    // analysisId permite registar o desfecho de um follow-up pendente (análise
+    // antiga); se não for indicado, usa a análise atualmente no ecrã.
+    const targetId = analysisId || analysisResult?.analysis_id;
+    if (!targetId) {
+      setError("Ainda não existe uma análise para associar o desfecho.");
+      return;
+    }
+    setLoadingOutcome(true);
+    setError("");
+    try {
+      const response = await fetch(`${API_URL}/outcome`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          analysis_id: targetId,
+          medication:
+            medication !== undefined
+              ? medication
+              : (feedback.recommendation || selectedRecommendation || prescription.medication || null),
+          outcome: outcomeValue,
+          comment: null,
+        }),
+      });
+      if (!response.ok) {
+        const detail = await response.text();
+        throw new Error(`Erro ao guardar desfecho: ${response.status} ${detail}`);
+      }
+      setOutcome(outcomeValue);
+      setOutcomeResult(await response.json());
+      // refresca a lista de pendentes: o follow-up registado deixa de aparecer
+      loadPendingFollowups();
+    } catch (err) {
+      setError(err.message || "Erro inesperado ao guardar desfecho.");
+    } finally {
+      setLoadingOutcome(false);
+    }
+  }
+
+  async function loadPendingFollowups() {
+    setError("");
+    try {
+      const response = await fetch(`${API_URL}/outcomes/pending?min_days=0`);
+      if (!response.ok) throw new Error("Erro ao obter follow-ups pendentes.");
+      setPendingFollowups(await response.json());
+    } catch (err) {
+      setError(err.message || "Erro ao obter follow-ups pendentes.");
+    }
+  }
+
   async function loadMetrics() {
     setLoadingMetrics(true);
     setError("");
@@ -988,7 +1050,58 @@ export default function App() {
                 )}
               </div>
             )}
+            <div className="outcomeBlock">
+              <h3>Desfecho clínico (follow-up)</h3>
+              <p className="dashboardIntro">
+                Após reavaliar o doente, registe se a prescrição resultou. Alimenta a
+                aprendizagem do sistema.
+              </p>
+              <div className="outcomeButtons">
+                <button className="secondaryButton" disabled={loadingOutcome}
+                  onClick={() => submitOutcome("resolved")}>Resolveu</button>
+                <button className="secondaryButton" disabled={loadingOutcome}
+                  onClick={() => submitOutcome("not_resolved")}>Não resolveu</button>
+                <button className="secondaryButton" disabled={loadingOutcome}
+                  onClick={() => submitOutcome("adverse_event")}>Reação adversa</button>
+              </div>
+              {outcomeResult && (
+                <p className="outcomeSaved">
+                  Desfecho "{ {resolved: "resolveu", not_resolved: "não resolveu", adverse_event: "reação adversa"}[outcome] || outcome }" registado (ID: <code>{outcomeResult.outcome_id}</code>).
+                </p>
+              )}
+            </div>
           </>
+        )}
+      </section>
+      <section className="card fullWidth">
+        <div className="cardHeader">
+          <span className="step">↻</span>
+          <h2>Follow-ups pendentes</h2>
+        </div>
+        <p className="dashboardIntro">
+          Análises ainda sem desfecho registado. Reabra uma para registar se resultou.
+        </p>
+        <button className="secondaryButton" onClick={loadPendingFollowups}>
+          Atualizar lista
+        </button>
+        {pendingFollowups.length === 0 ? (
+          <p className="emptyState">Sem follow-ups pendentes.</p>
+        ) : (
+          <ul className="list">
+            {pendingFollowups.map((item) => (
+              <li key={item.analysis_id}>
+                <code>{item.analysis_id.slice(0, 8)}</code> — doente {item.patient_id} — há {item.days_elapsed} dia(s)
+                <div className="outcomeButtons">
+                  <button className="secondaryButton" disabled={loadingOutcome}
+                    onClick={() => submitOutcome("resolved", item.analysis_id, null)}>Resolveu</button>
+                  <button className="secondaryButton" disabled={loadingOutcome}
+                    onClick={() => submitOutcome("not_resolved", item.analysis_id, null)}>Não resolveu</button>
+                  <button className="secondaryButton" disabled={loadingOutcome}
+                    onClick={() => submitOutcome("adverse_event", item.analysis_id, null)}>Reação adversa</button>
+                </div>
+              </li>
+            ))}
+          </ul>
         )}
       </section>
       <section className="card fullWidth">

@@ -1,0 +1,14 @@
+{
+  "trained_at": "2026-06-04T00:16:00.752201+00:00",
+  "n_rows": 4781015,
+  "base_model_file": "ranking_model.joblib",
+  "n_splits": 10,
+  "meta_learner_macro_f1_holdout": 0.8476632484348925,
+  "meta_learner_coefficients": {
+    "class_0": {
+      "heuristic_proxy": 0.35511270765220254,
+      "prob_class_1": 3.885715627910199,
+      "prob_class_0": -3.2237308402806173
+    }
+  }
+}

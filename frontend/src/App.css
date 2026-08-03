@@ -592,3 +592,9 @@ textarea:disabled {
   opacity: 0.75;
   font-style: italic;
 }
+
+.outcomeButtons { 
+  display: flex; 
+  gap: 8px; 
+  flex-wrap: wrap; 
+}

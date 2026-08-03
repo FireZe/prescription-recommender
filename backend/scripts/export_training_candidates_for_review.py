@@ -4,7 +4,8 @@ import argparse
 import pandas as pd
 
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+import os
+BASE_DIR = Path(os.getcwd()) / "backend"
 
 AUDIT_INPUT_PATH = BASE_DIR / "data" / "training_examples_audit.csv"
 REVIEW_OUTPUT_PATH = BASE_DIR / "data" / "training_candidates_for_review.csv"

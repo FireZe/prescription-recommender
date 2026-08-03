@@ -1,0 +1,9 @@
+{
+  "trained_at": "2026-06-03T23:47:26.132756+00:00",
+  "n_examples": 4781015,
+  "n_queries": 436926,
+  "best_iteration": 500,
+  "ndcg_at_3": 0.9616716099475374,
+  "ndcg_at_5": 0.9626550587945647,
+  "n_queries_evaluated": 100676
+}

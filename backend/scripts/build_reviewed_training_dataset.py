@@ -3,7 +3,8 @@ from pathlib import Path
 import pandas as pd
 
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+import os
+BASE_DIR = Path(os.getcwd()) / "backend"
 
 REVIEW_INPUT_PATH = BASE_DIR / "data" / "training_candidates_for_review.csv"
 REVIEWED_OUTPUT_PATH = BASE_DIR / "data" / "training_examples_reviewed.csv"

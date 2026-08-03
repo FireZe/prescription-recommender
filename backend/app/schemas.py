@@ -98,6 +98,26 @@ class FeedbackResponse(BaseModel):
     saved: bool
     alternative_evaluation: Optional[AlternativeEvaluation] = None
 
+class OutcomeRequest(BaseModel):
+    analysis_id: str
+    medication: Optional[str] = None
+    outcome: Literal["resolved", "not_resolved", "adverse_event"]
+    comment: Optional[str] = None
+
+
+class OutcomeResponse(BaseModel):
+    outcome_id: str
+    analysis_id: str
+    saved: bool
+
+
+class PendingFollowupItem(BaseModel):
+    analysis_id: str
+    patient_id: str
+    created_at: str
+    days_elapsed: int
+
+
 class LLMExplanationRequest(BaseModel):
     analysis_id: str
     user_question: Optional[str] = None
