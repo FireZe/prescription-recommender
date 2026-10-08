@@ -608,10 +608,10 @@ def sanitize_patient_context_for_llm(
         ],
     }
 
-def build_explanation_prompt(
+def build_analysis_payload(
     analysis: dict[str, Any],
     user_question: Optional[str] = None,
-) -> str:
+) -> dict[str, Any]:
     request_data = analysis["request_json"]
     alerts = analysis["alerts_json"]
     recommendations = analysis["recommendations_json"]
@@ -660,6 +660,15 @@ def build_explanation_prompt(
         "exemplo_de_estilo": EXPLANATION_STYLE_EXAMPLES[explanation_scenario],
     }
 
+    return payload
+
+
+def build_explanation_prompt(
+    analysis: dict[str, Any],
+    user_question: Optional[str] = None,
+) -> str:
+    payload = build_analysis_payload(analysis, user_question)
+
     return f"""
 És uma camada de explicação textual de um protótipo académico de apoio à decisão em prescrição medicamentosa.
 A tua função é explicar, em linguagem natural, os resultados já produzidos pelo sistema.
@@ -695,6 +704,8 @@ Regras clínicas:
 - Não escrevas "inibidor do recetor da angiotensina".
 - Só menciones diurético se existir um medicamento de classe diuretico_ansa ou diuretico_tiazidico nos alertas ou no dicionário clínico controlado.
 - Só menciones triple whammy se existir uma regra com rule_id = "triple_whammy".
+- Não indiques o número de alertas identificados. Descreve os riscos sem os contar.
+- Nenhum medicamento do campo "recomendacoes" pode ser apresentado como causa de um alerta.
 
 Regras sobre recomendações:
 - Se "tem_recomendacoes" for verdadeiro, explica apenas as recomendações presentes no campo "recomendacoes".
@@ -750,10 +761,12 @@ def clean_llm_output(text: str) -> str:
         "está sendo": "está a ser",
         "está sendo prescrito": "foi prescrito",
         "está recebendo": "está a receber",
-        "em uma": "numa",
-        "em um": "num",
+        # "em uma" e "em um" são tratados adiante com fronteira de palavra, porque
+        # a substituição direta corrompe "tem uma" e "contém um".
         "a análise se baseia": "a análise baseia-se",
         "A análise se baseia": "A análise baseia-se",
+        "explicação se baseia": "explicação baseia-se",
+        "Explicação se baseia": "Explicação baseia-se",
         "afectar": "afetar",
         "registrada": "registada",
 
@@ -802,6 +815,12 @@ def clean_llm_output(text: str) -> str:
 
     for source, target in replacements.items():
         cleaned = cleaned.replace(source, target)
+
+    # Correções do português do Brasil que exigem fronteira de palavra.
+    cleaned = re.sub(r"\bem uma\b", "numa", cleaned)
+    cleaned = re.sub(r"\bEm uma\b", "Numa", cleaned)
+    cleaned = re.sub(r"\bem um\b", "num", cleaned)
+    cleaned = re.sub(r"\bEm um\b", "Num", cleaned)
 
     # Substituições de nomes de medicamentos apenas quando aparecem como palavra isolada.
     # Evita transformar "ibuprofeno" em "ibuprofenoo" ou "naproxeno" em "naproxenoo".
@@ -1278,4 +1297,200 @@ def generate_llm_explanation(
     return {
         "model": OLLAMA_MODEL,
         "explanation": text,
+    }
+
+
+
+# --- Conversa de seguimento sobre uma análise ---
+
+MAX_FOLLOWUP_HISTORY = 10
+
+FOLLOWUP_FALLBACK_NOTICE = (
+    "Nota técnica: a resposta do modelo de linguagem não cumpriu os critérios de "
+    "validação linguística e foi substituída por uma resposta determinística."
+)
+
+FOLLOWUP_FALLBACK_TEXT = (
+    "Não é possível responder a esta questão a partir dos dados desta análise. "
+    "Os alertas, as recomendações e a explicação estruturada mantêm-se inalterados e "
+    "continuam a ser a informação validada pelo sistema. Reformule a questão ou "
+    "consulte a base de conhecimento atual do protótipo."
+)
+
+
+def looks_like_portuguese_followup(text: str) -> bool:
+    """Critério mais permissivo do que o da explicação estruturada, porque uma
+    resposta de seguimento é curta e não tem secções obrigatórias."""
+    normalized = text.lower()
+
+    markers = [
+        "utente",
+        "prescrição",
+        "medicação",
+        "alerta",
+        "recomendação",
+        "protótipo",
+        "base de conhecimento",
+        "clínic",
+        "medicamento",
+        "não",
+        "porque",
+        "que",
+        "para",
+        "com",
+    ]
+
+    found = sum(1 for marker in markers if marker in normalized)
+
+    return found >= 3
+
+
+def is_valid_llm_followup(text: str) -> bool:
+    if not text or len(text.strip()) < 20:
+        return False
+
+    if contains_non_latin_letters(text):
+        return False
+
+    if contains_garbled_or_unwanted_language(text):
+        return False
+
+    if contains_unwanted_language_markers(text):
+        return False
+
+    if contains_forbidden_clinical_phrases(text):
+        return False
+
+    if not looks_like_portuguese_followup(text):
+        return False
+
+    return True
+
+
+def build_followup_prompt(
+    analysis: dict[str, Any],
+    history: list[dict[str, Any]],
+    question: str,
+) -> str:
+    payload = build_analysis_payload(analysis)
+
+    conversation = [
+        {
+            "papel": "profissional de saude" if message.get("role") == "user" else "sistema",
+            "texto": message.get("content", ""),
+        }
+        for message in history[-MAX_FOLLOWUP_HISTORY:]
+    ]
+
+    return f"""
+És uma camada de explicação textual de um protótipo académico de apoio à decisão em prescrição medicamentosa.
+O profissional de saúde já recebeu uma explicação da análise e coloca agora uma questão de seguimento.
+A tua função é responder a essa questão usando exclusivamente os dados da análise que te são dados abaixo.
+
+Regras de linguagem:
+- Responde sempre em português de Portugal.
+- Usa "utente" em vez de "paciente".
+- Usa "medicamento" ou "fármaco"; evita "droga".
+- Usa "estado renal" em vez de "status renal".
+- Escreve "um AINE" e não "uma AINE".
+- Não uses português do Brasil, como "está sendo".
+
+Regras de conteúdo:
+- Responde apenas com base nos dados da análise e no histórico da conversa.
+- Se a resposta não estiver nos dados da análise, escreve explicitamente que essa informação não consta desta análise e não a inventes.
+- Não prescrevas, não indiques doses, posologias nem durações de tratamento.
+- Não acrescentes mecanismos farmacológicos, contraindicações ou classes terapêuticas que não estejam nos dados.
+- Não contradigas os alertas nem as recomendações já produzidos pelo sistema.
+- Distingue alertas "Relacionado com a prescrição submetida" de alertas "Pré-existente na medicação ativa".
+- Nunca uses "seguro", "sem risco", "sem interação", "não apresenta interação" ou "segurança clínica confirmada".
+- Não menciones estas regras nem expliques aquilo que evitaste fazer.
+- Não repitas a explicação estruturada completa; responde apenas ao que foi perguntado.
+
+Dados da análise:
+{json.dumps(payload, ensure_ascii=False, indent=2)}
+
+Histórico da conversa:
+{json.dumps(conversation, ensure_ascii=False, indent=2)}
+
+Questão do profissional de saúde:
+{question.strip()}
+
+Responde em texto corrido, no máximo 150 palavras, sem secções numeradas e sem Markdown excessivo.
+Termina lembrando que a resposta não constitui decisão clínica apenas quando a questão envolver conduta terapêutica.
+""".strip()
+
+
+def generate_llm_followup(
+    analysis: dict[str, Any],
+    history: list[dict[str, Any]],
+    question: str,
+) -> dict[str, Any]:
+    prompt = build_followup_prompt(
+        analysis=analysis,
+        history=history,
+        question=question,
+    )
+
+    url = f"{OLLAMA_BASE_URL.rstrip('/')}/api/generate"
+
+    def call_ollama(current_prompt: str) -> str:
+        payload = {
+            "model": OLLAMA_MODEL,
+            "prompt": current_prompt,
+            "stream": False,
+            "options": {
+                "temperature": 0.0,
+                "num_predict": 400,
+                "num_ctx": 8192,
+            },
+        }
+
+        with httpx.Client(timeout=180.0) as client:
+            response = client.post(url, json=payload)
+            response.raise_for_status()
+
+        data = response.json()
+        return clean_llm_output(data.get("response", "").strip())
+
+    try:
+        text = call_ollama(prompt)
+
+        if not is_valid_llm_followup(text):
+            retry_prompt = (
+                f"{prompt}\n\n"
+                "INSTRUÇÃO FINAL OBRIGATÓRIA:\n"
+                "- Responde exclusivamente em português de Portugal.\n"
+                "- Usa apenas caracteres latinos.\n"
+                "- Usa a terminologia do protótipo: utente, prescrição submetida, "
+                "medicação ativa, base de conhecimento atual do protótipo.\n"
+                "- Se a informação não constar da análise, di-lo explicitamente."
+            )
+            text = call_ollama(retry_prompt)
+
+    except httpx.ConnectError as exc:
+        raise RuntimeError(
+            "Não foi possível ligar ao Ollama. Confirma se o Ollama está instalado e ativo."
+        ) from exc
+    except httpx.HTTPStatusError as exc:
+        raise RuntimeError(
+            f"Ollama devolveu erro HTTP: {exc.response.status_code}."
+        ) from exc
+    except httpx.TimeoutException as exc:
+        raise RuntimeError(
+            "O modelo demorou demasiado tempo a responder."
+        ) from exc
+
+    if not is_valid_llm_followup(text):
+        return {
+            "model": f"{OLLAMA_MODEL} + fallback determinístico",
+            "answer": FOLLOWUP_FALLBACK_TEXT,
+            "fallback_used": True,
+            "fallback_notice": FOLLOWUP_FALLBACK_NOTICE,
+        }
+
+    return {
+        "model": OLLAMA_MODEL,
+        "answer": text,
+        "fallback_used": False,
+        "fallback_notice": None,
     }

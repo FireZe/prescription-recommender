@@ -8,7 +8,7 @@ from scripts.run_frontend_tests import HANDCRAFTED
 
 BACKEND = "http://127.0.0.1:8000"
 OLLAMA  = "http://127.0.0.1:11434/api/generate"
-MODELS  = ["qwen3:4b-instruct", "phi4-mini", "qwen2.5:3b", "llama3.2:3b", "phi3.5"]  # ajustar aos modelos
+MODELS  = ["qwen3:4b-instruct", "qwen2.5:7b-instruct", "gemma2:9b", "gemma3:4b", "llama3.2:3b", "phi4-mini:latest", "phi3.5:latest"]  # ajustar aos modelos
 
 SECOES = ["problema identificado", "motivo do alerta", "motivo da recomendação", "limitações"]
 PT_HINT = [" que ", " para ", " com ", " não ", " foi ", " uma ", " são "]

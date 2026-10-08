@@ -1,10 +1,30 @@
 from typing import List, Dict, Any, Optional, Tuple
 
 from app.schemas import PatientContext, MedicationLine, Alert
-from app.normalization import normalize_medication_id
+from app.normalization import (
+    normalize_medication_id,
+    normalize_condition_id,
+    normalize_text,
+    normalize_allergy_terms,
+)
 
 import logging
 logger = logging.getLogger(__name__)
+
+BLOCKING_SEVERITIES = {"critical", "high"}
+CAUTION_SEVERITIES  = {"moderate"}
+
+def classify_admissibility(candidate_alerts: List[Alert]) -> str:
+    """Classificação determinística de admissibilidade de um candidato
+    (nível de segurança conhecida), a partir dos seus alertas clínicos."""
+    if any("duplicacao" in (a.rule_id or "") for a in candidate_alerts):
+        return "proibido"
+    severities = {a.severity for a in candidate_alerts}
+    if severities & BLOCKING_SEVERITIES:
+        return "proibido"
+    if severities & CAUTION_SEVERITIES:
+        return "permitido_com_precaucao"
+    return "admissivel"
 
 def get_medication(kb: Dict[str, Any], med_id: str) -> Optional[Dict[str, Any]]:
     return kb.get("medications", {}).get(med_id)
@@ -107,7 +127,9 @@ def alert_involves_active_medication(
     return any(med_id in active_set for med_id in medication_ids)
 
 def has_condition(patient: PatientContext, condition: str) -> bool:
-    return condition in patient.conditions or patient.renal_status == condition
+    normalized = {normalize_condition_id(c) for c in patient.conditions}
+    return (condition in normalized) or (condition in patient.conditions) \
+           or patient.renal_status == condition
 
 
 def check_contraindications(
@@ -174,28 +196,44 @@ def check_allergies(
     if not patient.allergies:
         return alerts
 
-    allergy_text = {a.strip().lower() for a in patient.allergies if a and a.strip()}
+    allergy_text = {
+        term
+        for a in patient.allergies
+        for term in normalize_allergy_terms(a)
+    }
     allergy_ids = {nid for a in patient.allergies if (nid := normalize_medication_id(a))}
     allergen_classes = {
         c for aid in allergy_ids
         if (c := get_class(kb, aid))
     }
+    # Alergias indicadas ao nível da CLASSE (ex.: "penicilina"): contraindicação direta.
+    kb_classes = {
+        m.get("therapeutic_class")
+        for m in kb["medications"].values() if m.get("therapeutic_class")
+    }
+    named_class_allergies = {a for a in allergy_text if a in kb_classes}
 
     for med_id in prescribed_medications:
         med = get_medication(kb, med_id)
-        substance = (med.get("active_substance", "").lower() if med else "")
+        substance = (normalize_text(med.get("active_substance", "")) if med else "")
         med_class = get_class(kb, med_id)
 
+        class_direct = med_class is not None and med_class in named_class_allergies
         direta = (med_id in allergy_ids) or (med_id.lower() in allergy_text) \
-                 or (substance and substance in allergy_text)
+                 or (substance and substance in allergy_text) or class_direct
         cruzada = (not direta) and med_class is not None and med_class in allergen_classes
-
         if direta:
+            if class_direct and med_id not in allergy_ids and med_id.lower() not in allergy_text:
+                motivo = (f"pertence à classe {med_class}, registada como alergia "
+                          "do utente")
+            else:
+                motivo = "está registado como alergia do utente"
+
             alerts.append(build_alert(
                 alert_type="allergy", severity="critical",
                 medication=get_display_name(kb, med_id),
-                description=(f"{get_display_name(kb, med_id)} está registado como alergia "
-                             "do utente. A prescrição deve ser evitada."),
+                description=(f"{get_display_name(kb, med_id)} {motivo}. "
+                             "A prescrição deve ser evitada."),
                 origin="prescription_related", involves_prescribed_medication=True,
                 rule_id="allergy_conflict", medication_ids=[med_id],
             ))

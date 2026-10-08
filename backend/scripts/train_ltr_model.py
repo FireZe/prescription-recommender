@@ -5,7 +5,7 @@ Script de treino — Learning to Rank com LightGBM LambdaMART
 Aprende a ORDENAR os candidatos por relevância clínica dentro de cada
 contexto, em vez de os classificar isoladamente. Otimiza NDCG.
 
-Cada "query" é UMA admissão hospitalar (query_id gerado no extract): o modelo
+Cada "query" é o par (admissão, problema principal): o modelo
 ordena os medicamentos prescritos vs. apenas indicados para esse doente.
 Esta definição por admissão é a correta para LambdaMART e evita o limite de
 10000 linhas por query do LightGBM.
@@ -32,7 +32,7 @@ from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import ndcg_score
 
 import os
-BASE_DIR = Path(os.getcwd()) / "backend"
+BASE_DIR = Path(__file__).resolve().parents[1]
 
 MIMIC_DATA_PATH = BASE_DIR / "data" / "training_examples_mimic.csv"
 MODEL_DIR = BASE_DIR / "models"
@@ -46,6 +46,7 @@ NUMERIC_FEATURES = [
     "has_anticoagulant", "has_antiplatelet", "has_diuretic",
     "has_acei_or_arb", "has_qt_risk_medication",
     "candidate_is_nsaid",
+    "active_medication_count",
 ]
 CATEGORICAL_FEATURES = [
     "candidate", "candidate_class", "main_problem",
@@ -58,7 +59,7 @@ ALL_FEATURES = NUMERIC_FEATURES + CATEGORICAL_FEATURES
 MAX_QUERY_SIZE = 9000
 
 
-def load_and_prepare() -> tuple[pd.DataFrame, np.ndarray, np.ndarray]:
+def load_and_prepare() -> tuple[pd.DataFrame, np.ndarray, np.ndarray, np.ndarray]:
     """
     Carrega o dataset MIMIC e prepara:
     - X: features (numeric + categorical codificadas como category)
@@ -88,6 +89,9 @@ def load_and_prepare() -> tuple[pd.DataFrame, np.ndarray, np.ndarray]:
             ["age", "main_problem", "original_medication"]
         ).ngroup()
 
+    # Query = (admissão, problema terapêutico): ordenar dentro do mesmo fim clínico
+    df["query_id"] = df["query_id"].astype(str) + "|" + df["main_problem"].astype(str)
+
     # Proteção: divide qualquer query > MAX_QUERY_SIZE em sub-queries
     # (evita o erro "Number of rows exceeds upper limit of 10000").
     sub = df.groupby("query_id").cumcount() // MAX_QUERY_SIZE
@@ -111,19 +115,36 @@ def load_and_prepare() -> tuple[pd.DataFrame, np.ndarray, np.ndarray]:
     subject_ids = df["subject_id"].values
     return X, y, query_ids, subject_ids
 
-    return X, y, query_ids
+
+def _slice(X, y, query_ids, subject_ids, idx):
+    """Extrai um subconjunto mantendo as queries contiguas (requisito LightGBM)."""
+    idx = np.sort(idx)                     # preserva a ordem por query_id
+    Xs = X.iloc[idx].reset_index(drop=True)
+    qs = query_ids[idx]
+    _, groups = np.unique(qs, return_counts=True)
+    return Xs, y[idx], qs, subject_ids[idx], groups
 
 
-def train_test_split_by_group(X, y, query_ids, subject_ids, test_size=0.25):
-    splitter = GroupShuffleSplit(n_splits=1, test_size=test_size, random_state=42)
-    train_idx, test_idx = next(splitter.split(X, y, groups=subject_ids))  # split por DOENTE
-    X_train = X.iloc[train_idx].reset_index(drop=True)
-    X_test  = X.iloc[test_idx].reset_index(drop=True)
-    y_train, y_test = y[train_idx], y[test_idx]
-    q_train, q_test = query_ids[train_idx], query_ids[test_idx]
-    _, groups_train = np.unique(q_train, return_counts=True)  # grupos = admissão
-    _, groups_test  = np.unique(q_test,  return_counts=True)
-    return X_train, X_test, y_train, y_test, groups_train, groups_test
+def split_train_valid_test(X, y, query_ids, subject_ids,
+                           test_size=0.25, valid_size=0.10):
+    """Split por DOENTE em treino / validacao / teste.
+
+    A particao de validacao existe exclusivamente para o early stopping, de
+    modo a que o numero de arvores NAO seja escolhido em funcao do conjunto de
+    teste. A particao de teste e identica a obtida anteriormente (mesma
+    semente e mesma proporcao), pelo que os resultados continuam comparaveis.
+    """
+    outer = GroupShuffleSplit(n_splits=1, test_size=test_size, random_state=42)
+    dev_idx, test_idx = next(outer.split(X, y, groups=subject_ids))
+
+    inner = GroupShuffleSplit(n_splits=1, test_size=valid_size, random_state=42)
+    rel_train, rel_valid = next(
+        inner.split(X.iloc[dev_idx], y[dev_idx], groups=subject_ids[dev_idx])
+    )
+
+    return (_slice(X, y, query_ids, subject_ids, dev_idx[rel_train]),
+            _slice(X, y, query_ids, subject_ids, dev_idx[rel_valid]),
+            _slice(X, y, query_ids, subject_ids, test_idx))
 
 
 def evaluate_ndcg(
@@ -165,15 +186,20 @@ def train() -> None:
     print(f"Dataset: {len(X)} exemplos, {n_queries} queries (contextos clínicos)")
     print(f"Distribuição de labels: {dict(zip(*np.unique(y, return_counts=True)))}")
 
-    X_train, X_test, y_train, y_test, groups_train, groups_test = (
-        train_test_split_by_group(X, y, query_ids, subject_ids)
-    )
+    (X_train, y_train, q_train, s_train, groups_train), \
+        (X_valid, y_valid, q_valid, s_valid, groups_valid), \
+        (X_test, y_test, q_test, s_test, groups_test) = split_train_valid_test(
+            X, y, query_ids, subject_ids
+        )
+    print(f"Validacao: {len(X_valid)} exemplos, {len(groups_valid)} queries "
+          f"(usada apenas para early stopping)")
 
     print(f"Train: {len(X_train)} exemplos, {len(groups_train)} queries")
     print(f"Test:  {len(X_test)} exemplos, {len(groups_test)} queries")
 
     train_data = lgb.Dataset(X_train, label=y_train, group=groups_train)
-    test_data  = lgb.Dataset(X_test,  label=y_test,  group=groups_test,  reference=train_data)
+    valid_data = lgb.Dataset(X_valid, label=y_valid, group=groups_valid,
+                             reference=train_data)
 
     params = {
         "objective":      "lambdarank",
@@ -196,7 +222,7 @@ def train() -> None:
         params,
         train_data,
         num_boost_round=500,
-        valid_sets=[test_data],
+        valid_sets=[valid_data],
         callbacks=[
             lgb.early_stopping(stopping_rounds=30, verbose=True),
             lgb.log_evaluation(period=50),

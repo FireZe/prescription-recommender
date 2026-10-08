@@ -60,3 +60,26 @@ Testes/
 Thumbs.db
 .vscode/
 .idea/
+
+# --- acrescentado antes da publicacao ---
+# Ambientes virtuais (nomes usados neste projeto)
+.venv-tdc/
+backend/.venv_tdc/
+.venv*/
+backend/.venv*/
+
+# Dados de terceiros com licenca restritiva (DrugBank via TDC)
+backend/data/tdc/
+
+# Relatorios gerados automaticamente
+backend/data/frontend_test_report_*
+backend/data/Testes Frontend/
+backend/data/safety_coverage_report_*
+backend/data/backups/
+backend/data/First Review/
+
+# Lixo
+*.bak
+*.bak_antes
+tatus
+backend/models/Antigos/

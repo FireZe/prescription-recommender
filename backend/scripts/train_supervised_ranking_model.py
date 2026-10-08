@@ -14,8 +14,8 @@ quanto à probabilidade de ser uma prescrição adequada ao contexto do doente.
 Esta probabilidade é depois combinada com o score heurístico pelo
 meta-learner (train_meta_learner.py), que aprende os pesos dinamicamente.
 
-Validação sem leakage: o split treino/teste é feito por grupos (query_id =
-admissão), garantindo que linhas do mesmo doente não caem em ambos os lados.
+Validação sem leakage: o split treino/teste é feito por grupos (subject_id =
+utente), garantindo que linhas do mesmo utente não caem em ambos os lados.
 Categóricas tratadas nativamente pelo HistGB; ordinal nas árvores; OneHot +
 scaling na regressão logística.
 
@@ -46,6 +46,8 @@ from sklearn.metrics import (
     classification_report,
     confusion_matrix,
     f1_score,
+    roc_auc_score,
+    average_precision_score,
 )
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
@@ -205,20 +207,16 @@ def build_models() -> dict[str, object]:
             class_weight="balanced",
             solver="lbfgs",
         ),
-        "gradient_boosting": CalibratedClassifierCV(
-            HistGradientBoostingClassifier(
-                max_iter=300,
-                learning_rate=0.05,
-                max_leaf_nodes=31,
-                l2_regularization=1.0,
-                early_stopping=True,
-                validation_fraction=0.1,
-                class_weight="balanced",   # requer scikit-learn >= 1.2 (1.8.0 atual)
-                categorical_features="from_dtype",
-                random_state=42,
-            ),
-            method="isotonic",
-            cv=3,
+        "gradient_boosting": HistGradientBoostingClassifier(
+            max_iter=300,
+            learning_rate=0.05,
+            max_leaf_nodes=31,
+            l2_regularization=1.0,
+            early_stopping=True,
+            validation_fraction=0.1,
+            class_weight="balanced",
+            categorical_features="from_dtype",
+            random_state=42,
         ),
     }
 
@@ -259,6 +257,7 @@ def evaluate_model(
     y_test: pd.Series,
 ) -> dict:
     predictions = pipeline.predict(X_test)
+    proba = pipeline.predict_proba(X_test)[:, 1]
 
     labels_present = sorted(
         int(label)
@@ -285,6 +284,8 @@ def evaluate_model(
         "accuracy": float(accuracy_score(y_test, predictions)),
         "balanced_accuracy": float(balanced_accuracy_score(y_test, predictions)),
         "macro_f1": float(f1_score(y_test, predictions, average="macro", zero_division=0)),
+        "roc_auc": float(roc_auc_score(y_test, proba)),
+        "pr_auc": float(average_precision_score(y_test, proba)),        
         "labels": [int(label) for label in labels_present],
         "classification_report": make_json_serializable(report),
         "confusion_matrix": make_json_serializable(matrix),
@@ -352,8 +353,8 @@ def train() -> None:
     model_results = sorted(
         model_results,
         key=lambda item: (
-            item["metrics"]["macro_f1"],
-            item["metrics"]["balanced_accuracy"],
+            item["metrics"]["pr_auc"],
+            item["metrics"]["roc_auc"],
         ),
         reverse=True,
     )
@@ -404,7 +405,9 @@ def train() -> None:
             f"- {item['name']}: "
             f"macro_f1={metrics['macro_f1']:.4f}, "
             f"balanced_accuracy={metrics['balanced_accuracy']:.4f}, "
-            f"accuracy={metrics['accuracy']:.4f}"
+            f"accuracy={metrics['accuracy']:.4f}, "
+            f"roc_auc={metrics['roc_auc']:.4f}, "
+            f"pr_auc={metrics['pr_auc']:.4f}"
         )
 
     print()

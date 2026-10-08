@@ -330,6 +330,133 @@ CLINICAL_CASES = [
         "forbidden_recommendations": ["naproxen", "naproxeno"],
         "expected_notes_contains": [],
     },
+    {
+        "id": "T11",
+        "name": "Colchicina + claritromicina: alerta crítico específico suprime o genérico",
+        "payload": {
+            "patient_id": "119aedc5-bbb8-b25e-45fc-fcb88fe90698",
+            "main_problem": "gota",
+            "prescription": [
+                {
+                    "medication": "colchicina",
+                    "dose": "0.5mg",
+                    "frequency": "12/12h",
+                    "route": "oral",
+                },
+                {
+                    "medication": "claritromicina",
+                    "dose": "500mg",
+                    "frequency": "12/12h",
+                    "route": "oral",
+                },
+            ],
+        },
+        "expected_rules": [
+            {
+                "rule_id": "colchicina_claritromicina_toxicidade",
+                "severity": "critical",
+                "origin": "prescription_related",
+            }
+        ],
+        # A regra de classe cobre o mesmo par e é menos específica: o motor
+        # emite um único alerta por par, pelo que esta tem de ser suprimida.
+        "forbidden_rules": [
+            {"rule_id": "colchicina_macrolido_toxicidade"},
+        ],
+        "expected_recommendations": [],
+        "forbidden_recommendations": ["clarithromycin", "claritromicina"],
+        "expected_notes_contains": [],
+    },
+    {
+        "id": "T12",
+        "name": "Fluoxetina + metoprolol (contraindicação por inibição do CYP2D6)",
+        "payload": {
+            "patient_id": "70e4cf5c-85aa-8fc7-0bc1-b13c7b2f8567",
+            "main_problem": "depressão",
+            "prescription": [
+                {
+                    "medication": "fluoxetina",
+                    "dose": "20mg",
+                    "frequency": "24/24h",
+                    "route": "oral",
+                },
+                {
+                    "medication": "metoprolol",
+                    "dose": "50mg",
+                    "frequency": "12/12h",
+                    "route": "oral",
+                },
+            ],
+        },
+        "expected_rules": [
+            {
+                "rule_id": "fluoxetina_metoprolol_contraindicada",
+                "severity": "critical",
+                "origin": "prescription_related",
+            }
+        ],
+        "expected_recommendations": [],
+        "forbidden_recommendations": ["fluoxetine", "fluoxetina"],
+        "expected_notes_contains": [],
+    },
+    {
+        "id": "T13",
+        "name": "Omeprazol com clopidogrel ativo (substituição por pantoprazol)",
+        "payload": {
+            "patient_id": "ca1ed690-165c-ea53-85c2-1f6d87823b17",
+            "main_problem": "úlcera",
+            "prescription": [
+                {
+                    "medication": "omeprazol",
+                    "dose": "20mg",
+                    "frequency": "24/24h",
+                    "route": "oral",
+                }
+            ],
+        },
+        "expected_rules": [
+            {
+                "rule_id": "ibp_clopidogrel_eficacia",
+                "severity": "moderate",
+                "origin": "prescription_related",
+            }
+        ],
+        "expected_recommendations": ["pantoprazole"],
+        "forbidden_recommendations": ["omeprazole", "omeprazol"],
+        "expected_notes_contains": [],
+    },
+        {
+        "id": "T14",
+        "name": "Colchicina + azitromicina (regra de classe macrólido-colchicina)",
+        "payload": {
+            "patient_id": "119aedc5-bbb8-b25e-45fc-fcb88fe90698",
+            "main_problem": "gota",
+            "prescription": [
+                {
+                    "medication": "colchicina",
+                    "dose": "0.5mg",
+                    "frequency": "12/12h",
+                    "route": "oral",
+                },
+                {
+                    "medication": "azitromicina",
+                    "dose": "500mg",
+                    "frequency": "1x/dia",
+                    "route": "oral",
+                },
+            ],
+        },
+        "expected_rules": [
+            {
+                "rule_id": "colchicina_macrolido_toxicidade",
+                "severity": "high",
+                "origin": "prescription_related",
+            }
+        ],
+        "expected_recommendations": [],
+        "forbidden_recommendations": [],
+        "expected_notes_contains": [],
+    },
 ]
 
 
@@ -426,6 +553,19 @@ def validate_analysis_result(case: dict[str, Any], result: dict[str, Any]) -> li
                 f"rule_id={expected['rule_id']}, "
                 f"severity={expected.get('severity')}, "
                 f"origin={expected.get('origin')}"
+            )
+
+    for forbidden in case.get("forbidden_rules", []):
+        if has_expected_alert(
+            alerts,
+            rule_id=forbidden["rule_id"],
+            severity=forbidden.get("severity"),
+            origin=forbidden.get("origin"),
+        ):
+            failures.append(
+                "Alerta redundante presente — deveria ter sido suprimido pela "
+                "desduplicação por par de fármacos: "
+                f"rule_id={forbidden['rule_id']}"
             )
 
     for expected_rec in case.get("expected_recommendations", []):

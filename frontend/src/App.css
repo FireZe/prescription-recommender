@@ -598,3 +598,56 @@ textarea:disabled {
   gap: 8px; 
   flex-wrap: wrap; 
 }
+
+
+.llmChat {
+  margin-top: 16px;
+  border-top: 1px solid #dfe5f2;
+  padding-top: 14px;
+}
+
+.llmChat h4 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+}
+
+.llmChat textarea {
+  margin-top: 12px;
+  min-height: 56px;
+}
+
+.llmChat .secondaryButton {
+  margin-top: 10px;
+}
+
+.chatMessage {
+  margin-top: 10px;
+  border-radius: 14px;
+  padding: 12px 14px;
+  border: 1px solid #dfe5f2;
+}
+
+.chatMessage strong {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5a6475;
+  margin-bottom: 6px;
+}
+
+.chatMessage p {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.55;
+  color: #172033;
+}
+
+.chatMessageUser {
+  background: #eef2ff;
+  border-color: #c9d4f8;
+}
+
+.chatMessageAssistant {
+  background: #ffffff;
+}

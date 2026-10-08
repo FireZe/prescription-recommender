@@ -68,6 +68,47 @@ def init_db() -> None:
             )
         """)
 
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS kb_changes (
+                change_id TEXT PRIMARY KEY,
+                created_at TEXT NOT NULL,
+                change_type TEXT NOT NULL CHECK(change_type IN (
+                    'rule_added',
+                    'rule_modified',
+                    'rule_disabled',
+                    'rule_removed',
+                    'rule_reenabled',
+                    'medication_override'
+                )),
+                target_id TEXT NOT NULL,
+                author TEXT,
+                justification TEXT,
+                source_reference TEXT,
+                source_document TEXT,
+                payload_json TEXT NOT NULL,
+                validation_json TEXT NOT NULL
+            )
+        """)
+
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS llm_messages (
+                message_id TEXT PRIMARY KEY,
+                analysis_id TEXT NOT NULL,
+                turn_index INTEGER NOT NULL,
+                role TEXT NOT NULL CHECK(role IN ('user', 'assistant')),
+                content TEXT NOT NULL,
+                model TEXT,
+                fallback_used INTEGER NOT NULL DEFAULT 0,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (analysis_id) REFERENCES analyses (analysis_id)
+            )
+        """)
+
+        conn.execute("""
+            CREATE INDEX IF NOT EXISTS idx_llm_messages_analysis
+            ON llm_messages (analysis_id, turn_index)
+        """)
+
         conn.commit()
 
 
@@ -221,7 +262,8 @@ def get_pending_followups(min_days: int = 14, limit: int = 50) -> list[dict[str,
             LEFT JOIN outcomes o ON a.analysis_id = o.analysis_id
             WHERE o.outcome_id IS NULL
               AND julianday('now') - julianday(a.created_at) >= ?
-            ORDER BY a.created_at ASC
+              AND a.patient_id NOT LIKE 'H%'
+            ORDER BY a.created_at DESC
             LIMIT ?
             """,
             (min_days, limit),
@@ -321,3 +363,150 @@ def get_metrics() -> dict[str, Any]:
         "analyses_with_recommendations": analyses_with_recommendations,
         "average_response_time_ms": round(avg_response_time, 2) if avg_response_time else None,
     }
+
+
+def save_kb_change(
+    change_id: str,
+    change_type: str,
+    target_id: str,
+    payload: dict[str, Any],
+    validation: dict[str, Any],
+    author: Optional[str] = None,
+    justification: Optional[str] = None,
+    source_reference: Optional[str] = None,
+    source_document: Optional[str] = None,
+) -> None:
+    """Regista uma alteração ao conhecimento clínico, com fonte e prova de validação."""
+    with get_connection() as conn:
+        conn.execute(
+            """
+            INSERT INTO kb_changes (
+                change_id,
+                created_at,
+                change_type,
+                target_id,
+                author,
+                justification,
+                source_reference,
+                source_document,
+                payload_json,
+                validation_json
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                change_id,
+                utc_now_iso(),
+                change_type,
+                target_id,
+                author,
+                justification,
+                source_reference,
+                source_document,
+                json.dumps(payload, ensure_ascii=False),
+                json.dumps(validation, ensure_ascii=False),
+            ),
+        )
+        conn.commit()
+
+
+def get_kb_changes(limit: int = 100) -> list[dict[str, Any]]:
+    with get_connection() as conn:
+        rows = conn.execute(
+            """
+            SELECT * FROM kb_changes
+            ORDER BY created_at DESC
+            LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+
+    changes = []
+
+    for row in rows:
+        item = dict(row)
+        item["payload"] = json.loads(item.pop("payload_json"))
+        item["validation"] = json.loads(item.pop("validation_json"))
+        changes.append(item)
+
+    return changes
+
+
+def get_next_turn_index(analysis_id: str) -> int:
+    with get_connection() as conn:
+        row = conn.execute(
+            "SELECT MAX(turn_index) AS last_index FROM llm_messages WHERE analysis_id = ?",
+            (analysis_id,),
+        ).fetchone()
+
+    last_index = row["last_index"] if row else None
+
+    return 0 if last_index is None else last_index + 1
+
+
+def save_llm_message(
+    message_id: str,
+    analysis_id: str,
+    role: str,
+    content: str,
+    turn_index: Optional[int] = None,
+    model: Optional[str] = None,
+    fallback_used: bool = False,
+) -> int:
+    """Guarda um turno da conversa e devolve o índice atribuído."""
+    if turn_index is None:
+        turn_index = get_next_turn_index(analysis_id)
+
+    with get_connection() as conn:
+        conn.execute(
+            """
+            INSERT INTO llm_messages (
+                message_id,
+                analysis_id,
+                turn_index,
+                role,
+                content,
+                model,
+                fallback_used,
+                created_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                message_id,
+                analysis_id,
+                turn_index,
+                role,
+                content,
+                model,
+                1 if fallback_used else 0,
+                utc_now_iso(),
+            ),
+        )
+        conn.commit()
+
+    return turn_index
+
+
+def get_llm_messages(analysis_id: str, limit: int = 50) -> list[dict[str, Any]]:
+    with get_connection() as conn:
+        rows = conn.execute(
+            """
+            SELECT message_id, analysis_id, turn_index, role, content, model,
+                   fallback_used, created_at
+            FROM llm_messages
+            WHERE analysis_id = ?
+            ORDER BY turn_index ASC
+            LIMIT ?
+            """,
+            (analysis_id, limit),
+        ).fetchall()
+
+    messages = []
+
+    for row in rows:
+        item = dict(row)
+        item["fallback_used"] = bool(item["fallback_used"])
+        messages.append(item)
+
+    return messages

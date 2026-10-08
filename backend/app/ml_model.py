@@ -121,16 +121,16 @@ def predict_candidate_proba(features: Dict[str, Any]) -> Optional[list]:
 
 _LTR_CATS = {"candidate", "candidate_class", "main_problem"}
 
-def predict_ltr_score(features: Dict[str, Any]) -> Optional[float]:
-    """Score de relevância LTR normalizado para [0,1]. Prevê sobre NumPy
-    (categóricas convertidas em códigos) para evitar a validação pandas do LightGBM."""
+def predict_ltr_raw(features: Dict[str, Any]) -> Optional[float]:
+    """Score de relevância BRUTO do LambdaMART (sem normalização), para
+    ordenação/normalização relativa dentro de uma mesma consulta."""
     model = load_ltr_model()
     if model is None:
         return None
 
     names = model.feature_name()
-    pc = list(model.pandas_categorical or [])           # categorias guardadas no modelo
-    cat_order = [n for n in names if n in _LTR_CATS]      # ordem das categóricas
+    pc = list(model.pandas_categorical or [])
+    cat_order = [n for n in names if n in _LTR_CATS]
     cats_by_name = (
         {n: pc[i] for i, n in enumerate(cat_order)}
         if len(pc) == len(cat_order) else {}
@@ -141,71 +141,30 @@ def predict_ltr_score(features: Dict[str, Any]) -> Optional[float]:
         v = features.get(n)
         if n in _LTR_CATS:
             cats = cats_by_name.get(n, [])
-            v = cats.index(v) if v in cats else -1        # código da categoria (-1 = desconhecida)
+            v = cats.index(v) if v in cats else -1
         vals.append(float(v) if v is not None else float("nan"))
 
-    raw = float(model.predict(np.asarray([vals], dtype="float64"))[0])
-    return max(0.0, min(1.0, (raw + 2) / 6))
+    return float(model.predict(np.asarray([vals], dtype="float64"))[0])
 
+
+def predict_ltr_score(features: Dict[str, Any]) -> Optional[float]:
+    """Score LTR normalizado para [0,1] (compatibilidade)."""
+    raw = predict_ltr_raw(features)
+    if raw is None:
+        return None
+    return max(0.0, min(1.0, (raw + 2) / 6))
 
 def predict_combined_score(
     features: Dict[str, Any],
     heuristic_score: float,
 ) -> float:
-    """
-    Combina heurístico + GBT calibrado + LTR + meta-learner.
+    """Score de relevância baseado exclusivamente no LambdaMART (LTR).
 
-    Hierarquia de fallback:
-      1. Meta-learner + LTR   (ambos disponíveis)
-      2. Meta-learner apenas  (LTR indisponível)
-      3. Heurístico + GBT + LTR  (meta-learner indisponível)
-      4. Combinação clássica 70/30 (só GBT disponível)
-      5. Score heurístico puro    (nenhum modelo disponível)
+    O classificador (GBT) e o meta-learner foram removidos após avaliação
+    experimental: o LTR supera ambos e o baseline de popularidade. Degrada
+    para o score heurístico se o LTR não estiver disponível (robustez).
     """
-    ml_proba  = predict_candidate_proba(features)
     ltr_score = predict_ltr_score(features)
-    meta      = load_meta_learner()
-
-    if meta is not None and ml_proba is not None:
-        # proxy (compatível com meta treinado com 'heuristic_proxy')
-        renal         = features.get("renal_status_score", 0)
-        renal_caution = features.get("candidate_renal_caution", 0)
-        same_class    = features.get("same_therapeutic_class", 0)
-        sseg = max(0.0, 1.0
-                   - 0.4 * float(renal == 2) * float(renal_caution)
-                   - 0.2 * float(features.get("candidate_qt_risk", 0)) * float(features.get("has_qt_risk_medication", 0)))
-        sctx = max(0.0, min(1.0, 0.5
-                   + 0.35 * float(same_class)
-                   - 0.1  * float(renal == 1) * float(renal_caution)
-                   - 0.3  * float(renal == 2) * float(renal_caution)))
-        ssim = max(0.0, min(1.0, 0.5 + 0.5 * float(same_class)))
-        h_proxy = 0.45 * sseg + 0.30 * sctx + 0.20 * ssim
-
-        # adapta-se: usa 'heuristic_score' (real) ou 'heuristic_proxy' conforme o meta carregado
-        hcol = list(getattr(meta, "feature_names_in_", ["heuristic_proxy"]))[0]
-        hval = heuristic_score if hcol == "heuristic_score" else h_proxy
-        meta_X = pd.DataFrame(
-            [[hval, ml_proba[1], ml_proba[0]]],
-            columns=[hcol, "prob_class_1", "prob_class_0"],
-        )
-        meta_score = float(meta.predict_proba(meta_X)[0][1])
-        if ltr_score is not None:
-            return round(max(0.0, min(1.0, 0.20 * meta_score + 0.80 * ltr_score)), 3)
-        return round(max(0.0, min(1.0, meta_score)), 3)
-
-    # Fallback: GBT clássico
-    ml_score = predict_candidate_adequacy(features)
-
-    if ml_score is not None and ltr_score is not None:
-        return round(max(0.0, min(1.0,
-            0.50 * heuristic_score + 0.25 * ml_score + 0.25 * ltr_score)), 3)
-
-    if ml_score is not None:
-        return round(max(0.0, min(1.0,
-            0.70 * heuristic_score + 0.30 * ml_score)), 3)
-
     if ltr_score is not None:
-        return round(max(0.0, min(1.0,
-            0.70 * heuristic_score + 0.30 * ltr_score)), 3)
-
+        return round(max(0.0, min(1.0, ltr_score)), 3)
     return heuristic_score

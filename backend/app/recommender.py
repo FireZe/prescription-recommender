@@ -2,8 +2,8 @@ from typing import List, Dict, Any, Tuple
 
 from app.schemas import PatientContext, MedicationLine, Alert, Recommendation
 from app.normalization import normalize_medication_id, normalize_condition_id
-from app.rules_engine import run_safety_checks
-from app.ml_model import predict_candidate_adequacy, predict_combined_score
+from app.rules_engine import run_safety_checks, classify_admissibility
+from app.ml_model import predict_candidate_adequacy, predict_combined_score, predict_ltr_raw
 
 import logging
 logger = logging.getLogger(__name__)
@@ -235,18 +235,6 @@ def build_ml_features(
         "main_problem": patient.main_problem,
     }
 
-
-def combine_heuristic_and_ml_score(
-    heuristic_score: float,
-    ml_score: float | None,
-    ml_weight: float = 0.30,
-) -> float:
-    if ml_score is None:
-        return heuristic_score
-
-    final_score = ((1 - ml_weight) * heuristic_score) + (ml_weight * ml_score)
-    return round(max(0.0, min(1.0, final_score)), 3)
-
 def is_symptomatic_analgesic_fallback(
     candidate: str,
     patient: PatientContext,
@@ -404,9 +392,12 @@ def apply_secondary_historical_refinement(
         if len(group) > 1:
             for rec in group:
                 hist = rec.secondary_historical_score or 0.0
-                rec.score_final = round(rec.score_combined + lambda_hist * hist, 3)
-
-            refined.extend(sorted(group, key=lambda r: r.score_final, reverse=True))
+                rec.score_final = round(max(0.0, min(1.0, rec.score_combined + lambda_hist * hist)), 3)
+            # desempate determinístico: score_combined e depois padrão histórico
+            refined.extend(sorted(
+                group,
+                key=lambda r: (r.score_combined, r.secondary_historical_score or 0.0),
+                reverse=True))
         else:
             current.score_final = current.score_combined
             refined.append(current)
@@ -414,6 +405,27 @@ def apply_secondary_historical_refinement(
         i = j
 
     return refined
+
+def apply_query_relative_scaling(
+    recommendations: List[Recommendation],
+    raw_by_med: Dict[str, float],
+    floor: float = 0.0,
+) -> None:
+    """Normaliza (min-max) os scores brutos do LTR ENTRE os candidatos desta
+    consulta: o topo fica ~1,0 e os restantes proporcionalmente abaixo,
+    criando uma hierarquia visível. Com floor>0, mapeia para [floor, 1]."""
+    vals = [raw_by_med.get(r.medication) for r in recommendations
+            if raw_by_med.get(r.medication) is not None]
+    if len(vals) < 2:
+        return
+    lo, hi = min(vals), max(vals)
+    span = hi - lo
+    for r in recommendations:
+        raw = raw_by_med.get(r.medication)
+        if raw is None:
+            continue
+        norm = (raw - lo) / span if span > 1e-9 else 1.0
+        r.score_final = round(floor + (1.0 - floor) * norm, 3)
 
 def is_candidate_already_active(
     candidate: str,
@@ -461,6 +473,21 @@ def build_recommendation_notes(
         return []
 
     notes = []
+
+    # Duplicação terapêutica: a conduta indicada é suspender um dos fármacos, não substituir.
+    for alert in (alerts or []):
+        if "duplicacao" in (alert.rule_id or ""):
+            notes.append({
+                "type": "therapeutic_duplication",
+                "medication": alert.medication,
+                "description": (
+                    "Duplicação terapêutica detetada. A conduta indicada é suspender um dos "
+                    "fármacos da mesma classe; não é apropriada a substituição por outro "
+                    "fármaco da mesma classe."
+                ),
+            })
+            break
+
     active_medication_ids = set(get_active_medication_ids(patient))
     main_problem = normalize_condition_id(patient.main_problem)
 
@@ -534,6 +561,7 @@ def recommend_alternatives(
     alerts: List[Alert],
     kb: Dict[str, Any],
     historical_patterns: Dict[str, Any],
+    return_admissibility: bool = False,
 ) -> List[Recommendation]:
     logger.info(
         "recommend_alternatives: paciente=%s, prescrição=%s, problem=%s",
@@ -541,8 +569,11 @@ def recommend_alternatives(
         [line.medication for line in prescription],
         patient.main_problem,
     )
+    
+    candidate_admissibility = []  # Fase 1: classificação determinística (nível de segurança conhecida)
+
     if not prescription:
-        return []
+        return ([], candidate_admissibility) if return_admissibility else []
 
     relevant_alerts = [
         alert for alert in alerts
@@ -551,7 +582,7 @@ def recommend_alternatives(
     ]
 
     if not relevant_alerts:
-        return []
+        return ([], candidate_admissibility) if return_admissibility else []
 
     original_risk_signatures = {
         risk_signature(alert)
@@ -595,12 +626,14 @@ def recommend_alternatives(
 
         candidate_relevant_alerts = clinically_relevant_alerts(candidate_alerts)
 
-        # Não recomendar alternativa que reintroduz uma duplicação terapêutica (mesma classe)
-        if any("duplicacao" in (a.rule_id or "") for a in candidate_relevant_alerts):
-            continue
+        # Classificação determinística: proibido / permitido_com_precaucao / admissivel
+        admissibility = classify_admissibility(candidate_relevant_alerts)
+        candidate_admissibility.append(
+            {"candidate": candidate, "admissibility_class": admissibility}
+        )
 
-        # Barreira determinística: candidatos com alerta high/critical não entram.
-        if has_blocking_alert(candidate_relevant_alerts):
+        # Só os candidatos NÃO proibidos passam à fase seguinte (ordenação por ML).
+        if admissibility == "proibido":
             continue
 
         candidate_risk_signatures = {
@@ -612,6 +645,7 @@ def recommend_alternatives(
             {
                 "candidate": candidate,
                 "candidate_alerts": candidate_relevant_alerts,
+                "admissibility_class": admissibility,
                 "same_risk_as_original": bool(
                     candidate_risk_signatures & original_risk_signatures
                 ),
@@ -619,7 +653,7 @@ def recommend_alternatives(
         )
 
     if not evaluated_candidates:
-        return []
+        return ([], candidate_admissibility) if return_admissibility else []
 
     # Se existir pelo menos uma alternativa sem alertas moderados/relevantes,
     # elimina alternativas que mantêm alertas moderados.
@@ -648,6 +682,7 @@ def recommend_alternatives(
         ]
 
     recommendations = []
+    raw_by_med: Dict[str, float] = {}
 
     for item in evaluated_candidates:
         candidate = item["candidate"]
@@ -694,6 +729,8 @@ def recommend_alternatives(
             heuristic_score=score_base,
         )
 
+        raw_by_med[candidate] = predict_ltr_raw(ml_features)
+
         # Não acrescentar score técnico às razões clínicas visíveis.
         # O modelo continua a influenciar o ranking, mas não polui a interface.
 
@@ -702,14 +739,22 @@ def recommend_alternatives(
         recommendations.append(
             Recommendation(
                 medication=candidate,
+                display_name=kb["medications"][candidate].get("display_name", candidate),
                 score_heuristic=heuristic_score_before_ml,
                 score_combined=score_base,
                 score_final=score_base,
                 reasons=reasons,
                 secondary_historical_score=historical_score,
+                admissibility_class=item["admissibility_class"],
             )
         )
 
     recommendations = apply_secondary_historical_refinement(recommendations)
+    apply_query_relative_scaling(recommendations, raw_by_med, floor=0.6)
 
-    return sorted(recommendations, key=lambda r: r.score_final, reverse=True)
+    sorted_recs = sorted(
+        recommendations,
+        key=lambda r: (r.score_final, r.secondary_historical_score or 0.0),
+        reverse=True,
+    )
+    return (sorted_recs, candidate_admissibility) if return_admissibility else sorted_recs

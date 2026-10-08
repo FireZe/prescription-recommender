@@ -85,7 +85,7 @@ HANDCRAFTED = [
     ("Beta-bloqueante + amiodarona (bradicardia)", _p("H20",70,"M","arrhythmia",active=["bisoprolol"]), _rx("amiodarone"),
      "Alerta alto bradicardia."),
     ("Duplicação beta-bloqueante", _p("H21",66,"M","hypertension",active=["metoprolol"]), _rx("atenolol"),
-     "Alerta moderado duplicação."),
+     "Alerta elevado de duplicação."),
     ("Contraindicação: úlcera GI ativa", _p("H22",60,"M","pain",conditions=["active_gi_ulcer"]), _rx("naproxen"),
      "Alerta crítico de contraindicação."),
     ("AINE em insuficiência renal grave", _p("H23",75,"F","pain","severe_impairment",["renal_disease"]), _rx("ibuprofen"),

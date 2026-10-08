@@ -1,51 +1,490 @@
 {
   "active_gi_ulcer|adult|normal_renal": {
+    "omeprazole": 0.0,
+    "pantoprazole": 0.0,
     "paracetamol": 0.271
   },
+  "active_gi_ulcer|adult|renal_impairment": {
+    "omeprazole": 0.003,
+    "pantoprazole": 0.003
+  },
   "active_gi_ulcer|elderly|normal_renal": {
+    "omeprazole": 0.0,
+    "pantoprazole": 0.0,
     "paracetamol": 0.258
   },
+  "active_gi_ulcer|elderly|renal_impairment": {
+    "omeprazole": 0.002,
+    "pantoprazole": 0.002
+  },
+  "allergic_rhinitis|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.011,
+    "cetirizine": 0.001,
+    "ibuprofen": 0.015,
+    "loratadine": 0.001,
+    "paracetamol": 0.002
+  },
+  "allergic_rhinitis|adult|renal_impairment": {
+    "cetirizine": 0.01,
+    "loratadine": 0.009,
+    "paracetamol": 0.03
+  },
+  "allergic_rhinitis|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.016,
+    "cetirizine": 0.001,
+    "ibuprofen": 0.067,
+    "loratadine": 0.001,
+    "paracetamol": 0.007
+  },
+  "allergic_rhinitis|elderly|renal_impairment": {
+    "cetirizine": 0.009,
+    "loratadine": 0.009
+  },
+  "anxiety|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.009,
+    "escitalopram": 0.0,
+    "fluoxetine": 0.0,
+    "ibuprofen": 0.002,
+    "mexazolam": 0.0,
+    "naproxen": 0.045,
+    "paracetamol": 0.001,
+    "sertraline": 0.0
+  },
+  "anxiety|adult|renal_impairment": {
+    "escitalopram": 0.001,
+    "fluoxetine": 0.001,
+    "mexazolam": 0.0,
+    "sertraline": 0.001
+  },
+  "anxiety|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.045,
+    "escitalopram": 0.0,
+    "fluoxetine": 0.0,
+    "mexazolam": 0.0,
+    "paracetamol": 0.011,
+    "sertraline": 0.0
+  },
+  "anxiety|elderly|renal_impairment": {
+    "escitalopram": 0.001,
+    "fluoxetine": 0.001,
+    "mexazolam": 0.001,
+    "sertraline": 0.001
+  },
+  "arrhythmia|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.008,
+    "amiodarone": 0.0,
+    "atenolol": 0.0,
+    "ibuprofen": 0.01,
+    "metoprolol": 0.0,
+    "paracetamol": 0.002
+  },
+  "arrhythmia|adult|renal_impairment": {
+    "amiodarone": 0.003,
+    "atenolol": 0.001,
+    "metoprolol": 0.002,
+    "paracetamol": 0.059
+  },
+  "arrhythmia|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.009,
+    "amiodarone": 0.0,
+    "atenolol": 0.0,
+    "ibuprofen": 0.05,
+    "metoprolol": 0.0,
+    "paracetamol": 0.003
+  },
+  "arrhythmia|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.059,
+    "amiodarone": 0.002,
+    "atenolol": 0.001,
+    "metoprolol": 0.001,
+    "paracetamol": 0.026
+  },
+  "asthma|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "budesonide_formoterol": 0.0,
+    "ibuprofen": 0.001,
+    "naproxen": 0.013,
+    "paracetamol": 0.0,
+    "salbutamol": 0.0
+  },
+  "asthma|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.007,
+    "budesonide_formoterol": 0.001,
+    "paracetamol": 0.003,
+    "salbutamol": 0.001
+  },
+  "asthma|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "budesonide_formoterol": 0.0,
+    "ibuprofen": 0.014,
+    "paracetamol": 0.001,
+    "salbutamol": 0.0
+  },
+  "asthma|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.012,
+    "budesonide_formoterol": 0.001,
+    "paracetamol": 0.004,
+    "salbutamol": 0.001
+  },
   "atrial_fibrillation|adult|normal_renal": {
+    "acenocoumarol": 0.0,
     "acetylsalicylic_acid": 0.29,
     "amiodarone": 0.164,
+    "apixaban": 0.0,
     "digoxin": 0.231,
     "ibuprofen": 0.179,
     "paracetamol": 0.337
   },
   "atrial_fibrillation|adult|renal_impairment": {
+    "acenocoumarol": 0.0,
     "acetylsalicylic_acid": 0.4,
+    "amiodarone": 0.0,
+    "apixaban": 0.0,
+    "digoxin": 0.001,
     "paracetamol": 0.343
   },
   "atrial_fibrillation|elderly|normal_renal": {
+    "acenocoumarol": 0.0,
     "acetylsalicylic_acid": 0.275,
     "amiodarone": 0.2,
+    "apixaban": 0.0,
     "digoxin": 0.338,
     "ibuprofen": 0.071,
     "paracetamol": 0.306
   },
   "atrial_fibrillation|elderly|renal_impairment": {
+    "acenocoumarol": 0.0,
     "acetylsalicylic_acid": 0.359,
     "amiodarone": 0.292,
+    "apixaban": 0.0,
+    "digoxin": 0.0,
     "paracetamol": 0.456
+  },
+  "benign_prostatic_hyperplasia|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.002,
+    "finasteride": 0.0,
+    "ibuprofen": 0.011,
+    "naproxen": 0.043,
+    "paracetamol": 0.001,
+    "tamsulosin": 0.0
+  },
+  "benign_prostatic_hyperplasia|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.01,
+    "finasteride": 0.001,
+    "paracetamol": 0.004,
+    "tamsulosin": 0.001
+  },
+  "benign_prostatic_hyperplasia|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "finasteride": 0.0,
+    "ibuprofen": 0.012,
+    "naproxen": 0.05,
+    "paracetamol": 0.0,
+    "tamsulosin": 0.0
+  },
+  "benign_prostatic_hyperplasia|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.004,
+    "finasteride": 0.0,
+    "paracetamol": 0.001,
+    "tamsulosin": 0.0
+  },
+  "calcium_vitamin_d_deficiency|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.003,
+    "calcium_vitamin_d": 0.0,
+    "ibuprofen": 0.008,
+    "naproxen": 0.056,
+    "paracetamol": 0.001
+  },
+  "calcium_vitamin_d_deficiency|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.019,
+    "calcium_vitamin_d": 0.002,
+    "paracetamol": 0.006
+  },
+  "calcium_vitamin_d_deficiency|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.005,
+    "calcium_vitamin_d": 0.0,
+    "ibuprofen": 0.037,
+    "paracetamol": 0.002
+  },
+  "calcium_vitamin_d_deficiency|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.023,
+    "calcium_vitamin_d": 0.002,
+    "paracetamol": 0.008
+  },
+  "cardiovascular_prevention|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.0,
+    "atenolol": 0.0,
+    "atorvastatin": 0.0,
+    "clopidogrel": 0.0,
+    "ibuprofen": 0.012,
+    "metoprolol": 0.0,
+    "paracetamol": 0.001,
+    "ramipril": 0.0,
+    "simvastatin": 0.0
+  },
+  "cardiovascular_prevention|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.0,
+    "atenolol": 0.002,
+    "atorvastatin": 0.0,
+    "clopidogrel": 0.0,
+    "metoprolol": 0.002,
+    "paracetamol": 0.034,
+    "ramipril": 0.002,
+    "simvastatin": 0.0
+  },
+  "cardiovascular_prevention|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.0,
+    "atenolol": 0.0,
+    "atorvastatin": 0.0,
+    "clopidogrel": 0.0,
+    "metoprolol": 0.0,
+    "paracetamol": 0.003,
+    "ramipril": 0.0,
+    "simvastatin": 0.0
+  },
+  "cardiovascular_prevention|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.0,
+    "atenolol": 0.001,
+    "atorvastatin": 0.0,
+    "clopidogrel": 0.0,
+    "metoprolol": 0.002,
+    "ramipril": 0.003,
+    "simvastatin": 0.0
+  },
+  "copd|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "budesonide_formoterol": 0.0,
+    "ibuprofen": 0.006,
+    "naproxen": 0.036,
+    "paracetamol": 0.0
+  },
+  "copd|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.01,
+    "budesonide_formoterol": 0.001,
+    "paracetamol": 0.004
+  },
+  "copd|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "budesonide_formoterol": 0.0,
+    "ibuprofen": 0.012,
+    "paracetamol": 0.0
+  },
+  "copd|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.009,
+    "budesonide_formoterol": 0.0,
+    "paracetamol": 0.002
+  },
+  "cough|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.029,
+    "codeine": 0.001,
+    "ibuprofen": 0.033,
+    "paracetamol": 0.005
+  },
+  "cough|adult|renal_impairment": {
+    "codeine": 0.008,
+    "paracetamol": 0.034
+  },
+  "cough|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.024,
+    "codeine": 0.001,
+    "paracetamol": 0.008
+  },
+  "cough|elderly|renal_impairment": {
+    "codeine": 0.005,
+    "paracetamol": 0.067
+  },
+  "depression|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.005,
+    "amitriptyline": 0.0,
+    "escitalopram": 0.0,
+    "fluoxetine": 0.0,
+    "ibuprofen": 0.001,
+    "naproxen": 0.025,
+    "paracetamol": 0.0,
+    "sertraline": 0.0,
+    "trazodone": 0.0
+  },
+  "depression|adult|renal_impairment": {
+    "amitriptyline": 0.0,
+    "escitalopram": 0.0,
+    "fluoxetine": 0.0,
+    "sertraline": 0.0,
+    "trazodone": 0.0
+  },
+  "depression|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.029,
+    "amitriptyline": 0.0,
+    "escitalopram": 0.0,
+    "fluoxetine": 0.0,
+    "paracetamol": 0.007,
+    "sertraline": 0.0,
+    "trazodone": 0.0
+  },
+  "depression|elderly|renal_impairment": {
+    "amitriptyline": 0.0,
+    "escitalopram": 0.0,
+    "fluoxetine": 0.0,
+    "sertraline": 0.0,
+    "trazodone": 0.0
   },
   "diabetes|adult|normal_renal": {
     "acetylsalicylic_acid": 0.402,
+    "gliclazide": 0.0,
     "ibuprofen": 0.314,
+    "metformin": 0.0,
     "naproxen": 0.3,
     "paracetamol": 0.375
   },
   "diabetes|adult|renal_impairment": {
     "acetylsalicylic_acid": 0.536,
+    "gliclazide": 0.0,
+    "metformin": 0.0,
     "paracetamol": 0.446
   },
   "diabetes|elderly|normal_renal": {
     "acetylsalicylic_acid": 0.332,
+    "gliclazide": 0.0,
     "ibuprofen": 0.292,
+    "metformin": 0.0,
     "paracetamol": 0.402
   },
   "diabetes|elderly|renal_impairment": {
+    "gliclazide": 0.0,
+    "metformin": 0.0,
     "acetylsalicylic_acid": 0.457,
     "paracetamol": 0.385
+  },
+  "dyslipidemia|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.003,
+    "atorvastatin": 0.0,
+    "ibuprofen": 0.006,
+    "naproxen": 0.053,
+    "paracetamol": 0.001,
+    "simvastatin": 0.0
+  },
+  "dyslipidemia|adult|renal_impairment": {
+    "atorvastatin": 0.0,
+    "simvastatin": 0.0
+  },
+  "dyslipidemia|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.005,
+    "atorvastatin": 0.0,
+    "ibuprofen": 0.024,
+    "paracetamol": 0.002,
+    "simvastatin": 0.0
+  },
+  "dyslipidemia|elderly|renal_impairment": {
+    "atorvastatin": 0.0,
+    "simvastatin": 0.0
+  },
+  "edema|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.067,
+    "hydrochlorothiazide": 0.0,
+    "ibuprofen": 0.029,
+    "paracetamol": 0.007
+  },
+  "edema|adult|renal_impairment": {
+    "hydrochlorothiazide": 0.015
+  },
+  "edema|elderly|normal_renal": {
+    "hydrochlorothiazide": 0.001,
+    "paracetamol": 0.043
+  },
+  "edema|elderly|renal_impairment": {
+    "hydrochlorothiazide": 0.025
+  },
+  "fever|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.006,
+    "diclofenac": 0.0,
+    "ibuprofen": 0.0,
+    "naproxen": 0.0,
+    "paracetamol": 0.0
+  },
+  "fever|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.053,
+    "diclofenac": 0.003,
+    "ibuprofen": 0.003,
+    "naproxen": 0.003,
+    "paracetamol": 0.006
+  },
+  "fever|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.011,
+    "diclofenac": 0.0,
+    "ibuprofen": 0.0,
+    "naproxen": 0.0,
+    "paracetamol": 0.001
+  },
+  "fever|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.053,
+    "diclofenac": 0.003,
+    "ibuprofen": 0.003,
+    "naproxen": 0.003,
+    "paracetamol": 0.006
+  },
+  "fluid_retention|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.067,
+    "furosemide": 0.001,
+    "ibuprofen": 0.062,
+    "paracetamol": 0.008
+  },
+  "fluid_retention|adult|renal_impairment": {
+    "furosemide": 0.015
+  },
+  "fluid_retention|elderly|normal_renal": {
+    "furosemide": 0.003,
+    "paracetamol": 0.045
+  },
+  "fluid_retention|elderly|renal_impairment": {
+    "furosemide": 0.032
+  },
+  "gerd|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.005,
+    "ibuprofen": 0.002,
+    "naproxen": 0.033,
+    "pantoprazole": 0.0,
+    "paracetamol": 0.0
+  },
+  "gerd|adult|renal_impairment": {
+    "pantoprazole": 0.0
+  },
+  "gerd|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.015,
+    "ibuprofen": 0.043,
+    "pantoprazole": 0.0,
+    "paracetamol": 0.003
+  },
+  "gerd|elderly|renal_impairment": {
+    "pantoprazole": 0.0
+  },
+  "gout|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "allopurinol": 0.0,
+    "colchicine": 0.0,
+    "ibuprofen": 0.009,
+    "naproxen": 0.025,
+    "paracetamol": 0.0
+  },
+  "gout|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.003,
+    "allopurinol": 0.0,
+    "colchicine": 0.0,
+    "ibuprofen": 0.059,
+    "paracetamol": 0.001
+  },
+  "gout|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "allopurinol": 0.0,
+    "colchicine": 0.0,
+    "ibuprofen": 0.012,
+    "naproxen": 0.04,
+    "paracetamol": 0.0
+  },
+  "gout|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.002,
+    "allopurinol": 0.0,
+    "colchicine": 0.0,
+    "ibuprofen": 0.062,
+    "paracetamol": 0.001
   },
   "heart_failure|adult|normal_renal": {
     "acetylsalicylic_acid": 0.475,
@@ -56,17 +495,22 @@
     "ibuprofen": 0.15,
     "losartan": 0.228,
     "naproxen": 0.13,
+    "nebivolol": 0.0,
     "paracetamol": 0.425,
+    "ramipril": 0.0,
     "valsartan": 0.195
   },
   "heart_failure|adult|renal_impairment": {
     "acetylsalicylic_acid": 0.51,
     "carvedilol": 0.371,
     "digoxin": 0.296,
+    "enalapril": 0.0,
     "furosemide": 0.083,
     "ibuprofen": 0.231,
     "losartan": 0.325,
+    "nebivolol": 0.0,
     "paracetamol": 0.468,
+    "ramipril": 0.0,
     "valsartan": 0.273
   },
   "heart_failure|elderly|normal_renal": {
@@ -77,6 +521,7 @@
     "furosemide": 0.096,
     "ibuprofen": 0.108,
     "losartan": 0.293,
+    "nebivolol": 0.0,
     "paracetamol": 0.448,
     "ramipril": 0.2,
     "valsartan": 0.253
@@ -87,14 +532,17 @@
     "digoxin": 0.396,
     "enalapril": 0.12,
     "furosemide": 0.07,
-    "ibuprofen": 0.136,
     "losartan": 0.291,
+    "nebivolol": 0.0,
     "paracetamol": 0.485,
-    "valsartan": 0.32
+    "ramipril": 0.0,
+    "valsartan": 0.32,
+    "ibuprofen": 0.136
   },
   "hypertension|adult|normal_renal": {
     "acetylsalicylic_acid": 0.309,
     "atenolol": 0.252,
+    "bisoprolol": 0.0,
     "carvedilol": 0.272,
     "enalapril": 0.238,
     "furosemide": 0.134,
@@ -103,6 +551,7 @@
     "losartan": 0.236,
     "metoprolol": 0.215,
     "naproxen": 0.299,
+    "nebivolol": 0.0,
     "paracetamol": 0.302,
     "ramipril": 0.171,
     "valsartan": 0.287
@@ -110,18 +559,23 @@
   "hypertension|adult|renal_impairment": {
     "acetylsalicylic_acid": 0.431,
     "atenolol": 0.207,
+    "bisoprolol": 0.0,
     "carvedilol": 0.217,
+    "enalapril": 0.0,
     "furosemide": 0.132,
     "hydrochlorothiazide": 0.186,
     "ibuprofen": 0.083,
     "losartan": 0.225,
     "metoprolol": 0.322,
+    "nebivolol": 0.0,
     "paracetamol": 0.393,
+    "ramipril": 0.0,
     "valsartan": 0.326
   },
   "hypertension|elderly|normal_renal": {
     "acetylsalicylic_acid": 0.313,
     "atenolol": 0.282,
+    "bisoprolol": 0.0,
     "carvedilol": 0.233,
     "enalapril": 0.203,
     "furosemide": 0.112,
@@ -130,6 +584,7 @@
     "losartan": 0.247,
     "metoprolol": 0.209,
     "naproxen": 0.176,
+    "nebivolol": 0.0,
     "paracetamol": 0.322,
     "ramipril": 0.321,
     "valsartan": 0.256
@@ -137,73 +592,275 @@
   "hypertension|elderly|renal_impairment": {
     "acetylsalicylic_acid": 0.371,
     "atenolol": 0.196,
+    "bisoprolol": 0.0,
     "carvedilol": 0.235,
     "enalapril": 0.2,
     "furosemide": 0.126,
     "hydrochlorothiazide": 0.098,
     "losartan": 0.258,
     "metoprolol": 0.266,
+    "nebivolol": 0.0,
     "paracetamol": 0.337,
+    "ramipril": 0.0,
     "valsartan": 0.18
+  },
+  "hyperuricemia|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.062,
+    "allopurinol": 0.005,
+    "paracetamol": 0.01
+  },
+  "hyperuricemia|adult|renal_impairment": {
+    "allopurinol": 0.037
+  },
+  "hyperuricemia|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.05,
+    "allopurinol": 0.006,
+    "paracetamol": 0.01
+  },
+  "hyperuricemia|elderly|renal_impairment": {
+    "allopurinol": 0.03,
+    "paracetamol": 0.045
+  },
+  "hypothyroidism|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "ibuprofen": 0.001,
+    "levothyroxine": 0.0,
+    "naproxen": 0.015,
+    "paracetamol": 0.0
+  },
+  "hypothyroidism|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.004,
+    "ibuprofen": 0.059,
+    "levothyroxine": 0.001,
+    "paracetamol": 0.002
+  },
+  "hypothyroidism|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.0,
+    "ibuprofen": 0.004,
+    "levothyroxine": 0.0,
+    "naproxen": 0.033,
+    "paracetamol": 0.0
+  },
+  "hypothyroidism|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.003,
+    "levothyroxine": 0.0,
+    "paracetamol": 0.001
   },
   "infection|adult|normal_renal": {
     "acetylsalicylic_acid": 0.566,
+    "amoxicillin": 0.0,
+    "amoxicillin_clavulanate": 0.0,
     "azithromycin": 0.189,
+    "ciprofloxacin": 0.0,
+    "clarithromycin": 0.0,
     "ibuprofen": 0.245,
     "naproxen": 0.423,
     "paracetamol": 0.443
   },
   "infection|adult|renal_impairment": {
     "acetylsalicylic_acid": 0.65,
+    "amoxicillin": 0.0,
+    "amoxicillin_clavulanate": 0.0,
     "azithromycin": 0.207,
+    "ciprofloxacin": 0.0,
+    "clarithromycin": 0.0,
     "paracetamol": 0.596
   },
   "infection|elderly|normal_renal": {
     "acetylsalicylic_acid": 0.534,
+    "amoxicillin": 0.0,
+    "amoxicillin_clavulanate": 0.0,
     "azithromycin": 0.199,
+    "ciprofloxacin": 0.0,
+    "clarithromycin": 0.0,
     "ibuprofen": 0.224,
     "naproxen": 0.16,
     "paracetamol": 0.467
   },
   "infection|elderly|renal_impairment": {
     "acetylsalicylic_acid": 0.627,
+    "amoxicillin": 0.0,
+    "amoxicillin_clavulanate": 0.0,
     "azithromycin": 0.194,
+    "ciprofloxacin": 0.0,
+    "clarithromycin": 0.0,
     "paracetamol": 0.51
+  },
+  "inflammation|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.034,
+    "colchicine": 0.0,
+    "diclofenac": 0.0,
+    "ibuprofen": 0.0,
+    "naproxen": 0.0,
+    "paracetamol": 0.003
+  },
+  "inflammation|adult|renal_impairment": {
+    "colchicine": 0.002,
+    "diclofenac": 0.002,
+    "ibuprofen": 0.002,
+    "naproxen": 0.002
+  },
+  "inflammation|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.04,
+    "colchicine": 0.0,
+    "diclofenac": 0.0,
+    "ibuprofen": 0.0,
+    "naproxen": 0.0,
+    "paracetamol": 0.019
+  },
+  "inflammation|elderly|renal_impairment": {
+    "colchicine": 0.001,
+    "diclofenac": 0.001,
+    "ibuprofen": 0.001,
+    "naproxen": 0.001
+  },
+  "insomnia|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.067,
+    "ibuprofen": 0.029,
+    "paracetamol": 0.006,
+    "trazodone": 0.0
+  },
+  "insomnia|adult|renal_impairment": {
+    "trazodone": 0.002
+  },
+  "insomnia|elderly|normal_renal": {
+    "paracetamol": 0.027,
+    "trazodone": 0.0
+  },
+  "insomnia|elderly|renal_impairment": {
+    "trazodone": 0.002
+  },
+  "migraine_prophylaxis|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.013,
+    "amitriptyline": 0.0,
+    "ibuprofen": 0.01,
+    "naproxen": 0.062,
+    "paracetamol": 0.003
+  },
+  "migraine_prophylaxis|adult|renal_impairment": {
+    "amitriptyline": 0.006
+  },
+  "migraine_prophylaxis|elderly|normal_renal": {
+    "amitriptyline": 0.001,
+    "paracetamol": 0.045
+  },
+  "migraine_prophylaxis|elderly|renal_impairment": {
+    "amitriptyline": 0.011
   },
   "myocardial_infarction|adult|normal_renal": {
     "acetylsalicylic_acid": 0.221,
+    "ibuprofen": 0.027,
     "paracetamol": 0.198
+  },
+  "myocardial_infarction|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.053,
+    "paracetamol": 0.014
   },
   "myocardial_infarction|elderly|normal_renal": {
     "acetylsalicylic_acid": 0.311,
     "paracetamol": 0.269
   },
   "myocardial_infarction|elderly|renal_impairment": {
-    "acetylsalicylic_acid": 0.316,
-    "paracetamol": 0.579
+    "paracetamol": 0.579,
+    "acetylsalicylic_acid": 0.316
+  },
+  "neuropathic_pain|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.024,
+    "amitriptyline": 0.0,
+    "ibuprofen": 0.009,
+    "naproxen": 0.067,
+    "paracetamol": 0.002
+  },
+  "neuropathic_pain|adult|renal_impairment": {
+    "amitriptyline": 0.0
+  },
+  "neuropathic_pain|elderly|normal_renal": {
+    "amitriptyline": 0.0,
+    "paracetamol": 0.017
+  },
+  "neuropathic_pain|elderly|renal_impairment": {
+    "amitriptyline": 0.001
+  },
+  "ocd|adult|normal_renal": {
+    "fluoxetine": 0.004,
+    "paracetamol": 0.053,
+    "sertraline": 0.004
+  },
+  "ocd|elderly|normal_renal": {
+    "fluoxetine": 0.015,
+    "sertraline": 0.015
+  },
+  "osteoporosis|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.003,
+    "alendronic_acid": 0.0,
+    "calcium_vitamin_d": 0.0,
+    "ibuprofen": 0.016,
+    "paracetamol": 0.001
+  },
+  "osteoporosis|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.034,
+    "alendronic_acid": 0.002,
+    "calcium_vitamin_d": 0.002,
+    "paracetamol": 0.01
+  },
+  "osteoporosis|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "alendronic_acid": 0.0,
+    "calcium_vitamin_d": 0.0,
+    "ibuprofen": 0.01,
+    "naproxen": 0.062,
+    "paracetamol": 0.0
+  },
+  "osteoporosis|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.01,
+    "alendronic_acid": 0.001,
+    "calcium_vitamin_d": 0.001,
+    "paracetamol": 0.004
   },
   "pain|adult|normal_renal": {
     "acetylsalicylic_acid": 0.372,
+    "codeine": 0.0,
+    "colchicine": 0.0,
+    "diclofenac": 0.0,
     "ibuprofen": 0.263,
     "naproxen": 0.314,
-    "paracetamol": 0.301
+    "paracetamol": 0.301,
+    "tramadol": 0.0
   },
   "pain|adult|renal_impairment": {
     "acetylsalicylic_acid": 0.539,
-    "paracetamol": 0.366
+    "codeine": 0.0,
+    "colchicine": 0.0,
+    "diclofenac": 0.0,
+    "ibuprofen": 0.0,
+    "naproxen": 0.0,
+    "paracetamol": 0.366,
+    "tramadol": 0.0
   },
   "pain|elderly|normal_renal": {
     "acetylsalicylic_acid": 0.422,
+    "codeine": 0.0,
+    "colchicine": 0.0,
+    "diclofenac": 0.0,
     "ibuprofen": 0.198,
     "naproxen": 0.1,
-    "paracetamol": 0.343
+    "paracetamol": 0.343,
+    "tramadol": 0.0
   },
   "pain|elderly|renal_impairment": {
     "acetylsalicylic_acid": 0.503,
-    "paracetamol": 0.433
+    "codeine": 0.0,
+    "colchicine": 0.0,
+    "diclofenac": 0.0,
+    "ibuprofen": 0.0,
+    "naproxen": 0.0,
+    "paracetamol": 0.433,
+    "tramadol": 0.0
   },
   "renal_disease|adult|normal_renal": {
     "acetylsalicylic_acid": 0.41,
+    "ibuprofen": 0.008,
+    "naproxen": 0.062,
     "paracetamol": 0.33
   },
   "renal_disease|adult|renal_impairment": {
@@ -218,6 +875,58 @@
     "acetylsalicylic_acid": 0.389,
     "paracetamol": 0.357
   },
+  "stroke|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "ibuprofen": 0.02,
+    "paracetamol": 0.001
+  },
+  "stroke|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.071,
+    "paracetamol": 0.04
+  },
+  "stroke|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.002,
+    "paracetamol": 0.001
+  },
+  "stroke|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.04,
+    "paracetamol": 0.024
+  },
+  "thromboembolism_prevention|adult|normal_renal": {
+    "acenocoumarol": 0.0,
+    "acetylsalicylic_acid": 0.002,
+    "apixaban": 0.0,
+    "enoxaparin": 0.0,
+    "ibuprofen": 0.004,
+    "naproxen": 0.029,
+    "paracetamol": 0.0,
+    "warfarin": 0.0
+  },
+  "thromboembolism_prevention|adult|renal_impairment": {
+    "acenocoumarol": 0.001,
+    "acetylsalicylic_acid": 0.018,
+    "apixaban": 0.001,
+    "enoxaparin": 0.0,
+    "paracetamol": 0.005,
+    "warfarin": 0.0
+  },
+  "thromboembolism_prevention|elderly|normal_renal": {
+    "acenocoumarol": 0.0,
+    "acetylsalicylic_acid": 0.004,
+    "apixaban": 0.0,
+    "enoxaparin": 0.0,
+    "ibuprofen": 0.026,
+    "paracetamol": 0.001,
+    "warfarin": 0.0
+  },
+  "thromboembolism_prevention|elderly|renal_impairment": {
+    "acenocoumarol": 0.001,
+    "acetylsalicylic_acid": 0.048,
+    "apixaban": 0.001,
+    "enoxaparin": 0.0,
+    "paracetamol": 0.012,
+    "warfarin": 0.0
+  },
   "unspecified|adult|normal_renal": {
     "acetylsalicylic_acid": 0.281,
     "ibuprofen": 0.262,
@@ -227,7 +936,60 @@
   "unspecified|elderly|normal_renal": {
     "acetylsalicylic_acid": 0.303,
     "ibuprofen": 0.135,
-    "naproxen": 0.2,
-    "paracetamol": 0.306
+    "paracetamol": 0.306,
+    "naproxen": 0.2
+  },
+  "urinary_tract_infection|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.001,
+    "ciprofloxacin": 0.0,
+    "fosfomycin": 0.0,
+    "ibuprofen": 0.003,
+    "naproxen": 0.025,
+    "nitrofurantoin": 0.0,
+    "paracetamol": 0.0
+  },
+  "urinary_tract_infection|adult|renal_impairment": {
+    "acetylsalicylic_acid": 0.006,
+    "ciprofloxacin": 0.001,
+    "fosfomycin": 0.001,
+    "nitrofurantoin": 0.001,
+    "paracetamol": 0.002
+  },
+  "urinary_tract_infection|elderly|normal_renal": {
+    "acetylsalicylic_acid": 0.0,
+    "ciprofloxacin": 0.0,
+    "fosfomycin": 0.0,
+    "ibuprofen": 0.006,
+    "naproxen": 0.033,
+    "nitrofurantoin": 0.0,
+    "paracetamol": 0.0
+  },
+  "urinary_tract_infection|elderly|renal_impairment": {
+    "acetylsalicylic_acid": 0.003,
+    "ciprofloxacin": 0.0,
+    "fosfomycin": 0.0,
+    "nitrofurantoin": 0.0,
+    "paracetamol": 0.001
+  },
+  "urticaria|adult|normal_renal": {
+    "acetylsalicylic_acid": 0.03,
+    "cetirizine": 0.002,
+    "ibuprofen": 0.027,
+    "loratadine": 0.002,
+    "paracetamol": 0.007
+  },
+  "urticaria|adult|renal_impairment": {
+    "cetirizine": 0.029,
+    "loratadine": 0.029,
+    "paracetamol": 0.071
+  },
+  "urticaria|elderly|normal_renal": {
+    "cetirizine": 0.006,
+    "loratadine": 0.006,
+    "paracetamol": 0.024
+  },
+  "urticaria|elderly|renal_impairment": {
+    "cetirizine": 0.059,
+    "loratadine": 0.062
   }
 }

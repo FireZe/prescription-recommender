@@ -4,6 +4,9 @@ from app.schemas import PatientContext, MedicationLine
 from app.rules_engine import run_safety_checks
 from app import recommender
 from scripts.run_frontend_tests import HANDCRAFTED   # (nome, patient_dict, rx, exp)
+from app import ml_model, recommender
+ml_model.predict_ltr_score = lambda f: None      # força fallback heurístico
+recommender.predict_ltr_raw = lambda f: None
 
 BASE = Path(__file__).resolve().parents[1]
 kb   = json.loads((BASE/"data"/"knowledge_base.json").read_text(encoding="utf-8"))

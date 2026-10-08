@@ -52,6 +52,18 @@ DRUGBANK_ID = {
     "amoxicillin": "DB01060", "amoxicillin_clavulanate": "DB01060",  # amoxicilina
     "omeprazole": "DB00338", "tramadol": "DB00193", "salbutamol": "DB01001",
     "budesonide_formoterol": "DB00983",  # formoterol (componente com mais DDIs)
+    # ── Fármacos acrescentados na expansão para cuidados de saúde primários ──
+    "levothyroxine": "DB00451", "allopurinol": "DB00437",
+    "colchicine": "DB01394", "loratadine": "DB00455",
+    "cetirizine": "DB00341", "tamsulosin": "DB00706",
+    "finasteride": "DB01216", "ciprofloxacin": "DB00537",
+    "fosfomycin": "DB00828", "nitrofurantoin": "DB00698",
+    "alendronic_acid": "DB00630",
+    "calcium_vitamin_d": "DB06724",  # carbonato de cálcio (componente que medeia as interações)
+    "fluoxetine": "DB00472", "trazodone": "DB00656",
+    "diclofenac": "DB00586", "codeine": "DB00318",
+    "pantoprazole": "DB00213",
+    # mexazolam: não tem entrada no DrugBank — permanece não verificável por esta via
 }
 
 

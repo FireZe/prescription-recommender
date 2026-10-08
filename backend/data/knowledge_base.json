@@ -591,8 +591,10 @@
       "contraindicated_conditions": [],
       "renal_caution": false,
       "qt_risk": false,
-      "alternatives": [],
-      "alternatives_fonte": "Norma DGS Úlcera Péptica; RCM Omeprazol Generis, secção 4.3 (p.6). IBP para úlcera/gastroproteção; sem outro IBP no formulário atual (pantoprazol a considerar)."
+      "alternatives": [
+        "pantoprazole"
+      ],
+      "alternatives_fonte": "Norma DGS Úlcera Péptica; RCM Omeprazol Generis, secção 4.3. Pantoprazol como IBP alternativo, com menor inibição do CYP2C19 e por isso preferível quando há coprescrição de clopidogrel."
     },
     "tramadol": {
       "display_name": "Tramadol",
@@ -735,12 +737,356 @@
       "display_name": "Mexazolam",
       "active_substance": "mexazolam",
       "therapeutic_class": "benzodiazepina",
-      "indications": ["anxiety"],
-      "contraindicated_conditions": ["severe_respiratory_insufficiency", "sleep_apnea", "myasthenia_gravis", "severe_hepatic_impairment"],
+      "indications": [
+        "anxiety"
+      ],
+      "contraindicated_conditions": [
+        "severe_respiratory_insufficiency",
+        "sleep_apnea",
+        "myasthenia_gravis",
+        "severe_hepatic_impairment"
+      ],
       "renal_caution": false,
       "qt_risk": false,
       "alternatives": [],
       "alternatives_fonte": "FT Mexazolam (Sedoxil), secções 4.3/4.4."
+    },
+    "levothyroxine": {
+      "display_name": "Levotiroxina",
+      "active_substance": "levotiroxina sodica",
+      "therapeutic_class": "hormona_tiroideia",
+      "indications": [
+        "hypothyroidism"
+      ],
+      "contraindicated_conditions": [
+        "untreated_adrenal_insufficiency",
+        "untreated_thyrotoxicosis",
+        "acute_myocardial_infarction",
+        "acute_myocarditis"
+      ],
+      "renal_caution": false,
+      "qt_risk": false,
+      "alternatives": [],
+      "alternatives_fonte": "RCM Eutirox, secção 4.3. Hormona de substituição sem alternativa terapêutica de classe no formulário."
+    },
+    "allopurinol": {
+      "display_name": "Alopurinol",
+      "active_substance": "alopurinol",
+      "therapeutic_class": "inibidor_xantina_oxidase",
+      "indications": [
+        "gout",
+        "hyperuricemia"
+      ],
+      "contraindicated_conditions": [],
+      "renal_caution": true,
+      "renal_alert_severity": "moderate",
+      "qt_risk": false,
+      "alternatives": [],
+      "alternatives_fonte": "RCM Alopurinol Generis, secções 4.3 e 4.5. Hipouricemiante de manutenção sem alternativa de classe no formulário; a colchicina destina-se à crise aguda e não à redução da uricemia."
+    },
+    "colchicine": {
+      "display_name": "Colchicina",
+      "active_substance": "colchicina",
+      "therapeutic_class": "antigotoso",
+      "indications": [
+        "gout",
+        "pain",
+        "inflammation"
+      ],
+      "contraindicated_conditions": [
+        "severe_heart_failure",
+        "severe_gastrointestinal_disease",
+        "pregnancy",
+        "breastfeeding"
+      ],
+      "renal_caution": true,
+      "renal_alert_severity": "critical",
+      "qt_risk": false,
+      "alternatives": [
+        "naproxen",
+        "ibuprofen"
+      ],
+      "alternatives_fonte": "RCM Colchicine IP, secção 4.3 (contraindicada na insuficiência renal, cardíaca ou gastrointestinal grave e com inibidores da P-gp/CYP3A4 em lesão renal ou hepática). AINE como alternativa anti-inflamatória na crise aguda de gota."
+    },
+    "loratadine": {
+      "display_name": "Loratadina",
+      "active_substance": "loratadina",
+      "therapeutic_class": "anti_histaminico_h1",
+      "indications": [
+        "allergic_rhinitis",
+        "urticaria"
+      ],
+      "contraindicated_conditions": [],
+      "renal_caution": false,
+      "qt_risk": false,
+      "alternatives": [
+        "cetirizine"
+      ],
+      "alternatives_fonte": "RCM Loratadina Generis, secções 4.3 e 4.5. Anti-histamínico H1 de segunda geração; cetirizina como equivalente de classe."
+    },
+    "cetirizine": {
+      "display_name": "Cetirizina",
+      "active_substance": "dicloridrato de cetirizina",
+      "therapeutic_class": "anti_histaminico_h1",
+      "indications": [
+        "allergic_rhinitis",
+        "urticaria"
+      ],
+      "contraindicated_conditions": [
+        "piperazine_hypersensitivity"
+      ],
+      "renal_caution": true,
+      "renal_alert_severity": "high",
+      "qt_risk": false,
+      "alternatives": [
+        "loratadine"
+      ],
+      "alternatives_fonte": "RCM Cetirizina Alter, secção 4.3: contraindicada em doença renal terminal com TFGe inferior a 15 ml/min. Loratadina como equivalente de classe sem restrição renal."
+    },
+    "tamsulosin": {
+      "display_name": "Tansulosina",
+      "active_substance": "cloridrato de tansulosina",
+      "therapeutic_class": "alfa_bloqueante",
+      "indications": [
+        "benign_prostatic_hyperplasia"
+      ],
+      "contraindicated_conditions": [
+        "orthostatic_hypotension_history",
+        "severe_hepatic_impairment"
+      ],
+      "renal_caution": false,
+      "qt_risk": false,
+      "alternatives": [
+        "finasteride"
+      ],
+      "alternatives_fonte": "RCM Tansulosina Generis, secção 4.3. Finasterida como alternativa na hiperplasia benigna da próstata, com mecanismo distinto e sem efeito hipotensor."
+    },
+    "finasteride": {
+      "display_name": "Finasterida",
+      "active_substance": "finasterida",
+      "therapeutic_class": "inibidor_5_alfa_redutase",
+      "indications": [
+        "benign_prostatic_hyperplasia"
+      ],
+      "contraindicated_conditions": [
+        "pregnancy",
+        "female_patient"
+      ],
+      "renal_caution": false,
+      "qt_risk": false,
+      "alternatives": [
+        "tamsulosin"
+      ],
+      "alternatives_fonte": "RCM Finasterida Labesfal, secção 4.3 (contraindicada em mulheres e na gravidez) e 4.5 (sem interações de relevância clínica identificadas)."
+    },
+    "ciprofloxacin": {
+      "display_name": "Ciprofloxacina",
+      "active_substance": "ciprofloxacina",
+      "therapeutic_class": "fluoroquinolona",
+      "indications": [
+        "infection",
+        "urinary_tract_infection"
+      ],
+      "contraindicated_conditions": [
+        "quinolone_hypersensitivity"
+      ],
+      "renal_caution": true,
+      "renal_alert_severity": "moderate",
+      "qt_risk": true,
+      "alternatives": [
+        "fosfomycin",
+        "nitrofurantoin"
+      ],
+      "alternatives_fonte": "RCM Ciprofloxacina Generis, secções 4.3 e 4.5 (precaução com fármacos que prolongam o intervalo QT; quelação por catiões multivalentes). Fosfomicina e nitrofurantoína como alternativas na infeção urinária não complicada, sem risco QT."
+    },
+    "fosfomycin": {
+      "display_name": "Fosfomicina",
+      "active_substance": "fosfomicina trometamol",
+      "therapeutic_class": "antibacteriano_urinario",
+      "indications": [
+        "urinary_tract_infection"
+      ],
+      "contraindicated_conditions": [],
+      "renal_caution": true,
+      "renal_alert_severity": "moderate",
+      "qt_risk": false,
+      "alternatives": [
+        "nitrofurantoin",
+        "ciprofloxacin"
+      ],
+      "alternatives_fonte": "RCM Fosfomicina Generis, secções 4.3 e 4.5. Antibacteriano urinário em dose única, sem risco QT e com perfil de interações reduzido."
+    },
+    "nitrofurantoin": {
+      "display_name": "Nitrofurantoina",
+      "active_substance": "nitrofurantoina",
+      "therapeutic_class": "antibacteriano_urinario",
+      "indications": [
+        "urinary_tract_infection"
+      ],
+      "contraindicated_conditions": [
+        "g6pd_deficiency",
+        "acute_porphyria"
+      ],
+      "renal_caution": true,
+      "renal_alert_severity": "critical",
+      "qt_risk": false,
+      "alternatives": [
+        "fosfomycin",
+        "ciprofloxacin"
+      ],
+      "alternatives_fonte": "RCM Nitrofurantoina Bavifur, secção 4.3: contraindicada com eGFR inferior a 45 ml/min, na deficiencia em G6PD e na porfiria aguda. Fosfomicina como alternativa sem restricao renal equivalente."
+    },
+    "alendronic_acid": {
+      "display_name": "Acido alendronico",
+      "active_substance": "acido alendronico",
+      "therapeutic_class": "bifosfonato",
+      "indications": [
+        "osteoporosis"
+      ],
+      "contraindicated_conditions": [
+        "esophageal_disorder",
+        "hypocalcemia",
+        "unable_to_remain_upright"
+      ],
+      "renal_caution": true,
+      "renal_alert_severity": "moderate",
+      "qt_risk": false,
+      "alternatives": [],
+      "alternatives_fonte": "RCM Acido Alendronico GP, secção 4.3. Bifosfonato sem alternativa de classe no formulário."
+    },
+    "calcium_vitamin_d": {
+      "display_name": "Carbonato de calcio + colecalciferol",
+      "active_substance": "carbonato de calcio+colecalciferol",
+      "therapeutic_class": "suplemento_calcio_vitd",
+      "indications": [
+        "osteoporosis",
+        "calcium_vitamin_d_deficiency"
+      ],
+      "contraindicated_conditions": [
+        "hypercalcemia",
+        "hypercalciuria",
+        "nephrolithiasis",
+        "hypervitaminosis_d"
+      ],
+      "renal_caution": true,
+      "renal_alert_severity": "high",
+      "qt_risk": false,
+      "alternatives": [],
+      "alternatives_fonte": "RCM Ideos, secção 4.3: contraindicado na hipercalcemia, litiase calcica e insuficiencia renal grave (TFG inferior a 30 ml/min)."
+    },
+    "fluoxetine": {
+      "display_name": "Fluoxetina",
+      "active_substance": "fluoxetina",
+      "therapeutic_class": "isrs",
+      "indications": [
+        "depression",
+        "anxiety",
+        "ocd"
+      ],
+      "contraindicated_conditions": [
+        "maoi_use"
+      ],
+      "renal_caution": false,
+      "qt_risk": true,
+      "alternatives": [
+        "sertraline",
+        "escitalopram"
+      ],
+      "alternatives_fonte": "Norma DGS Depressão (ISRS em 1.ª linha). RCM Fluoxetina Generis, secção 4.3: contraindicada com IMAO irreversiveis nao seletivos e com metoprolol utilizado na insuficiencia cardiaca."
+    },
+    "trazodone": {
+      "display_name": "Trazodona",
+      "active_substance": "cloridrato de trazodona",
+      "therapeutic_class": "antidepressivo_sari",
+      "indications": [
+        "depression",
+        "insomnia"
+      ],
+      "contraindicated_conditions": [
+        "maoi_use",
+        "alcohol_intoxication",
+        "recent_myocardial_infarction"
+      ],
+      "renal_caution": false,
+      "qt_risk": true,
+      "alternatives": [
+        "sertraline",
+        "escitalopram"
+      ],
+      "alternatives_fonte": "RCM Trazodona Generis, secções 4.3 e 4.5. ISRS como alternativa antidepressiva de 1.ª linha (Norma DGS Depressão)."
+    },
+    "diclofenac": {
+      "display_name": "Diclofenac",
+      "active_substance": "diclofenac de sodio",
+      "therapeutic_class": "aine",
+      "indications": [
+        "pain",
+        "inflammation",
+        "fever"
+      ],
+      "contraindicated_conditions": [
+        "severe_hepatic_impairment",
+        "severe_heart_failure",
+        "active_gi_ulcer",
+        "active_bleeding",
+        "history_nsaid_hypersensitivity",
+        "ischemic_heart_disease",
+        "peripheral_arterial_disease",
+        "cerebrovascular_disease"
+      ],
+      "renal_caution": true,
+      "renal_alert_severity": "high",
+      "qt_risk": false,
+      "alternatives": [
+        "paracetamol",
+        "ibuprofen",
+        "naproxen",
+        "tramadol"
+      ],
+      "alternatives_fonte": "RCM Diclofenac, secção 4.3: contraindicado na insuficiencia cardiaca congestiva NYHA II-IV, doenca isquemica, arterial periferica e cerebrovascular. Escada analgesica OMS, Passo I."
+    },
+    "codeine": {
+      "display_name": "Codeina",
+      "active_substance": "fosfato de codeina",
+      "therapeutic_class": "opioide",
+      "indications": [
+        "pain",
+        "cough"
+      ],
+      "contraindicated_conditions": [
+        "copd",
+        "respiratory_depression",
+        "acute_asthma",
+        "opioid_hypersensitivity",
+        "cyp2d6_ultrarapid_metabolizer"
+      ],
+      "renal_caution": true,
+      "renal_alert_severity": "moderate",
+      "qt_risk": false,
+      "alternatives": [
+        "paracetamol",
+        "tramadol"
+      ],
+      "alternatives_fonte": "RCM Codeina Toseina, secção 4.3: contraindicada na doenca pulmonar obstrutiva cronica, depressao respiratoria e crise asmatica aguda. Escada analgesica OMS, Passo II."
+    },
+    "pantoprazole": {
+      "display_name": "Pantoprazol",
+      "active_substance": "pantoprazol",
+      "therapeutic_class": "ibp",
+      "indications": [
+        "active_gi_ulcer",
+        "gastric_protection",
+        "gerd"
+      ],
+      "contraindicated_conditions": [
+        "benzimidazole_hypersensitivity"
+      ],
+      "renal_caution": false,
+      "qt_risk": false,
+      "alternatives": [
+        "omeprazole"
+      ],
+      "alternatives_fonte": "RCM Pantoprazol Generis, secções 4.3 e 4.5. Inibidor da bomba de protoes com menor inibicao do CYP2C19 do que o omeprazol, preferivel na coprescricao com clopidogrel."
     }
   },
   "interaction_rules": [
@@ -750,7 +1096,9 @@
       "class_a": "aine",
       "class_b": "antiagregante",
       "severity": "high",
-      "description": "A associacao de um AINE com um antiagregante plaquetario aumenta o risco de hemorragia gastrointestinal."
+      "description": "A associacao de um AINE com um antiagregante plaquetario aumenta o risco de hemorragia gastrointestinal.",
+      "fonte": "RCM Ibuprofeno Generis, secção 4.5 (agentes antiagregantes plaquetários e ISRS)",
+      "documento": "Ibuprofeno Generis.pdf"
     },
     {
       "id": "aine_anticoagulante_hemorragia",
@@ -758,7 +1106,9 @@
       "class_a": "aine",
       "class_b": "anticoagulante",
       "severity": "high",
-      "description": "A associacao de um AINE com um anticoagulante aumenta o risco de hemorragia e deve ser evitada ou monitorizada."
+      "description": "A associacao de um AINE com um anticoagulante aumenta o risco de hemorragia e deve ser evitada ou monitorizada.",
+      "fonte": "RCM Ibuprofeno Generis, secção 4.5 (anticoagulantes, tais como a varfarina)",
+      "documento": "Ibuprofeno Generis.pdf"
     },
     {
       "id": "aine_aine_duplicacao",
@@ -766,7 +1116,9 @@
       "class_a": "aine",
       "class_b": "aine",
       "severity": "high",
-      "description": "A utilizacao concomitante de dois AINEs deve ser evitada devido ao aumento do risco de toxicidade gastrointestinal, renal e hemorragica."
+      "description": "A utilizacao concomitante de dois AINEs deve ser evitada devido ao aumento do risco de toxicidade gastrointestinal, renal e hemorragica.",
+      "fonte": "RCM Ibuprofeno Generis, secções 4.3 e 4.4 (ácido acetilsalicílico ou outros AINE)",
+      "documento": "Ibuprofeno Generis.pdf"
     },
     {
       "id": "aine_ieca_risco_renal",
@@ -774,7 +1126,9 @@
       "class_a": "aine",
       "class_b": "ieca",
       "severity": "moderate",
-      "description": "A associacao de AINEs com inibidores da ECA pode reduzir o efeito anti-hipertensor e aumentar o risco de deterioracao da funcao renal."
+      "description": "A associacao de AINEs com inibidores da ECA pode reduzir o efeito anti-hipertensor e aumentar o risco de deterioracao da funcao renal.",
+      "fonte": "RCM Ibuprofeno Generis, secção 4.5 (inibidor da ECA e deterioração da função renal)",
+      "documento": "Ibuprofeno Generis.pdf"
     },
     {
       "id": "aine_ara_risco_renal",
@@ -782,7 +1136,9 @@
       "class_a": "aine",
       "class_b": "ara",
       "severity": "moderate",
-      "description": "A associacao de AINEs com antagonistas dos recetores da angiotensina II pode reduzir o efeito anti-hipertensor e aumentar o risco de agravamento da funcao renal."
+      "description": "A associacao de AINEs com antagonistas dos recetores da angiotensina II pode reduzir o efeito anti-hipertensor e aumentar o risco de agravamento da funcao renal.",
+      "fonte": "RCM Ibuprofeno Generis, secção 4.5 (antagonista da angiotensina II e deterioração da função renal)",
+      "documento": "Ibuprofeno Generis.pdf"
     },
     {
       "id": "aine_diuretico_risco_renal",
@@ -790,7 +1146,9 @@
       "class_a": "aine",
       "class_b": "diuretico_ansa",
       "severity": "moderate",
-      "description": "A associacao de AINEs com diureticos pode atenuar o efeito diuretico e aumentar o risco de compromisso renal."
+      "description": "A associacao de AINEs com diureticos pode atenuar o efeito diuretico e aumentar o risco de compromisso renal.",
+      "fonte": "RCM Ibuprofeno Generis, secção 4.5 (anti-hipertensores, beta-bloqueantes e diuréticos)",
+      "documento": "Ibuprofeno Generis.pdf"
     },
     {
       "id": "aine_tiazida_risco_renal",
@@ -798,7 +1156,9 @@
       "class_a": "aine",
       "class_b": "diuretico_tiazidico",
       "severity": "moderate",
-      "description": "A associacao de AINEs com diureticos tiazidicos pode reduzir a eficacia anti-hipertensora e aumentar o risco de deterioracao da funcao renal."
+      "description": "A associacao de AINEs com diureticos tiazidicos pode reduzir a eficacia anti-hipertensora e aumentar o risco de deterioracao da funcao renal.",
+      "fonte": "RCM Ibuprofeno Generis, secção 4.5 (anti-hipertensores, beta-bloqueantes e diuréticos)",
+      "documento": "Ibuprofeno Generis.pdf"
     },
     {
       "id": "sinvastatina_claritromicina_contraindicada",
@@ -806,7 +1166,9 @@
       "medication_a": "simvastatin",
       "medication_b": "clarithromycin",
       "severity": "critical",
-      "description": "A administracao concomitante de sinvastatina e claritromicina esta contraindicada devido ao aumento do risco de miopatia e rabdomiolise."
+      "description": "A administracao concomitante de sinvastatina e claritromicina esta contraindicada devido ao aumento do risco de miopatia e rabdomiolise.",
+      "fonte": "RCM Sinvastatina Generis, secção 4.3 (contraindicação com eritromicina, claritromicina e telitromicina)",
+      "documento": "Sinvastatina Generis.pdf"
     },
     {
       "id": "estatina_macrolido_miopatia",
@@ -814,7 +1176,9 @@
       "class_a": "estatina",
       "class_b": "macrolido",
       "severity": "high",
-      "description": "A associacao de estatinas com macrolidos pode aumentar o risco de miopatia ou rabdomiolise. A relevancia clinica depende do macrolido e da estatina."
+      "description": "A associacao de estatinas com macrolidos pode aumentar o risco de miopatia ou rabdomiolise. A relevancia clinica depende do macrolido e da estatina.",
+      "fonte": "RCM Sinvastatina Generis, secção 4.3 (inibidores potentes do CYP3A4)",
+      "documento": "Sinvastatina Generis.pdf"
     },
     {
       "id": "varfarina_amiodarona",
@@ -822,7 +1186,9 @@
       "medication_a": "warfarin",
       "medication_b": "amiodarone",
       "severity": "high",
-      "description": "A amiodarona pode potenciar o efeito anticoagulante da varfarina, aumentando o risco de hemorragia. Recomenda-se monitorizacao rigorosa do INR."
+      "description": "A amiodarona pode potenciar o efeito anticoagulante da varfarina, aumentando o risco de hemorragia. Recomenda-se monitorizacao rigorosa do INR.",
+      "fonte": "RCM Varfarina sódica, secção 4.5 (amiodarona)",
+      "documento": "Varfarina sódica.pdf"
     },
     {
       "id": "varfarina_macrolido",
@@ -830,7 +1196,9 @@
       "class_a": "macrolido",
       "medication_b": "warfarin",
       "severity": "high",
-      "description": "A associacao de varfarina com antibioticos macrolidos pode aumentar o efeito anticoagulante e o risco de hemorragia. Deve ser considerada monitorizacao do INR."
+      "description": "A associacao de varfarina com antibioticos macrolidos pode aumentar o efeito anticoagulante e o risco de hemorragia. Deve ser considerada monitorizacao do INR.",
+      "fonte": "RCM Varfarina sódica, secção 4.5 (eritromicina)",
+      "documento": "Varfarina sódica.pdf"
     },
     {
       "id": "sertralina_anticoagulante",
@@ -838,7 +1206,9 @@
       "class_a": "isrs",
       "class_b": "anticoagulante",
       "severity": "moderate",
-      "description": "Os ISRS podem aumentar o risco hemorragico quando associados a anticoagulantes. Deve ser ponderada monitorizacao clinica e laboratorial."
+      "description": "Os ISRS podem aumentar o risco hemorragico quando associados a anticoagulantes. Deve ser ponderada monitorizacao clinica e laboratorial.",
+      "fonte": "RCM Sertralina Generis, secções 4.4 e 4.5 (varfarina e risco hemorrágico)",
+      "documento": "Sertralina Generis.pdf"
     },
     {
       "id": "sertralina_antiagregante",
@@ -846,7 +1216,9 @@
       "class_a": "isrs",
       "class_b": "antiagregante",
       "severity": "moderate",
-      "description": "Os ISRS podem aumentar o risco de hemorragia quando associados a farmacos com efeito antiagregante plaquetario."
+      "description": "Os ISRS podem aumentar o risco de hemorragia quando associados a farmacos com efeito antiagregante plaquetario.",
+      "fonte": "RCM Sertralina Generis, secção 4.4 (fármacos com efeito na função plaquetária)",
+      "documento": "Sertralina Generis.pdf"
     },
     {
       "id": "sertralina_aine",
@@ -854,7 +1226,9 @@
       "class_a": "isrs",
       "class_b": "aine",
       "severity": "moderate",
-      "description": "A associacao de ISRS com AINEs pode aumentar o risco de hemorragia gastrointestinal."
+      "description": "A associacao de ISRS com AINEs pode aumentar o risco de hemorragia gastrointestinal.",
+      "fonte": "RCM Sertralina Generis, secção 4.4 (ácido acetilsalicílico e anti-inflamatórios não esteroides)",
+      "documento": "Sertralina Generis.pdf"
     },
     {
       "id": "serotoninergicos",
@@ -862,13 +1236,17 @@
       "class_a": "isrs",
       "class_b": "antidepressivo_triciclico",
       "severity": "high",
-      "description": "A associacao de antidepressivos serotoninergicos pode aumentar o risco de síndrome serotoninérgica."
+      "description": "A associacao de antidepressivos serotoninergicos pode aumentar o risco de síndrome serotoninérgica.",
+      "fonte": "RCM Sertralina Generis, secções 4.3 e 4.4 (síndrome serotoninérgica com antidepressivos tricíclicos e IRSN)",
+      "documento": "Sertralina Generis.pdf"
     },
     {
       "id": "qt_risk_combination",
       "match": "qt_qt",
       "severity": "high",
-      "description": "A associacao de dois farmacos com potencial de prolongamento do intervalo QT pode aumentar o risco de arritmias ventriculares, incluindo torsades de pointes."
+      "description": "A associacao de dois farmacos com potencial de prolongamento do intervalo QT pode aumentar o risco de arritmias ventriculares, incluindo torsades de pointes.",
+      "fonte": "RCM Ciprofloxacina Generis, secção 4.5 (medicamentos que prolongam o intervalo QT)",
+      "documento": "Ciprofloxacina Generis.pdf"
     },
     {
       "id": "amiodarona_digoxina",
@@ -876,7 +1254,9 @@
       "medication_a": "amiodarone",
       "medication_b": "digoxin",
       "severity": "high",
-      "description": "A amiodarona pode aumentar a exposicao a digoxina e potenciar perturbacoes de conducao. Recomenda-se monitorizacao de ECG e niveis de digoxina."
+      "description": "A amiodarona pode aumentar a exposicao a digoxina e potenciar perturbacoes de conducao. Recomenda-se monitorizacao de ECG e niveis de digoxina.",
+      "fonte": "RCM Amiodarona Generis, secção 4.5 (digoxina, monitorização de ECG e níveis plasmáticos)",
+      "documento": "Amiodarona Generis.pdf"
     },
     {
       "id": "diuretico_digoxina_hipocaliemia",
@@ -884,7 +1264,9 @@
       "class_a": "diuretico_ansa",
       "medication_b": "digoxin",
       "severity": "moderate",
-      "description": "A hipocaliemia induzida por diureticos pode aumentar o risco de toxicidade digitalica. Recomenda-se monitorizacao do potassio serico."
+      "description": "A hipocaliemia induzida por diureticos pode aumentar o risco de toxicidade digitalica. Recomenda-se monitorizacao do potassio serico.",
+      "fonte": "RCM Digoxina Lanoxin, secção 4.5 (diuréticos da ansa e monitorização dos eletrólitos séricos)",
+      "documento": "Digoxina - Lanoxin.pdf"
     },
     {
       "id": "tiazida_digoxina_hipocaliemia",
@@ -892,7 +1274,9 @@
       "class_a": "diuretico_tiazidico",
       "medication_b": "digoxin",
       "severity": "moderate",
-      "description": "A hipocaliemia associada a diureticos tiazidicos pode aumentar o risco de toxicidade por digoxina."
+      "description": "A hipocaliemia associada a diureticos tiazidicos pode aumentar o risco de toxicidade por digoxina.",
+      "fonte": "RCM Digoxina Lanoxin, secção 4.5 (hidroclorotiazida e monitorização dos eletrólitos séricos)",
+      "documento": "Digoxina - Lanoxin.pdf"
     },
     {
       "id": "beta_bloqueante_amiodarona_bradicardia",
@@ -900,7 +1284,9 @@
       "class_a": "beta_bloqueante",
       "class_b": "antiarritmico_classe_iii",
       "severity": "high",
-      "description": "A associacao de um beta-bloqueante com amiodarona pode causar bradicardia sinusal grave e perturbacoes da conducao auriculo-ventricular. Combinacao nao recomendada."
+      "description": "A associacao de um beta-bloqueante com amiodarona pode causar bradicardia sinusal grave e perturbacoes da conducao auriculo-ventricular. Combinacao nao recomendada.",
+      "fonte": "RCM Metoprolol, secção 4.5 (amiodarona)",
+      "documento": "Metoprolol - Generico.pdf"
     },
     {
       "id": "beta_bloqueante_duplicacao",
@@ -908,15 +1294,19 @@
       "class_a": "beta_bloqueante",
       "class_b": "beta_bloqueante",
       "severity": "high",
-      "description": "A utilizacao concomitante de dois beta-bloqueantes representa duplicacao terapeutica e pode potenciar efeitos bradicardicos e hipotensores."
+      "description": "A utilizacao concomitante de dois beta-bloqueantes representa duplicacao terapeutica e pode potenciar efeitos bradicardicos e hipotensores.",
+      "fonte": "Duplicação terapêutica de classe; RCM Metoprolol, secção 4.3 (outros beta-bloqueadores)",
+      "documento": "Metoprolol - Generico.pdf"
     },
     {
       "id": "ibp_clopidogrel_eficacia",
-      "match": "class_drug",
-      "class_a": "ibp",
+      "match": "drug_drug",
+      "medication_a": "omeprazole",
       "medication_b": "clopidogrel",
       "severity": "moderate",
-      "description": "Os inibidores da bomba de protões (ex.: omeprazol) podem reduzir a eficácia antiagregante do clopidogrel. Considerar IBP alternativo ou separação temporal. (Norma DGS Antiagregantes, p.11)"
+      "description": "O omeprazol inibe o CYP2C19 e pode reduzir a eficácia antiagregante do clopidogrel. Recomenda-se a substituição por pantoprazol, que exerce menor inibição desta isoenzima (Norma DGS Antiagregantes, p.11).",
+      "fonte": "Norma DGS Antiagregantes, p.11",
+      "documento": "DGS_Antiagregantes plaquetários.pdf"
     },
     {
       "id": "tramadol_isrs_serotoninergico",
@@ -924,7 +1314,9 @@
       "class_a": "isrs",
       "medication_b": "tramadol",
       "severity": "moderate",
-      "description": "A associação de tramadol com ISRS aumenta o risco de síndrome serotoninérgica e de convulsões."
+      "description": "A associação de tramadol com ISRS aumenta o risco de síndrome serotoninérgica e de convulsões.",
+      "fonte": "RCM Tramadol Generis, secção 4.5 (inibidores seletivos da recaptação de serotonina, efeito convulsivante)",
+      "documento": "Tramadol Generis.pdf"
     },
     {
       "id": "tramadol_triciclico_serotoninergico",
@@ -932,7 +1324,9 @@
       "class_a": "antidepressivo_triciclico",
       "medication_b": "tramadol",
       "severity": "moderate",
-      "description": "A associação de tramadol com antidepressivos tricíclicos aumenta o risco de síndrome serotoninérgica e de convulsões."
+      "description": "A associação de tramadol com antidepressivos tricíclicos aumenta o risco de síndrome serotoninérgica e de convulsões.",
+      "fonte": "RCM Tramadol Generis, secção 4.5 (antidepressivos tricíclicos)",
+      "documento": "Tramadol Generis.pdf"
     },
     {
       "id": "anticoagulante_duplicacao",
@@ -940,7 +1334,9 @@
       "class_a": "anticoagulante",
       "class_b": "anticoagulante",
       "severity": "high",
-      "description": "A utilização concomitante de dois anticoagulantes (AVK, DOAC ou HBPM) aumenta marcadamente o risco hemorrágico e deve ser evitada, salvo indicação específica e monitorizada."
+      "description": "A utilização concomitante de dois anticoagulantes (AVK, DOAC ou HBPM) aumenta marcadamente o risco hemorrágico e deve ser evitada, salvo indicação específica e monitorizada.",
+      "fonte": "Duplicação terapêutica de classe; Manual de Boas Práticas da DGS, Anexo VI (hipocoagulação)",
+      "documento": "DGS_Manual Boas Práticas - Anexo VI - Hipocoagulação.pdf"
     },
     {
       "id": "ieca_ara_duplo_bloqueio",
@@ -948,7 +1344,9 @@
       "class_a": "ieca",
       "class_b": "ara",
       "severity": "high",
-      "description": "O duplo bloqueio do sistema renina-angiotensina (IECA + ARA) aumenta o risco de hipotensão, hipercaliemia e deterioração da função renal, sendo desaconselhado pelas guidelines (Norma DGS 026/2011)."
+      "description": "O duplo bloqueio do sistema renina-angiotensina (IECA + ARA) aumenta o risco de hipotensão, hipercaliemia e deterioração da função renal, sendo desaconselhado pelas guidelines (Norma DGS 026/2011).",
+      "fonte": "Norma DGS 026/2011",
+      "documento": "DGS_Hipertensao_026_2011.pdf"
     },
     {
       "id": "benzodiazepina_opioide_depressao",
@@ -956,15 +1354,288 @@
       "class_a": "benzodiazepina",
       "class_b": "opioide",
       "severity": "high",
-      "description": "A associação de uma benzodiazepina com um opióide potencia a depressão do SNC e respiratória, podendo ser fatal (FT Mexazolam 4.5; RCM Tramadol 4.4)."
+      "description": "A associação de uma benzodiazepina com um opióide potencia a depressão do SNC e respiratória, podendo ser fatal (FT Mexazolam 4.5; RCM Tramadol 4.4).",
+      "fonte": "FT Mexazolam 4.5; RCM Tramadol Generis, 4.4",
+      "documento": "Tramadol Generis.pdf"
     },
-    { "id": "ieca_duplicacao", "match": "class_class", "class_a": "ieca", "class_b": "ieca", "severity": "high",
-      "description": "A utilização concomitante de dois inibidores da ECA constitui duplicação terapêutica, com risco de hipotensão, hipercaliemia e lesão renal." },
-    { "id": "ara_duplicacao", "match": "class_class", "class_a": "ara", "class_b": "ara", "severity": "high",
-      "description": "A utilização concomitante de dois antagonistas dos recetores da angiotensina II constitui duplicação terapêutica, com risco de hipotensão e hipercaliemia." },
-    { "id": "estatina_duplicacao", "match": "class_class", "class_a": "estatina", "class_b": "estatina", "severity": "moderate",
-      "description": "A utilização concomitante de duas estatinas constitui duplicação terapêutica e aumenta o risco de miopatia." },
-    { "id": "isrs_duplicacao", "match": "class_class", "class_a": "isrs", "class_b": "isrs", "severity": "high",
-      "description": "A utilização concomitante de dois ISRS constitui duplicação terapêutica e aumenta o risco de síndrome serotoninérgica." }
+    {
+      "id": "ieca_duplicacao",
+      "match": "class_class",
+      "class_a": "ieca",
+      "class_b": "ieca",
+      "severity": "high",
+      "description": "A utilização concomitante de dois inibidores da ECA constitui duplicação terapêutica, com risco de hipotensão, hipercaliemia e lesão renal.",
+      "fonte": "Duplicação terapêutica de classe; esquema terapêutico da Norma DGS 026/2011 (hipertensão arterial)",
+      "documento": "DGS_Hipertensao_026_2011.pdf"
+    },
+    {
+      "id": "ara_duplicacao",
+      "match": "class_class",
+      "class_a": "ara",
+      "class_b": "ara",
+      "severity": "high",
+      "description": "A utilização concomitante de dois antagonistas dos recetores da angiotensina II constitui duplicação terapêutica, com risco de hipotensão e hipercaliemia.",
+      "fonte": "Duplicação terapêutica de classe; esquema terapêutico da Norma DGS 026/2011 (hipertensão arterial)",
+      "documento": "DGS_Hipertensao_026_2011.pdf"
+    },
+    {
+      "id": "estatina_duplicacao",
+      "match": "class_class",
+      "class_a": "estatina",
+      "class_b": "estatina",
+      "severity": "moderate",
+      "description": "A utilização concomitante de duas estatinas constitui duplicação terapêutica e aumenta o risco de miopatia.",
+      "fonte": "Duplicação terapêutica de classe; Norma DGS sobre abordagem terapêutica das dislipidemias",
+      "documento": "DGS_Dislipidemias.pdf"
+    },
+    {
+      "id": "isrs_duplicacao",
+      "match": "class_class",
+      "class_a": "isrs",
+      "class_b": "isrs",
+      "severity": "high",
+      "description": "A utilização concomitante de dois ISRS constitui duplicação terapêutica e aumenta o risco de síndrome serotoninérgica.",
+      "fonte": "Norma DGS sobre depressão: riscos da administração simultânea de dois antidepressivos (Quadro 4)",
+      "documento": "DGS_Depressao.pdf"
+    },
+    {
+      "id": "colchicina_claritromicina_toxicidade",
+      "match": "drug_drug",
+      "medication_a": "colchicine",
+      "medication_b": "clarithromycin",
+      "severity": "critical",
+      "description": "A associação de colchicina com claritromicina está contraindicada em doentes com lesão renal ou hepática. Foram notificados casos de toxicidade grave por colchicina, incluindo casos fatais, sobretudo em idosos (RCM Colchicine IP, 4.3 e 4.4).",
+      "fonte": "RCM Colchicine IP, 4.3 e 4.4",
+      "documento": "Colchicine IP.pdf"
+    },
+    {
+      "id": "colchicina_macrolido_toxicidade",
+      "match": "class_drug",
+      "class_a": "macrolido",
+      "medication_b": "colchicine",
+      "severity": "high",
+      "description": "Os macrólidos inibem o CYP3A4 e a glicoproteína P, aumentando a exposição à colchicina e o risco de toxicidade (RCM Colchicine IP, 4.5).",
+      "fonte": "RCM Colchicine IP, 4.5",
+      "documento": "Colchicine IP.pdf"
+    },
+    {
+      "id": "colchicina_estatina_miopatia",
+      "match": "class_drug",
+      "class_a": "estatina",
+      "medication_b": "colchicine",
+      "severity": "moderate",
+      "description": "A colchicina e as estatinas partilham a via metabólica do CYP3A4, podendo a associação aumentar o risco de miopatia (RCM Colchicine IP, 4.5).",
+      "fonte": "RCM Colchicine IP, 4.5",
+      "documento": "Colchicine IP.pdf"
+    },
+    {
+      "id": "fluoxetina_metoprolol_contraindicada",
+      "match": "drug_drug",
+      "medication_a": "fluoxetine",
+      "medication_b": "metoprolol",
+      "severity": "critical",
+      "description": "A fluoxetina está contraindicada em associação com metoprolol utilizado na insuficiência cardíaca, por inibição do seu metabolismo e risco de bradicardia excessiva (RCM Fluoxetina Generis, 4.3).",
+      "fonte": "RCM Fluoxetina Generis, 4.3",
+      "documento": "Fluoxetina Generis.pdf"
+    },
+    {
+      "id": "levotiroxina_anticoagulante",
+      "match": "class_drug",
+      "class_a": "anticoagulante",
+      "medication_b": "levothyroxine",
+      "severity": "moderate",
+      "description": "A levotiroxina pode intensificar o efeito dos anticoagulantes cumarínicos por deslocação das proteínas plasmáticas, aumentando o risco hemorrágico. Recomenda-se avaliação regular dos parâmetros de coagulação (RCM Eutirox, 4.5).",
+      "fonte": "RCM Eutirox, 4.5",
+      "documento": "Levotiroxina - Eutirox.pdf"
+    },
+    {
+      "id": "levotiroxina_calcio_absorcao",
+      "match": "drug_drug",
+      "medication_a": "levothyroxine",
+      "medication_b": "calcium_vitamin_d",
+      "severity": "moderate",
+      "description": "Os sais de cálcio reduzem a absorção da levotiroxina. As tomas devem ser separadas por, pelo menos, duas horas (RCM Eutirox, 4.5; RCM Ideos, 4.5).",
+      "fonte": "RCM Eutirox, 4.5; RCM Ideos, 4.5",
+      "documento": "Levotiroxina - Eutirox.pdf"
+    },
+    {
+      "id": "levotiroxina_antidiabetico",
+      "match": "class_drug",
+      "class_a": "biguanida",
+      "medication_b": "levothyroxine",
+      "severity": "moderate",
+      "description": "A levotiroxina pode reduzir o efeito dos antidiabéticos, exigindo monitorização da glicemia no início do tratamento (RCM Eutirox, 4.5).",
+      "fonte": "RCM Eutirox, 4.5",
+      "documento": "Levotiroxina - Eutirox.pdf"
+    },
+    {
+      "id": "levotiroxina_sulfonilureia",
+      "match": "class_drug",
+      "class_a": "sulfonilureia",
+      "medication_b": "levothyroxine",
+      "severity": "moderate",
+      "description": "A levotiroxina pode reduzir o efeito dos antidiabéticos orais, exigindo monitorização da glicemia (RCM Eutirox, 4.5).",
+      "fonte": "RCM Eutirox, 4.5",
+      "documento": "Levotiroxina - Eutirox.pdf"
+    },
+    {
+      "id": "alopurinol_anticoagulante",
+      "match": "class_drug",
+      "class_a": "anticoagulante",
+      "medication_b": "allopurinol",
+      "severity": "moderate",
+      "description": "Foram descritos casos de potenciação do efeito da varfarina e de outros anticoagulantes cumarínicos pelo alopurinol, com necessidade de monitorização do INR (RCM Alopurinol Generis, 4.5).",
+      "fonte": "RCM Alopurinol Generis, 4.5",
+      "documento": "Alopurinol - Generis.pdf"
+    },
+    {
+      "id": "ciprofloxacina_calcio_quelacao",
+      "match": "drug_drug",
+      "medication_a": "ciprofloxacin",
+      "medication_b": "calcium_vitamin_d",
+      "severity": "moderate",
+      "description": "Os catiões multivalentes, incluindo o cálcio, formam complexos quelantes com a ciprofloxacina e reduzem a sua absorção. As tomas devem ser separadas por duas horas (RCM Ciprofloxacina Generis, 4.5).",
+      "fonte": "RCM Ciprofloxacina Generis, 4.5",
+      "documento": "Ciprofloxacina Generis.pdf"
+    },
+    {
+      "id": "quinolona_anticoagulante_inr",
+      "match": "class_drug",
+      "class_a": "fluoroquinolona",
+      "medication_b": "warfarin",
+      "severity": "moderate",
+      "description": "As fluoroquinolonas estão entre as classes de antibióticos mais frequentemente associadas a aumento do INR em doentes anticoagulados (RCM Fosfomicina Generis, 4.5).",
+      "fonte": "RCM Fosfomicina Generis, 4.5",
+      "documento": "Fosfomicina Generis.pdf"
+    },
+    {
+      "id": "nitrofurantoina_quinolona_antagonismo",
+      "match": "class_drug",
+      "class_a": "fluoroquinolona",
+      "medication_b": "nitrofurantoin",
+      "severity": "moderate",
+      "description": "Existe antagonismo antibacteriano entre a nitrofurantoína e os anti-infeciosos da classe das quinolonas (RCM Nitrofurantoína Bavifur, 4.5).",
+      "fonte": "RCM Nitrofurantoína Bavifur, 4.5",
+      "documento": "Nitrofurantoína - Bavifur.pdf"
+    },
+    {
+      "id": "alendronato_aine_irritacao_gi",
+      "match": "class_drug",
+      "class_a": "aine",
+      "medication_b": "alendronic_acid",
+      "severity": "moderate",
+      "description": "A utilização de AINE está associada a irritação gastrointestinal, devendo ser usada precaução na administração concomitante com alendronato (RCM Ácido Alendrónico GP, 4.5).",
+      "fonte": "RCM Ácido Alendrónico GP, 4.5",
+      "documento": "Ácido Alendrónico GP.pdf"
+    },
+    {
+      "id": "alendronato_calcio_absorcao",
+      "match": "drug_drug",
+      "medication_a": "alendronic_acid",
+      "medication_b": "calcium_vitamin_d",
+      "severity": "moderate",
+      "description": "Os suplementos de cálcio interferem na absorção do alendronato. Deve aguardar-se pelo menos 30 minutos após a toma do alendronato (RCM Ácido Alendrónico GP, 4.5; RCM Ideos, 4.5).",
+      "fonte": "RCM Ácido Alendrónico GP, 4.5; RCM Ideos, 4.5",
+      "documento": "Ácido Alendrónico GP.pdf"
+    },
+    {
+      "id": "calcio_digoxina_disritmia",
+      "match": "drug_drug",
+      "medication_a": "calcium_vitamin_d",
+      "medication_b": "digoxin",
+      "severity": "high",
+      "description": "A associação de sais de cálcio com digoxina acarreta risco de disritmia grave, exigindo supervisão médica e monitorização eletrocardiográfica e da calcemia (RCM Ideos, 4.5).",
+      "fonte": "RCM Ideos, 4.5",
+      "documento": "Carbonato de cálcio e Colecalciferol Ideos.pdf"
+    },
+    {
+      "id": "aine_digoxina",
+      "match": "class_drug",
+      "class_a": "aine",
+      "medication_b": "digoxin",
+      "severity": "moderate",
+      "description": "Os AINE podem aumentar as concentrações plasmáticas de digoxina, recomendando-se monitorização dos níveis séricos (RCM Diclofenac, 4.5).",
+      "fonte": "RCM Diclofenac, 4.5",
+      "documento": "Diclofenac.pdf"
+    },
+    {
+      "id": "trazodona_isrs_serotoninergico",
+      "match": "class_class",
+      "class_a": "antidepressivo_sari",
+      "class_b": "isrs",
+      "severity": "high",
+      "description": "A associação de trazodona com ISRS aumenta o risco de síndrome serotoninérgica e de elevação das concentrações plasmáticas de trazodona (RCM Trazodona Generis, 4.5).",
+      "fonte": "RCM Trazodona Generis, 4.5",
+      "documento": "Trazodona Generis.pdf"
+    },
+    {
+      "id": "trazodona_triciclico",
+      "match": "class_class",
+      "class_a": "antidepressivo_sari",
+      "class_b": "antidepressivo_triciclico",
+      "severity": "high",
+      "description": "Deve evitar-se a administração concomitante de trazodona com antidepressivos tricíclicos, pelo risco de síndrome serotoninérgica e de efeitos cardiovasculares (RCM Trazodona Generis, 4.5).",
+      "fonte": "RCM Trazodona Generis, 4.5",
+      "documento": "Trazodona Generis.pdf"
+    },
+    {
+      "id": "trazodona_benzodiazepina_sedacao",
+      "match": "class_class",
+      "class_a": "antidepressivo_sari",
+      "class_b": "benzodiazepina",
+      "severity": "moderate",
+      "description": "Os efeitos sedativos dos ansiolíticos podem ser intensificados pela trazodona, recomendando-se redução da dose (RCM Trazodona Generis, 4.5).",
+      "fonte": "RCM Trazodona Generis, 4.5",
+      "documento": "Trazodona Generis.pdf"
+    },
+    {
+      "id": "trazodona_anti_histaminico_sedacao",
+      "match": "class_class",
+      "class_a": "antidepressivo_sari",
+      "class_b": "anti_histaminico_h1",
+      "severity": "moderate",
+      "description": "Os efeitos sedativos dos anti-histamínicos podem ser intensificados pela trazodona (RCM Trazodona Generis, 4.5).",
+      "fonte": "RCM Trazodona Generis, 4.5",
+      "documento": "Trazodona Generis.pdf"
+    },
+    {
+      "id": "codeina_triciclico",
+      "match": "class_drug",
+      "class_a": "antidepressivo_triciclico",
+      "medication_b": "codeine",
+      "severity": "moderate",
+      "description": "A administração simultânea de codeína com antidepressivos tricíclicos pode potenciar os efeitos de ambos (RCM Codeína Toseína, 4.5).",
+      "fonte": "RCM Codeína Toseína, 4.5",
+      "documento": "Codeína Toseína.pdf"
+    },
+    {
+      "id": "anti_histaminico_duplicacao",
+      "match": "class_class",
+      "class_a": "anti_histaminico_h1",
+      "class_b": "anti_histaminico_h1",
+      "severity": "moderate",
+      "description": "A utilização concomitante de dois anti-histamínicos H1 constitui duplicação terapêutica, sem benefício adicional e com aumento dos efeitos sedativos e anticolinérgicos.",
+      "fonte": "Duplicação terapêutica de classe (princípio farmacológico); sem RCM específico no repositório"
+    },
+    {
+      "id": "alfa_bloqueante_duplicacao",
+      "match": "class_class",
+      "class_a": "alfa_bloqueante",
+      "class_b": "alfa_bloqueante",
+      "severity": "high",
+      "description": "A administração concomitante de outros antagonistas dos recetores adrenérgicos alfa-1 pode conduzir a efeitos hipotensivos (RCM Tansulosina Generis, 4.5).",
+      "fonte": "RCM Tansulosina Generis, 4.5",
+      "documento": "Tansulosina Generis.pdf"
+    },
+    {
+      "id": "fluoroquinolona_qt_duplicacao",
+      "match": "class_class",
+      "class_a": "fluoroquinolona",
+      "class_b": "macrolido",
+      "severity": "high",
+      "description": "As fluoroquinolonas devem ser usadas com precaução em doentes que tomem outros medicamentos conhecidos por prolongarem o intervalo QT, incluindo macrólidos (RCM Ciprofloxacina Generis, 4.5).",
+      "fonte": "RCM Ciprofloxacina Generis, 4.5",
+      "documento": "Ciprofloxacina Generis.pdf"
+    }
   ]
 }

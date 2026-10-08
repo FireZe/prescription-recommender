@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import KnowledgePanel from "./KnowledgePanel";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
@@ -148,6 +149,7 @@ export default function App() {
   const [patient, setPatient] = useState(EMPTY_PATIENT);
   const [prescription, setPrescription] = useState(EMPTY_PRESCRIPTION);
   const [analysisMode, setAnalysisMode] = useState("synthea");
+  const [activeView, setActiveView] = useState("analise");
 
   const [analysisResult, setAnalysisResult] = useState(null);
   const [feedbackResult, setFeedbackResult] = useState(null);
@@ -171,6 +173,10 @@ export default function App() {
   
   const [llmExplanation, setLlmExplanation] = useState(null);
   const [loadingLlmExplanation, setLoadingLlmExplanation] = useState(false);
+
+  const [chatHistory, setChatHistory] = useState([]);
+  const [chatQuestion, setChatQuestion] = useState("");
+  const [loadingChat, setLoadingChat] = useState(false);
 
   const [outcome, setOutcome] = useState("");
   const [outcomeResult, setOutcomeResult] = useState(null);
@@ -455,6 +461,54 @@ export default function App() {
     return value;
   }
 
+  useEffect(() => {
+    setChatHistory([]);
+    setChatQuestion("");
+  }, [analysisResult?.analysis_id]);
+
+  async function sendChatQuestion() {
+    if (!analysisResult?.analysis_id) {
+      setError("Ainda não existe uma análise sobre a qual conversar.");
+      return;
+    }
+
+    const question = chatQuestion.trim();
+
+    if (question.length < 3) {
+      setError("Escreve uma pergunta com pelo menos três caracteres.");
+      return;
+    }
+
+    setLoadingChat(true);
+    setError("");
+
+    try {
+      const response = await fetch(`${API_URL}/explain/llm/chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          analysis_id: analysisResult.analysis_id,
+          question,
+        }),
+      });
+
+      if (!response.ok) {
+        const detail = await response.text();
+        throw new Error(`Erro ao continuar a conversa: ${response.status} ${detail}`);
+      }
+
+      const data = await response.json();
+      setChatHistory(data.history || []);
+      setChatQuestion("");
+    } catch (err) {
+      setError(err.message || "Erro inesperado ao continuar a conversa.");
+    } finally {
+      setLoadingChat(false);
+    }
+  }
+
   async function generateLlmExplanation() {
     if (!analysisResult?.analysis_id) {
       setError("Ainda não existe uma análise para explicar.");
@@ -503,13 +557,37 @@ export default function App() {
           </p>
         </div>
 
-        <button className="secondaryButton" onClick={loadExampleCase}>
-          Carregar caso de teste
-        </button>
+        <div className="headerActions">
+          <div className="viewSwitch">
+            <button
+              className={activeView === "analise" ? "viewOption active" : "viewOption"}
+              onClick={() => setActiveView("analise")}
+            >
+              Análise de prescrição
+            </button>
+
+            <button
+              className={activeView === "conhecimento" ? "viewOption active" : "viewOption"}
+              onClick={() => setActiveView("conhecimento")}
+            >
+              Gestão do conhecimento
+            </button>
+          </div>
+
+          {activeView === "analise" && (
+            <button className="secondaryButton" onClick={loadExampleCase}>
+              Carregar caso de teste
+            </button>
+          )}
+        </div>
       </header>
 
       {error && <div className="errorBox">{error}</div>}
 
+      {activeView === "conhecimento" && <KnowledgePanel apiUrl={API_URL} />}
+
+      {activeView === "analise" && (
+      <>
       <section className="grid">
         <section className="card">
           <div className="cardHeader">
@@ -809,7 +887,7 @@ export default function App() {
                       return (
                         <article key={rec.medication} className={status.className}>
                           <div className="itemHeader">
-                            <strong>{rec.medication}</strong>
+                            <strong>{rec.display_name || rec.medication}</strong>
                             <span>{status.label}</span>
                           </div>
 
@@ -879,6 +957,57 @@ export default function App() {
                       {llmExplanation.fallback_notice}
                     </p>
                   )}
+                </div>
+              )}
+
+              {llmExplanation && (
+                <div className="llmChat">
+                  <h4>Colocar uma questão de seguimento</h4>
+                  <p className="technicalNote">
+                    As respostas usam apenas os dados desta análise. O sistema não
+                    indica doses nem posologias e não substitui a validação clínica.
+                  </p>
+
+                  {chatHistory
+                    .filter((message) => message.turn_index > 0)
+                    .map((message) => (
+                      <div
+                        key={message.message_id || message.turn_index}
+                        className={
+                          message.role === "user"
+                            ? "chatMessage chatMessageUser"
+                            : "chatMessage chatMessageAssistant"
+                        }
+                      >
+                        <strong>
+                          {message.role === "user"
+                            ? "Profissional de saúde"
+                            : "Sistema"}
+                        </strong>
+                        <p>{message.content}</p>
+
+                        {message.fallback_used && (
+                          <p className="technicalNote">
+                            Resposta determinística de recurso.
+                          </p>
+                        )}
+                      </div>
+                    ))}
+
+                  <textarea
+                    rows={2}
+                    value={chatQuestion}
+                    onChange={(event) => setChatQuestion(event.target.value)}
+                    placeholder="Por exemplo: porque é que esta alternativa ficou ordenada em primeiro lugar?"
+                  />
+
+                  <button
+                    className="secondaryButton"
+                    onClick={sendChatQuestion}
+                    disabled={loadingChat || !chatQuestion.trim()}
+                  >
+                    {loadingChat ? "A responder..." : "Enviar pergunta"}
+                  </button>
                 </div>
               )}
             </div>
@@ -1053,7 +1182,7 @@ export default function App() {
             <div className="outcomeBlock">
               <h3>Desfecho clínico (follow-up)</h3>
               <p className="dashboardIntro">
-                Após reavaliar o doente, registe se a prescrição resultou. Alimenta a
+                Após reavaliar o utente, registe se a prescrição resultou. Alimenta a
                 aprendizagem do sistema.
               </p>
               <div className="outcomeButtons">
@@ -1090,7 +1219,7 @@ export default function App() {
           <ul className="list">
             {pendingFollowups.map((item) => (
               <li key={item.analysis_id}>
-                <code>{item.analysis_id.slice(0, 8)}</code> — doente {item.patient_id} — há {item.days_elapsed} dia(s)
+                <code>{item.analysis_id.slice(0, 8)}</code> — utente {item.patient_id} — há {item.days_elapsed} dia(s)
                 <div className="outcomeButtons">
                   <button className="secondaryButton" disabled={loadingOutcome}
                     onClick={() => submitOutcome("resolved", item.analysis_id, null)}>Resolveu</button>
@@ -1225,6 +1354,8 @@ export default function App() {
           </>
         )}
       </section>
+      </>
+      )}
     </main>
   );
 }

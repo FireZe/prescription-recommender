@@ -1,0 +1,191 @@
+.knowledgePanel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.changeResult {
+  margin-top: 16px;
+  border-radius: 14px;
+  padding: 14px;
+  border: 1px solid #dfe5f2;
+  background: #ffffff;
+}
+
+.changeResult strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.changeResult p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.changeResult.applied {
+  border-color: #b8e6c6;
+  background: #f2fbf5;
+}
+
+.changeResult.refused {
+  border-color: #f2c2c2;
+  background: #fdf4f4;
+}
+
+.errorList {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: #8a2222;
+}
+
+.regressionReport {
+  margin-top: 10px;
+}
+
+.regressionReport ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.ruleFilters {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.ruleFilters label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #5a6475;
+}
+
+.ruleList,
+.changeList {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 620px;
+  overflow-y: auto;
+}
+
+.ruleItem,
+.changeList li {
+  border: 1px solid #dfe5f2;
+  border-radius: 14px;
+  padding: 14px;
+  background: #ffffff;
+}
+
+.ruleItem p,
+.changeList li p {
+  margin: 6px 0 0;
+  line-height: 1.5;
+}
+
+.ruleDisabled {
+  background: #f8fafc;
+  opacity: 0.75;
+}
+
+.disableForm {
+  margin-top: 12px;
+  border-top: 1px solid #dfe5f2;
+  padding-top: 12px;
+}
+
+.disableForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #5a6475;
+}
+
+.ruleForm {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.ruleForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #5a6475;
+}
+
+.ruleForm .fullRow {
+  grid-column: 1 / -1;
+}
+
+.viewSwitch {
+  display: flex;
+  gap: 8px;
+}
+
+.viewOption {
+  border: 1px solid #dfe5f2;
+  background: #ffffff;
+  color: #5a6475;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.viewOption.active {
+  border-color: #3454d1;
+  background: #eef2ff;
+  color: #1b2a6b;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .ruleForm {
+    grid-template-columns: 1fr;
+  }
+
+  .ruleFilters {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.fieldError input,
+.fieldError select,
+.fieldError textarea,
+textarea.fieldError {
+  border-color: #d94a4a;
+  background: #fdf4f4;
+  box-shadow: 0 0 0 3px rgba(217, 74, 74, 0.12);
+}
+
+.fieldError {
+  color: #8a2222;
+}
+
+.fieldErrorText {
+  margin: 8px 0 0;
+  color: #8a2222;
+  font-size: 0.82rem;
+  font-weight: 700;
+}

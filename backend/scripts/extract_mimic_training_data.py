@@ -14,7 +14,7 @@ import pandas as pd
 import numpy as np
 
 import os
-BASE_DIR = Path(os.getcwd()) / "backend"
+BASE_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BASE_DIR))
 
 from app.normalization import normalize_medication_id
@@ -26,6 +26,7 @@ from app.recommender import build_ml_features, score_candidate_base
 MIMIC_DIR    = BASE_DIR / "data" / "mimic"
 OUTPUT_PATH  = BASE_DIR / "data" / "training_examples_mimic.csv"
 MAX_ADMISSIONS = 500_000
+ADMIN_EVENTS = {"Administered", "Started", "Applied", "Restarted"}
 
 # ── ICD-9 — cobertura completa para todas as condições da KB ───────────────
 ICD9_MAP = {
@@ -94,7 +95,7 @@ ICD9_MAP = {
     "480": "infection", "481": "infection", "482": "infection",
     "483": "infection", "484": "infection", "485": "infection",
     "486": "infection",
-    "590": "infection", "595": "infection", "599": "infection",
+    "590": "infection", "595": "urinary_tract_infection", "599": "infection",
     # Úlcera GI activa
     "531": "active_gi_ulcer", "532": "active_gi_ulcer",
     "533": "active_gi_ulcer", "534": "active_gi_ulcer",
@@ -105,6 +106,30 @@ ICD9_MAP = {
     "5185": "edema",
     # Insuficiência renal (renal_disease e renal_protection)
     "585": "renal_disease", "586": "renal_disease", "587": "renal_disease",
+    # Hipotiroidismo
+    "244": "hypothyroidism",
+    # Gota
+    "274": "gout",
+    # Rinite alérgica
+    "477": "allergic_rhinitis",
+    # Urticária
+    "708": "urticaria",
+    # Hiperplasia benigna da próstata
+    "600": "benign_prostatic_hyperplasia",
+    # Infecção do trato urinário (não especificada)
+    "5990": "urinary_tract_infection",
+    # Osteoporose
+    "7330": "osteoporosis",
+    # Deficiência de vitamina D / cálcio
+    "268": "calcium_vitamin_d_deficiency",
+    # Insónia
+    "3070": "insomnia", "78052": "insomnia",
+    # Tosse
+    "7862": "cough",
+    # Doença do refluxo gastroesofágico
+    "53081": "gerd",
+    # Asma / DPOC
+    "493": "asthma", "496": "copd",
 }
 RENAL9_SEVERE = {"5854", "5855", "5856"}
 RENAL9_MILD   = {"5851", "5852", "5853"}
@@ -179,19 +204,59 @@ ICD10_MAP = {
     "J81": "edema",   # edema pulmonar
     # Insuficiência renal
     "N17": "renal_disease", "N18": "renal_disease", "N19": "renal_disease",
+    # Hipotiroidismo
+    "E02": "hypothyroidism", "E03": "hypothyroidism",
+    "E890": "hypothyroidism",
+    # Gota / hiperuricemia
+    "M10": "gout", "M1A": "gout", "E790": "hyperuricemia",
+    # Rinite alérgica
+    "J30": "allergic_rhinitis",
+    # Urticária
+    "L50": "urticaria",
+    # Hiperplasia benigna da próstata
+    "N40": "benign_prostatic_hyperplasia",
+    # Infecção do trato urinário (cistite / ITU não especificada)
+    "N30": "urinary_tract_infection", "N390": "urinary_tract_infection",
+    # Osteoporose
+    "M80": "osteoporosis", "M81": "osteoporosis",
+    # Deficiência de vitamina D / cálcio
+    "E55": "calcium_vitamin_d_deficiency",
+    "E58": "calcium_vitamin_d_deficiency",
+    # Insónia
+    "F510": "insomnia", "G470": "insomnia",
+    # Tosse
+    "R05": "cough",
+    # Doença do refluxo gastroesofágico
+    "K21": "gerd",
+    # Asma / DPOC
+    "J45": "asthma", "J44": "copd",
 }
 RENAL10_SEVERE = {"N173", "N174", "N175", "N183", "N184", "N185", "N186"}
 RENAL10_MILD   = {"N171", "N172", "N181", "N182"}
 
 CONDITION_PRIORITY = [
-    "pain", "fever", "infection",
+    # Condições específicas: identificam inequivocamente a indicação
+    "gout", "hyperuricemia",
+    "urinary_tract_infection",
+    "hypothyroidism", "benign_prostatic_hyperplasia",
+    "osteoporosis", "calcium_vitamin_d_deficiency",
+    "allergic_rhinitis", "urticaria",
+    "asthma", "copd",
+    # Problema agudo de apresentação
+    "pain", "fever", "infection", "cough",
+    # Cardiovascular
     "heart_failure", "myocardial_infarction", "atrial_fibrillation",
-    "thromboembolism_prevention", "stroke",
+    "thromboembolism_prevention", "stroke", "arrhythmia",
     "hypertension", "cardiovascular_prevention",
+    # Metabólico / renal
     "diabetes", "renal_disease",
     "dyslipidemia", "edema", "fluid_retention",
-    "active_gi_ulcer", "inflammation",
-    "depression", "anxiety", "neuropathic_pain",
+    # Gastrointestinal
+    "active_gi_ulcer", "gerd",
+    # Musculoesquelético
+    "inflammation",
+    # Saúde mental / neurologia
+    "depression", "anxiety", "insomnia", "neuropathic_pain",
     "migraine_prophylaxis", "ocd",
 ]
 
@@ -206,7 +271,7 @@ def _map_icd9(code: str) -> tuple:
         return "renal_disease", "severe_impairment"
     if code in RENAL9_MILD:
         return "renal_disease", "mild_impairment"
-    for plen in (3, 4, 5):
+    for plen in (5, 4, 3):
         if code[:plen] in ICD9_MAP:
             return ICD9_MAP[code[:plen]], "normal"
     return None, "normal"
@@ -217,7 +282,7 @@ def _map_icd10(code: str) -> tuple:
         return "renal_disease", "severe_impairment"
     if code in RENAL10_MILD:
         return "renal_disease", "mild_impairment"
-    for plen in (3, 4):
+    for plen in (5, 4, 3):
         if code[:plen] in ICD10_MAP:
             return ICD10_MAP[code[:plen]], "normal"
     return None, "normal"
@@ -293,6 +358,20 @@ def prepare_prescriptions(prescriptions_df: pd.DataFrame, kb_meds: set) -> pd.Da
 
     return rx
 
+def load_administered_pharmacy_ids(mimic_dir, needed_ids: set) -> set:
+    """Lê o emar em blocos e devolve os pharmacy_id efetivamente administrados."""
+    administered = set()
+    reader = pd.read_csv(
+        mimic_dir / "emar.csv.gz", compression="gzip",
+        usecols=["pharmacy_id", "event_txt"],
+        dtype={"pharmacy_id": "Int64"}, chunksize=1_000_000,
+    )
+    for chunk in reader:
+        chunk = chunk[chunk["event_txt"].isin(ADMIN_EVENTS)]
+        chunk = chunk[chunk["pharmacy_id"].isin(needed_ids)]
+        administered.update(chunk["pharmacy_id"].dropna().tolist())
+    return administered
+
 def main():
     kb      = load_knowledge_base()
     kb_meds = set(kb.get("medications", {}).keys())
@@ -323,7 +402,8 @@ def main():
     print("  A carregar prescriptions (aguarda ~2 min)...")
     prescriptions_df = pd.read_csv(
         MIMIC_DIR / "prescriptions.csv.gz", compression="gzip",
-        usecols=["subject_id", "hadm_id", "drug"],
+        usecols=["subject_id", "hadm_id", "pharmacy_id", "drug"],
+        dtype={"pharmacy_id": "Int64"},
     )
     print(f"  prescriptions: {len(prescriptions_df):,} linhas → a filtrar...")
     rx = prepare_prescriptions(prescriptions_df, kb_meds)
@@ -337,6 +417,13 @@ def main():
         rx = rx[rx["hadm_id"].isin(sampled)]
         print(f"  Amostra: {MAX_ADMISSIONS:,} admissões de {len(all_hadm_ids):,}")
 
+    print("  A ligar prescrições ao emar (administração)...")
+    needed_pharmacy_ids = set(rx["pharmacy_id"].dropna().tolist())
+    administered_ids = load_administered_pharmacy_ids(MIMIC_DIR, needed_pharmacy_ids)
+    rx["administered"] = rx["pharmacy_id"].isin(administered_ids)
+    n_presc = len(rx); n_adm = int(rx["administered"].sum())
+    print(f"  Administração confirmada: {n_adm:,}/{n_presc:,} linhas ({100*n_adm/max(n_presc,1):.1f}%)")
+    
     # Pré-agrupa
     rx_by_hadm = {
         int(hadm_id): grp
@@ -373,12 +460,15 @@ def main():
         main_problem = infer_main_problem(conditions)
 
         prescribed_set = set(grp["drug_norm"].drop_duplicates().tolist())
+        administered_set = set(grp.loc[grp["administered"], "drug_norm"].dropna().tolist())
         all_active_meds = list(prescribed_set)
 
-        # ── POSITIVOS: medicamentos prescritos pelo médico → label 2 ──────
-        for candidate in prescribed_set:
-            active_meds = [d for d in all_active_meds if d != candidate]
+        # contexto clínico partilhado, independente do candidato (positivos e negativos):
+        # exclui todos os candidatos que vão ser ordenados nesta query
+        context_meds = [d for d in all_active_meds if d not in administered_set]
 
+        # ── POSITIVOS: prescrito E administrado (confirmado pelo emar) → label 1 ──
+        for candidate in administered_set:
             med_info    = kb.get("medications", {}).get(candidate, {})
             indications = set(med_info.get("indications", []))
             matched     = [c for c in conditions if c in indications]
@@ -392,7 +482,7 @@ def main():
                     patient_id=str(subject_id),
                     age=age, sex=sex,
                     conditions=conditions, allergies=[],
-                    active_medications=active_meds,
+                    active_medications=context_meds,
                     renal_status=renal_status,
                     main_problem=effective_main_problem,
                 )
@@ -431,7 +521,7 @@ def main():
                     patient_id=str(subject_id),
                     age=age, sex=sex,
                     conditions=conditions, allergies=[],
-                    active_medications=all_active_meds,
+                    active_medications=context_meds,
                     renal_status=renal_status,
                     main_problem=effective_main_problem,
                 )
@@ -468,7 +558,7 @@ def main():
     print(f"Ignorados        : {skipped:,}")
     print("\nDistribuição de classes (implicit feedback):")
     print(df["label_class"].value_counts().sort_index())
-    print(f"\nLabel 2 (prescritos): {(df['label_class']==2).sum():,}")
+    print(f"Label 1 (prescritos+administrados): {(df['label_class']==1).sum():,}")
     print(f"Label 0 (não prescritos mas indicados): {(df['label_class']==0).sum():,}")
     print(f"\nGuardado em: {OUTPUT_PATH}")
 
